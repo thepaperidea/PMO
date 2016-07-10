@@ -1,0 +1,26 @@
+{
+	"name": "thepixeldeveloper/sitemap",
+	"type": "library",
+	"description": "XML sitemap generation",
+	"keywords": ["sitemap", "xml"],
+	"license": "MIT",
+	"authors": [
+		{
+			"name": "Mathew Davies",
+			"email": "thepixeldeveloper@googlemail.com",
+			"homepage": "http://mathew-davies.co.uk",
+			"role": "Developer"
+		}
+	],
+	"require-dev": {
+		"phpspec/phpspec": "^2.4"
+	},
+	"autoload": {
+		"psr-4": {
+			"Thepixeldeveloper\\Sitemap\\": "src/"
+		}
+	},
+	"scripts": {
+		"test": "phpspec run"
+	}
+}

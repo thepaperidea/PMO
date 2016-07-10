@@ -1,0 +1,105 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title%}Database{% endblock%}
+
+{% block main %}
+	<div id="lightbox">
+		<div id="upload-wrapper">
+		<div align="center">
+		<h3>Image Uploader</h3>
+		<form action="{{ 'admin/upload'|absolute }}" method="post" enctype="multipart/form-data" id="ajaxUpload">
+		<input type=hidden id="ajaxUploadwidth" name="ajaxUploadwidth">
+		<input type=hidden id="ajaxUploadheight" name="ajaxUploadheight">
+		<input type=hidden id="ajaxUploadimage">
+		<input type=hidden id="ajaxUploadid">
+		<input type=hidden id="ajaxUploadappend">
+		<input type=hidden id="ajaxUploadurl" value="{{ data.image.destination|absolute }}">
+		<input name="image_file" id="imageInput" type="file" />
+		<input type="submit"  id="submit-btn" value="Upload" />
+		<img src="{{ 'assets/admin/images/ajax-loader.gif' |absolute }}" id="loading-img" style="display:none;" alt="Please Wait"/>
+		<a href="javascript:removeLightbox();" id="cancel-btn">Done</a>
+		</form>
+		<div id="output"></div>
+		</div>
+		</div>
+	</div>
+	<div class="markdown">
+		<h1>Database management</h1>
+		<p>Shown below are the list of tables with data.</p>
+		<ul class="data-tables">
+			{% for each in data.admin.database %}
+                <li>
+                    <a href="{{ data.path.route|absolute ~ '?table=' ~ each.table }}">{{ each.name }}</a>
+                </li>
+            {% endfor %}
+		</ul>
+		{% if post %}
+			{% if post.action == 'display' %}
+				<a class="add" href="{{ data.path.route|absolute ~ '?table=' ~ post.table ~ '&action=' ~ 'add' }}">Add new data</a>
+				<h2>Data table</h2>
+				<div class="table">
+				<table>
+					<thead>
+						<tr>
+							{% for each in post.columnset %}
+								<td>{{ each }}</td>
+							{% endfor %}
+							<td>Modify</td>
+							<td>Delete</td>
+						</tr>
+					</thead>
+					<tbody>
+						{% for each in post.dataset %}
+								{% for column in post.columnset %}
+									<td>{{ output(each[column],column) }}</td>
+								{% endfor %}
+								<td><a href="{{ data.path.route|absolute ~ '?table=' ~ post.table ~ '&limit=' ~ post.limit ~ '&page=' ~ (post.page+1) ~ '&action=' ~ 'edit' ~ '&id=' ~ each.id }}">Edit</a></td>
+								<td><a href="{{ data.path.route|absolute ~ '?table=' ~ post.table ~ '&limit=' ~ post.limit ~ '&page=' ~ (post.page+1) ~ '&action=' ~ 'remove' ~ '&id=' ~ each.id }}">Remove</a></td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+				</div>
+				<ul id="pages">
+					{% for i in 1..post.pagecount %}
+					    <li>
+					    	<a{% if post.page == i-1 %} class="active"{% endif %} href="{{ data.path.route|absolute ~ '?table=' ~ post.table ~ '&limit=' ~ post.limit ~ '&page=' ~ i }}">{{ i }}</a>
+					    </li>
+					{% endfor %}
+				</ul>
+			{% elseif post.action == 'edit' %}
+				<h2>Edit</h2>
+				<table class="editable">
+					<form method="post" enctype="multipart/form-data">
+					{% for each in post.dataset %}
+						{% for column in post.columnset %}
+						<tr>
+							<td><label>{{ column }}</label></td>
+							<td>{{ input(each[column],column) }}</td>
+						</tr>
+						{% endfor %}
+						<tr>
+							<td><input type=hidden name="columnSet" value="{% for column in post.columnset %}{{column}},{% endfor %}"><input type=hidden name="redirectUri" value="{{ post.redirect }}"></td><td><input type=submit name=submit value="Apply"><a class="button" href="{{ post.redirect }}">Cancel</a></td>
+						</tr>
+					{% endfor %}
+					</form>
+				</table>
+			{% elseif post.action == 'add' %}
+				<h2>Add new to {{ post.table }}</h2>
+				<table class="editable">
+					<form method="post" enctype="multipart/form-data">
+						{% for column in post.columnset %}
+						<tr>
+							<td><label>{{ column }}</label></td>
+							<td>{{ input(false,column) }}</td>
+						</tr>
+						{% endfor %}
+						<tr>
+							<td><input type=hidden name="columnSet" value="{% for column in post.columnset %}{{column}},{% endfor %}"><input type=hidden name="redirectUri" value="{{ post.redirect }}"></td><td><input type=submit name=submit value="Create"><a class="button" href="{{ post.redirect }}">Cancel</a></td>
+						</tr>
+					</form>
+				</table>
+			{% endif %}
+		{% endif %}
+	</div>
+{% endblock %}

@@ -1,0 +1,40 @@
+{% spaceless %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>{{ data.constant.name }} - {% block title %}{% endblock %}</title>
+        <link rel="stylesheet" href="{{ asset('admin/css/global.css') }}" type="text/css">
+    </head>
+    <body>
+        <div class="wrapper">
+            <header>
+                <div class="center">
+                    <nav>
+                        <a class="logo" href="{{ 'admin'|absolute }}">Origami</a>
+                        {% block navigation %}
+                          <ul>
+                            <li><a href="{{ 'admin/logout'|absolute }}">Logout</a></li>
+                          </ul>
+                        {% endblock %}
+                    </nav>
+                </div>
+            </header>
+            <div class="main">
+                <div class="center">
+                    {% block main %}
+                    {% endblock %}
+                </div>
+            </div>
+            <footer>
+                <div class="center">
+                  <p>© 2015 <a href="http://thepaperidea.com">Paper Idea</a>. All Rights Reserved.</p>
+                </div>
+            </footer>
+        </div>
+        <script src="{{ asset('js/jquery-2.1.4.min.js') }}"></script>
+        <script src="{{ asset('admin/js/jquery.form.min.js') }}"></script>
+        <script src="{{ asset('admin/js/main.js') }}"></script>
+    </body>
+</html>
+{% endspaceless %}

@@ -1,0 +1,30 @@
+{
+  "0": {
+    "route": "",
+    "namespace": "Page::Home"
+  },
+  "1": {
+    "route": "admin",
+    "namespace": "Admin::Home"
+  },
+  "2": {
+    "route": "admin/login",
+    "namespace": "Admin::Login"
+  },
+  "3": {
+    "route": "admin/logout",
+    "namespace": "Admin::Logout"
+  },
+  "4": {
+    "route": "admin/database",
+    "namespace": "Admin::Database"
+  },
+  "5": {
+    "route": "admin/upload",
+    "namespace": "Admin::Upload"
+  },
+  "6": {
+    "route": "assetic/:each/:each",
+    "namespace": "Essential::Assetic"
+  }
+}

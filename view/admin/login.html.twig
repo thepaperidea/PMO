@@ -1,0 +1,27 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title%}Login{% endblock%}
+
+{% block navigation%}
+<p>You think it. We make it.</p>
+{% endblock%}
+
+{% block main %}
+
+	<div class="login-box">
+
+		<h1>Welcome to Origami</h1>
+
+		{% if return %}
+			<div class="return {{ return.class }}">{{ return.name }}</div>
+		{% endif %}
+
+		<form method="post">
+			<input type="text" name="email" placeholder="Email">
+			<input type="password" name="password" placeholder="Password">
+			<input type="submit" value="Login">
+		</form>
+
+	</div>
+
+{% endblock %}

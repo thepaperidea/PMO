@@ -1,0 +1,39 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title%}Publish{% endblock%}
+
+{% block main %}
+	<div id="lightbox">
+		<div id="upload-wrapper">
+		<div align="center">
+		<h3>Image Uploader</h3>
+		<form action="{{ 'admin/upload'|absolute }}" method="post" enctype="multipart/form-data" id="ajaxUpload">
+		<input type=hidden id="ajaxUploadwidth" name="ajaxUploadwidth">
+		<input type=hidden id="ajaxUploadheight" name="ajaxUploadheight">
+		<input type=hidden id="ajaxUploadimage">
+		<input type=hidden id="ajaxUploadid">
+		<input type=hidden id="ajaxUploadappend">
+		<input type=hidden id="ajaxUploadurl" value="{{ 'assets/uploads/'|absolute }}">
+		<input name="image_file" id="imageInput" type="file" />
+		<input type="submit"  id="submit-btn" value="Upload" />
+		<img src="{{ 'assets/admin/images/ajax-loader.gif' |absolute }}" id="loading-img" style="display:none;" alt="Please Wait"/>
+		<a href="javascript:removeLightbox();" id="cancel-btn">Done</a>
+		</form>
+		<div id="output"></div>
+		</div>
+		</div>
+	</div>
+	<form class="editable" method="post" enctype="multipart/form-data">
+		<input type="hidden" name="user_id" value="{{ user.id }}">
+		<input type="hidden" name="columnSet" value="{% for each in article %}{{ each ~ ',' }}{% endfor %}user_id">
+		<input type="hidden" name="redirectUri" value="http://localhost/~eegan/letsgounder/admin">
+		<h1>Publish a Post</h1>
+		{% for each in article %}
+			<div>
+			<label>{{ each }}</label>
+			{{ input('',each) }}
+			</div>
+		{% endfor %}
+		<div><input name="submit" type="submit" value="Publish Article"></div>
+	</form>
+{% endblock %}

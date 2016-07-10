@@ -1,0 +1,15 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title%}Admin{% endblock%}
+
+{% block main %}
+	<div class="markdown">
+		<h1>Welcome to Origami</h1>
+		<p>Hi, {{ user.name }}. This is a back-end system designed to change the infrastructure of your website. It is made as user friendly as possible.</p>
+		<h2>What do you want to do?</h2>
+		<ul class="actions">
+			<li><a href="{{ 'admin/database'|absolute }}">Manage Database</a></li>
+			<li><a href="{{ 'admin/user'|absolute }}">Change user details</a></li>
+		</ul>
+	</div>
+{% endblock %}

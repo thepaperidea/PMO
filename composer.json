@@ -1,0 +1,18 @@
+{
+    "require": {
+        "guzzlehttp/guzzle": "^6.2",
+        "twig/twig": "*",
+        "aptoma/twig-markdown": "*",
+        "michelf/php-markdown": "*",
+        "league/commonmark": "*",
+        "aura/session": "*",
+        "tedivm/jshrink": "*",
+        "natxet/CssMin": "*",
+        "thepixeldeveloper/sitemap": "*",
+        "social-links/social-links": "*",
+        "suin/php-rss-writer": "*",
+        "jimmiw/php-time-ago": "^0.4.11",
+        "facebook/php-sdk-v4": "^5.1",
+        "nette/mail": "^2.3"
+    }
+}

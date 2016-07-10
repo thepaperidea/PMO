@@ -1,0 +1,21 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title%}Admin{% endblock%}
+
+{% block main %}
+	<div class="markdown">
+		<h1>Personal Details</h1>
+		{% if status == '1' %}
+			<p>Password changed.</p>
+		{% elseif status == '10' %}
+			<p>Password Incorrect.</p>
+		{% elseif status == '10' %}
+			<p>Please enter passwords.</p>
+		{% endif %}
+		<form method="post" class="form">
+			<label>Current Password</label><input type="password" name="current">
+			<label>New Password</label><input type="password" name="new">
+			<input type="submit">
+		</form>
+	</div>
+{% endblock %}
