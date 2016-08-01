@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block main %}
+<section class="center content">
+  <h1>{{ content.name }}<span>{{ content.description }}</span></h1>
+  <ul class="slabs">
+  {% for each in stay %}
+    <li class="shadow">
+      <a class="ajax-nav" href="{{ ('stay/' ~ each.link) | absolute }}">
+        <span class="image background" data-background="{{ (data.image.destination ~ data.image.thumbnail.prefix ~ each.image.main_image) | absolute }}" ></span>
+        <span class="name-hold">
+          <span class="name">{{ each.name }}</span>
+          <span class="inline-child">
+            <span class="location"><span>{{ each.destination.country.name }}</span><span>{{ each.destination.name }}</span></span>
+            <ul class="rating">
+              {% for i in 1..each.rating %}
+                <li></li>
+              {% endfor %}
+            </ul>
+          </span>
+        </span>
+      </a>
+    </li>
+  {% endfor %}
+  </ul>
+</section>
+{% endblock %}

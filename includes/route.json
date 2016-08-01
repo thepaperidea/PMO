@@ -26,5 +26,37 @@
   "6": {
     "route": "assetic/:each/:each",
     "namespace": "Essential::Assetic"
+  },
+  "7": {
+    "route": "stay",
+    "namespace": "Page::Stay"
+  },
+  "8": {
+    "route": "stay/:each",
+    "namespace": "Page::stayEach"
+  },
+  "9": {
+    "route": "stay.json",
+    "namespace": "Page::stayJSON"
+  },
+  "10": {
+    "route": "tripadvisor/:each",
+    "namespace": "Page::Tripadvisor"
+  },
+  "11": {
+    "route": "updatebooking",
+    "namespace": "Page::updateBooking"
+  },
+  "12": {
+    "route": "booking",
+    "namespace": "Page::viewBooking"
+  },
+  "13": {
+    "route": "blog",
+    "namespace": "Page::Blog"
+  },
+  "14": {
+    "route": "blog/:each",
+    "namespace": "Page::blogEach"
   }
 }

@@ -1,4 +1,5 @@
 {% spaceless %}
+{% if not asJson %}
 <!DOCTYPE html>
 <html itemscope itemtype="http://schema.org/Article" data-url="{{ data.constant.url }}">
 
@@ -60,8 +61,55 @@
   </head>
 
   <body>
+    <div id="loader">
+      <div id="icon">
+        <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+        viewBox="-4.2 55.5 400.2 341.3" enable-background="new -4.2 55.5 400.2 341.3" xml:space="preserve">
+        <g>
+        <polygon fill="none" stroke="#52C3C2" stroke-width="12" stroke-linejoin="round" stroke-miterlimit="10" points="195.9,92.6
+        1.8,61.5 195.9,365.1 390,61.5 	"/>
+        </g>
+        <g>
+        <line fill="none" stroke="#53C3C2" stroke-width="9" stroke-miterlimit="10" x1="196" y1="97.5" x2="196" y2="201.5"/>
+        <line fill="none" stroke="#53C3C2" stroke-width="9" stroke-miterlimit="10" x1="196" y1="223.5" x2="196" y2="250.8"/>
+        <line fill="none" stroke="#53C3C2" stroke-width="9" stroke-miterlimit="10" x1="196" y1="266.1" x2="196" y2="284.3"/>
+        <line fill="none" stroke="#53C3C2" stroke-width="9" stroke-miterlimit="10" x1="196" y1="302.8" x2="196" y2="314.8"/>
+        <line fill="none" stroke="#53C3C2" stroke-width="9" stroke-miterlimit="10" x1="196" y1="387.7" x2="196" y2="396.8"/>
+        </g>
+        </svg>
+      </div>
+    </div>
+    <header>
+      <a class="ajax-nav" id="logo" title="Logo" href="{{ '' | absolute }}"></a>
+      <nav>
+        <ul>
+          {% for each in data.page %}
+          <li><a class="ajax-nav" href="{{ each.route | absolute }}">{{ each.name }}</a></li>
+          {% endfor %}
+        </ul>
+      </nav>
+    </header>
+
+    <main>
+    <div class="ajax-container">
+        <div id="ajax-content">{% block main %}{% endblock %}</div>
+    </div>
+    </main>
+
+    <footer>
+    Copyrights Travrnr 2016. All rights reserved.
+    </footer>
+
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBr8w15LAHx1687bVh1tMk0CyvGWsSBBLk&callback=initMap"></script>
     <script src="{{ asset('js/jquery-2.1.4.min.js') }}"></script>
+    <script src="{{ asset('js/ajax.js') }}"></script>
     <script src="{{ asset('js/main.js') }}"></script>
+    <script type="text/javascript">
+    script('{% block script %}{% endblock %}');
+    </script>
   </body>
 </html>
+{% else %}
+    {{ json_encode(content.title,block('main'),block('script')) }}
+{% endif %}
 {% endspaceless %}

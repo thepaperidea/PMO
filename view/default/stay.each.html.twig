@@ -1,0 +1,141 @@
+{% extends 'base.html.twig' %}
+
+{% block main %}
+{% if images[1] %}
+<section class="header-image slider">
+  <ul class="images">
+    {% for each in images %}
+      <li class="background" data-background="{{ (data.image.destination ~ each.main_image) | absolute }}"></li>
+    {% endfor %}
+  </ul>
+  <a class="navigation previous"></a>
+  <a class="navigation next"></a>
+</section>
+{% else %}
+<section class="header-image">
+  <div class="background" data-background="{{ (data.image.destination ~ images[0].main_image) | absolute }}"></div>
+</section>
+{% endif %}
+<section class="title">
+  <div class="center">
+    <div id="tripadvisor" class="float-right" data-permalink="{{ content.link }}">{{ content.tripadvisor | raw }}</div>
+    <h1>{{ content.name }}</h1>
+    <span class="inline-child">
+      <span class="location"><a class="ajax-nav" href="{{ ('country/' ~ content.destination.country.link) | absolute }}">{{ content.destination.country.name }}</a><a class="ajax-nav" href="{{ ('destination/' ~ content.destination.link) | absolute }}">{{ content.destination.name }}</a></span>
+      <ul class="rating">
+        {% for i in 1..content.rating %}
+          <li></li>
+        {% endfor %}
+      </ul>
+    </span>
+  </div>
+</section>
+<section class="shadow booking">
+  <div class="center">
+    <table>
+      <tr>
+        <td>
+          <label>Check in</label>
+        </td>
+        <td>
+          <label>Check out</label>
+        </td>
+        <td>
+          <label>Adults</label>
+        </td>
+        <td>
+          <label>Children</label>
+        </td>
+        <td>
+          <label>Room type</label>
+        </td>
+        <td><input class="booking-input" type="hidden" name="stayid" value="{{ content.id }}" /></td>
+      </tr>
+      <tr>
+        <td>
+          <input class="booking-input" type="date" name="checkin" />
+        </td>
+        <td>
+          <input class="booking-input" type="date" name="checkout" />
+        </td>
+        <td>
+          <select class="booking-input" name="adults">
+            {% for i in 1..20 %}
+              <option value="{{ i }}">{{ i }}</option>
+            {% endfor %}
+          </select>
+        </td>
+        <td>
+          <select class="booking-input" name="children">
+            {% for i in 1..20 %}
+              <option value="{{ i }}">{{ i }}</option>
+            {% endfor %}
+          </select>
+        </td>
+        <td>
+          <select class="booking-input" name="room">
+            {% for each in rooms %}
+              <option value="{{ each.id }}">{{ each.name }}</option>
+            {% endfor %}
+          </select>
+        </td>
+        <td class="booking-button">
+          <a class="ajax-nav" href="{{ 'booking' | absolute }}">Book Now</a>
+        </td>
+      </tr>
+    </table>
+  </div>
+</section>
+<section class="center content">
+  <div>
+    <div class="description">{{ content.generaldesc }}</div>
+  </div>
+  <div>
+    <h1>Accomodation</h1>
+    <div class="description">{{ content.accomodationdesc }}</div>
+    <ul class="rooms">
+      {% for each in rooms %}
+      <li>
+        <img src="{{ (data.image.destination ~ data.image.thumbnail.prefix ~ each.images[0].main_image) | absolute }}" alt="{{ each.name }}"/>
+        <span class="name">{{ each.name }}</span>
+        <span class="currency">{{ each.price }}</span>
+        <span class="capacity">{{ each.adults + each.children }}</span>
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+  <div>
+    <h1>Activities</h1>
+    <div class="description">{{ content.activitydesc }}</div>
+    <ul class="icons">
+      {% for each in content.activity %}
+      <li>
+        <a><span class="background icon" data-background="{{ (data.file.destination ~ each.image_svg) | absolute }}"></span><span class="name">{{ each.name }}</span></a>
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+  <div>
+    <h1>Facilities</h1>
+    <div class="description">{{ content.facilitydesc }}</div>
+    <ul class="icons">
+      {% for each in content.facility %}
+      <li>
+        <a><span class="background icon" data-background="{{ (data.file.destination ~ each.image_svg) | absolute }}"></span><span class="name">{{ each.name }}</span></a>
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+  <div>
+    <h1>Dining</h1>
+    <div class="description">{{ content.diningdesc }}</div>
+  </div>
+</section>
+{% if content.latitude %}
+<section class="map stay-map" data-latitude="{{ content.latitude }}" data-longitude="{{ content.longitude }}" data-zoom="17">
+
+</section>
+{% endif %}
+{% endblock %}
+
+{% block script %}stay{% endblock %}

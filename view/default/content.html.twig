@@ -1,8 +1,11 @@
 {% extends 'base.html.twig' %}
 
 {% block main %}
-<section>
-  <h1>{{ content.name }}</h1>
+<section class="header-image">
+  <div class="background" data-background="{{ (data.image.destination ~ content.header) | absolute }}"></div>
+</section>
+<section class="center content">
+  <h1>{{ content.name }}<span>{{ content.description }}</span></h1>
   <div class="markdown">{{ content.content | markdown }}</div>
 </section>
 {% endblock %}

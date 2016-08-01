@@ -74,5 +74,13 @@ $function = new Twig_SimpleFunction('output', function ($data,$column) {
 }, array('is_safe' => array('html')));
 $twig->addFunction($function);
 
+$function = new Twig_SimpleFunction('json_encode', function ($title,$content,$script) {
+	return json_encode(array("page" => $title, "content" => $content, "script" => $script));
+}, array('is_safe' => array('html')));
+$twig->addFunction($function);
+
+if (isset($_GET["view_as"]) && $_GET["view_as"] == "json")
+$twig->addGlobal('asJson', true);
+
 $engine = new MarkdownEngine\MichelfMarkdownEngine();
 $twig->addExtension(new MarkdownExtension($engine));

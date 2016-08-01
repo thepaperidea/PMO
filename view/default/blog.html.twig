@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block main %}
+<section class="center content">
+  <h1>{{ content.name }}</h1>
+  <ul class="slabs blog">
+  {% for each in blog %}
+    <li class="shadow">
+      <a class="ajax-nav" href="{{ ('blog/' ~ each.link) | absolute }}">
+        <span class="image background" data-background="{{ (data.image.destination ~ each.image) | absolute }}" >
+          <span class="author">{{ each.user.name }}</span>
+        </span>
+        <span class="name-hold">
+          <span class="name">{{ each.name }}</span>
+          <span class="description">{{ each.description }}</span>
+        </span>
+      </a>
+    </li>
+  {% endfor %}
+  </ul>
+</section>
+{% endblock %}

@@ -25,6 +25,14 @@ class Filter {
       else
       return $value;
     }
+    elseif($args[1]=='svg'){
+      if($value){
+        $filename = $data['constant']['url'].$data['file']['destination'].$value;
+        return "<a target='_blank' href='$filename'>Open image in new tab</a>";
+      }
+      else
+      return null;
+    }
     elseif($args[1]=='bool'){
       if($value)
       return "yes";
@@ -77,7 +85,7 @@ class Filter {
       else
       return "<input type='text' class='datetimepicker' name='$column' value='$value'>";
     }
-    elseif($args[1]=="file")
+    elseif(($args[1]=="file")||($args[1]=="svg"))
     return "<input type='hidden' name='$column' value='$value'><input type='file' name='$column' value='$value'>";
     elseif($args[1]=="text")
     return "<textarea name='$column'>$value</textarea>";

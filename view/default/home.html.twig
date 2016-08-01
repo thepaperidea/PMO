@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block main %}
+  <div class="fullscreen">
+    <div id="background">
+      <video autoplay loop>
+        <source src="{{ 'assets/video/waves.mp4' | absolute }}" type="video/mp4">
+      </video>
+    </div>
+    <div id="main" class="center">
+      <div id="search">
+        <div class="search-input">
+          <input type="text" name="Search" placeholder="What do you want to do?">
+        </div>
+        <div class="categories">
+          <div class="holder">
+            <span>Suggestions</span>
+            <ul>
+              <li>Budget</li>
+              <li>Angsana</li>
+              <li>Resort</li>
+              <li>Beach</li>
+              <li>Baa Atoll</li>
+              <li>Fishing</li>
+              <li>Diving</li>
+              <li>Spa</li>
+            </ul>
+          </div>
+        </div>
+        <div class="results">
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+{% block script %}home{% endblock %}
