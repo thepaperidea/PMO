@@ -72,6 +72,7 @@ input{
 	margin-right:12px;
 	vertical-align:middle;
 	line-height:12px;
+	white-space:nowrap;
 }
 .float-right{
 	float:right;
@@ -84,6 +85,11 @@ input{
 }
 .author:before{
 	content:"by";
+	margin-right:3px;
+	opacity:.6;
+}
+.published:before{
+	content:"Posted";
 	margin-right:3px;
 	opacity:.6;
 }
@@ -319,9 +325,6 @@ header>nav>ul>li>a{
 }
 
 /*markdown*/
-.markdown{
-	margin-top:60px;
-}
 .markdown>h2{
 	margin:1em 0;
 	line-height:1em;
@@ -464,7 +467,7 @@ header>nav>ul>li>a{
 	vertical-align:top;
 	background:white;
 }
-.blog.slabs>li:first-child{
+.highlight.slabs>li:first-child{
 	width:64.2%;
 }
 .slabs>li>a>span.image{
@@ -848,6 +851,10 @@ header>nav>ul>li>a{
 	content:"";
 	display:block;
 	margin-top:.5em;
+}
+.content>h2{
+	font-size:1.5em;
+	margin:1.6em 0 1em 0;
 }
 .content>div>div.description{
 	color:rgba(0,0,0,.7);

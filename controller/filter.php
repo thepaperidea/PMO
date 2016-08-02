@@ -70,7 +70,7 @@ class Filter {
     elseif($args[1]=='bool')
     return ($value)?"<label>Yes</label><input type='radio' name='$column' value=1 checked><label>No</label><input type='radio' name='$column' value=0>":"<label>Yes</label><input type='radio' name='$column' value=1><label>No</label><input type='radio' name='$column' value=0 checked>";
     elseif($args[1]=='image'){
-      $dimention = ($args[2])?split('x',$args[2]):[0,0];
+      $dimention = ($args[2])?explode('x',$args[2]):[0,0];
       $width = $dimention[0];
       $height = $dimention[1];
       return "<span class=relative><input type=text id='$column' name='$column' value='$value'><ul class='corner-help'><li><a href='javascript:ajaxUpload(\"$column\",$width,$height);'>Insert Image</a></li></ul></span>";

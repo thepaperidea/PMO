@@ -21,6 +21,7 @@
     <h1>{{ content.name }}</h1>
     <span class="inline-child">
       <span class="author">{{ content.user.name }}</span>
+      <span class="published">{{ content.added|ago }}</span>
     </span>
   </div>
 </section>

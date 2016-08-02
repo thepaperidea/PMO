@@ -8,7 +8,7 @@ class Process {
   public function addsubmitRow($table){
     $this->processFiles();
     global $dbh;
-    $columns = split(',', $_POST['columnSet']);
+    $columns = explode(',', $_POST['columnSet']);
     $values = array();
     $columnset = array();
     $questionmarks = array();
@@ -35,7 +35,7 @@ class Process {
   public function editsubmitRow($table,$id){
     $this->processFiles();
     global $dbh;
-    $columns = split(',', $_POST['columnSet']);
+    $columns = explode(',', $_POST['columnSet']);
     $values = array();
     $columnset = array();
     $sql = "UPDATE ".$table." SET ";
@@ -100,7 +100,7 @@ class Process {
 
   public function generateMultiSelect($value,$table,$column){
     global $dbh;
-    $values = split(',', $value);
+    $values = explode(',', $value);
     $sql = 'SELECT * FROM '.$table;
     $select = "<select name='".$column."[]' multiple>";
     foreach ($dbh->query($sql) as $row) {
@@ -184,7 +184,7 @@ class Process {
 
   public function getMultiple($table,$i,$column = 'id'){
     global $dbh;
-    $ids = split(',',$i);
+    $ids = explode(',',$i);
     $array = array();
     $sql = 'SELECT * FROM '.$table;
     foreach ($dbh->query($sql) as $row)
@@ -206,7 +206,7 @@ class Process {
 
   public function getfromIds($table,$id,$column = 'name'){
     global $dbh;
-    $ids = split(',',$id);
+    $ids = explode(',',$id);
     $array = array();
     $sql = 'SELECT id,'.$column.' FROM '.$table;
     foreach ($dbh->query($sql) as $row){

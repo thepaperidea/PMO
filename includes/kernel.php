@@ -48,7 +48,7 @@ $twig->addFilter($filter);
 
 $filter = new Twig_SimpleFilter('ago', function ($datetime) {
     $timeAgo = new TimeAgo('Indian/Maldives');
-    return $timeAgo->inWords(date('Y/n/d H:i:s',$datetime));
+    return $timeAgo->inWords(date('Y/n/d H:i:s',strtotime($datetime)));
 });
 $twig->addFilter($filter);
 

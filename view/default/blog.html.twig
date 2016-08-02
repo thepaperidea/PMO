@@ -2,8 +2,8 @@
 
 {% block main %}
 <section class="center content">
-  <h1>{{ content.name }}</h1>
-  <ul class="slabs blog">
+  <h2>Most recent articles</h2>
+  <ul class="slabs highlight">
   {% for each in blog %}
     <li class="shadow">
       <a class="ajax-nav" href="{{ ('blog/' ~ each.link) | absolute }}">
