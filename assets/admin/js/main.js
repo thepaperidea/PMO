@@ -1,4 +1,5 @@
 $(document).ready(function() {
+	datetime();
 	permalink();
 	mousemove();
 	var options = {
@@ -14,6 +15,18 @@ $(document).ready(function() {
 			return false;
 		});
 });
+
+function datetime(){
+	$('.datetimepicker').datetimepicker({
+		format: 'YYYY-MM-DD HH:mm:ss'
+		});
+	$('.datepicker').datetimepicker({
+		format: 'YYYY-MM-DD'
+		});
+	$('.timepicker').datetimepicker({
+		format: 'HH:mm:ss'
+		});
+}
 
 function mousemove () {
 	$('.hoverimg').on( "mousemove", function( event ) {

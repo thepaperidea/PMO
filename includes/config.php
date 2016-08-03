@@ -79,6 +79,10 @@ $data = array(
 				'table' => 'blog'
 			),
       array(
+				'name' => 'Offers',
+				'table' => 'offer'
+			),
+      array(
 				'name' => 'Stay',
 				'table' => 'stay'
 			),

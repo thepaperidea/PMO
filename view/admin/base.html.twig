@@ -4,6 +4,8 @@
     <head>
         <meta charset="utf-8">
         <title>{{ data.constant.name }} - {% block title %}{% endblock %}</title>
+        <link rel="stylesheet" href="{{ asset('admin/css/bootstrap-datetimepicker.min.css') }}" type="text/css">
+        <link rel="stylesheet" href="{{ asset('admin/css/bootstrap.min.css') }}" type="text/css">
         <link rel="stylesheet" href="{{ asset('admin/css/global.css') }}" type="text/css">
     </head>
     <body>
@@ -33,7 +35,10 @@
             </footer>
         </div>
         <script src="{{ asset('js/jquery-2.1.4.min.js') }}"></script>
+        <script src="{{ asset('admin/js/moment.min.js') }}"></script>
         <script src="{{ asset('admin/js/jquery.form.min.js') }}"></script>
+        <script src="{{ asset('admin/js/bootstrap-datetimepicker.min.js') }}"></script>
+        <script src="{{ asset('admin/js/bootstrap.min.js') }}"></script>
         <script src="{{ asset('admin/js/main.js') }}"></script>
     </body>
 </html>
