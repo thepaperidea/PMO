@@ -291,22 +291,63 @@ header>nav>ul>li>a{
 	cursor:pointer;
 	position:absolute;
 	top:50%;
-	transform:translate(0,-50%);
-	width:100px;
-	height:100px;
-	background-size:contain;
-	background-position:center;
-	background-repeat:no-repeat;
-}
-.slider>.navigation.previous{
-	left:-20px;
-	background-image:url('../../assets/svg/previous.svg');
+	transform:translate(0,-50%) scale(.9);
+	background:rgba(0,0,0,0);
+	transition:all 200ms ease;
+	padding:10px;
 }
 .slider>.navigation.next{
-	width:140px;
-	height:140px;
-	right:-20px;
-	background-image:url('../../assets/svg/next.svg');
+	right:0;
+}
+.slider>.navigation.previous{
+	left:0;
+}
+.slider:hover>.navigation{
+	background:rgba(0,0,0,.6);
+	transform:translate(0,-50%) scale(1);
+}
+.slider>.navigation:before,.slider>.navigation:after{
+	vertical-align:middle;
+	color:white;
+}
+.slider>.navigation.next:after{
+	content:"";
+	width:38px;
+	height:60px;
+	display:inline-block;
+	background:url('../../assets/svg/next.svg') no-repeat center / contain;
+}
+.slider>.navigation.next:before{
+	content:"Next picture";
+	display:inline-block;
+	font-size:1em;
+	max-width:0;
+	overflow:hidden;
+	transition:all 400ms ease;
+	white-space:nowrap;
+}
+.slider>.navigation.next:hover:before{
+	max-width:100px;
+}
+.slider>.navigation.previous:before{
+	content:"";
+	width:38px;
+	height:60px;
+	display:inline-block;
+	background:url('../../assets/svg/next.svg') no-repeat center / contain;
+	transform:scaleX(-1);
+}
+.slider>.navigation.previous:after{
+	content:"Previous picture";
+	display:inline-block;
+	font-size:1em;
+	max-width:0;
+	overflow:hidden;
+	transition:all 400ms ease;
+	white-space:nowrap;
+}
+.slider>.navigation.previous:hover:after{
+	max-width:100px;
 }
 .slider>ul{
 	position: relative;
@@ -324,17 +365,31 @@ header>nav>ul>li>a{
 	background-repeat:no-repeat;
 }
 
+section>h1{
+	font-size:1.5em;
+	margin:.8em 0;
+}
+
+.article{
+	margin:60px auto;
+}
+
 /*markdown*/
+.markdown>h1{
+	font-size:1.5em;
+	margin:.6em 0;
+}
 .markdown>h2{
-	margin:1em 0;
+	margin:.6em 0;
 	line-height:1em;
 	font-size:1.3em
 }
 .markdown>p{
-	margin:1.2em 0;
+	padding-bottom:1.2em;
 	line-height:1.4em;
 	color:rgba(0,0,0,.7);
 }
+
 
 /*share*/
 .share>li{
@@ -865,8 +920,4 @@ header>nav>ul>li>a{
 	height:600px;
 	margin-top:60px;
 	margin-bottom:-140px;
-}
-
-.comments{
-	margin-top:80px;
 }

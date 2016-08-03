@@ -20,7 +20,7 @@ class Page {
   public function Blog() {
     global $dbh,$data,$twig;
     $content = Process::getSingle('page','blog','link_permalink');
-    $sql = "SELECT `name`,`description`,`user_id`,`main_image_600x400`,`link_permalink`,`added_datetime_current` FROM blog ORDER BY `id` DESC";
+    $sql = "SELECT `name`,`description`,`user_id`,`main_image_600x400`,`featured_bool`,`link_permalink`,`added_datetime_current` FROM blog ORDER BY `id` DESC";
     $blog = array();
     foreach ($dbh->query($sql) as $row)
     {
@@ -29,6 +29,7 @@ class Page {
           'description' => $row['description'],
           'user' => Process::getSingle('user',$row['user_id']),
           'image' => $row['main_image_600x400'],
+          'featured' => $row['featured_bool'],
           'link' => $row['link_permalink'],
           'time' => $row['added_datetime_current']
           );

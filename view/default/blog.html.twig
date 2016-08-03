@@ -2,6 +2,22 @@
 
 {% block main %}
 <section class="center content">
+  <h2>Recommended articles</h2>
+  <ul class="slabs">
+  {% for each in blog if each.featured %}
+    <li class="shadow">
+      <a class="ajax-nav" href="{{ ('blog/' ~ each.link) | absolute }}">
+        <span class="image background" data-background="{{ (data.image.destination ~ each.image) | absolute }}" >
+          <span class="author">{{ each.user.name }}</span>
+        </span>
+        <span class="name-hold">
+          <span class="name">{{ each.name }}</span>
+          <span class="description">{{ each.description }}</span>
+        </span>
+      </a>
+    </li>
+  {% endfor %}
+  </ul>
   <h2>Most recent articles</h2>
   <ul class="slabs highlight">
   {% for each in blog %}
