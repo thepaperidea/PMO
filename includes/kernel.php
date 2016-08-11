@@ -59,6 +59,13 @@ $function = new Twig_SimpleFunction('datetime', function ($datetime,$format) {
 });
 $twig->addFunction($function);
 
+$function = new Twig_SimpleFunction('hmd', function ($seconds) {
+  $dtF = new \DateTime('@0');
+  $dtT = new \DateTime("@$seconds");
+  return $dtF->diff($dtT)->format('%a days, %h hours and %i minutes');
+});
+$twig->addFunction($function);
+
 $function = new Twig_SimpleFunction('asset', function ($url) {
 	return Filter::Asset($url);
 });

@@ -16,19 +16,20 @@
           <div class="holder">
             <span>Suggestions</span>
             <ul>
-              <li>Budget</li>
-              <li>Angsana</li>
-              <li>Resort</li>
-              <li>Beach</li>
-              <li>Baa Atoll</li>
-              <li>Fishing</li>
-              <li>Diving</li>
-              <li>Spa</li>
+              {% for each in suggestion %}
+                <li>{{ each.name }}</li>
+              {% endfor %}
             </ul>
           </div>
         </div>
         <div class="results">
         </div>
+      </div>
+      <div class="text-center">
+        <a onclick="findHoliday()" id="find-holiday" class="text-shadow">
+          <span class="info"></span>
+          <span>Discover your holiday</span>
+        </a>
       </div>
     </div>
   </div>

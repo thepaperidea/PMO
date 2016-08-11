@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block main %}
+<section class="title">
+  <div class="center">
+    <h1>{{ content.name }}<span class="float-right currency signature">{{ content.price }}</span></h1>
+    <p>{{ content.description }}</p>
+    <!-- <span class="inline-child">
+      <span class="location"><a class="ajax-nav" href="{{ ('country/' ~ content.stay.destination.country.link) | absolute }}">{{ content.stay.destination.country.name }}</a><a class="ajax-nav" href="{{ ('destination/' ~ content.stay.destination.link) | absolute }}">{{ content.stay.destination.name }}</a><a class="ajax-nav" href="{{ ('stay/' ~ content.stay.link) | absolute }}">{{ content.stay.name }}</a></span>
+    </span> -->
+  </div>
+</section>
+<section class="center content markdown article">
+  {{ content.content | markdown }}
+</section>
+{% endblock %}
+
+{% block script %}stay{% endblock %}

@@ -26,6 +26,10 @@ function script(script){
   }
 }
 
+function findHoliday(){
+
+}
+
 function bookingButton(){
   $('.booking-input').on('change',function(){
     var empty = true;
@@ -56,6 +60,15 @@ function bookingButton(){
     var link = url+'tripadvisor/'+permalink;
     $('#tripadvisor').html('<iframe src="'+link+'" width="500" height="47" frameBorder="0">Browser not compatible.</iframe>');
   }
+}
+
+function download(id) {
+  var url = $('html').data('url');
+  $.getJSON( url + "download/" + id, function( data ) {
+    downloadFile(url + 'uploads/file/' + data.download);
+    $('.download'+id).html('Downloaded');
+    $('.download'+id).attr( "onclick", "" );
+  });
 }
 
 function initMap() {
@@ -189,7 +202,7 @@ function resultShow(returnarray,json){
     $('.results').addClass('active');
     $('.results').html('<ul></ul>');
     $.each( returnarray, function() {
-      $('.results>ul').append('<li><a class="ajax-nav" href="'+url+'stay/'+this.link+'" data-background="'+this.image.main_image+'"><ul><li>'+this.name+'</li><li>'+this.destination.name+'</li></ul></a></li>');
+      $('.results>ul').append('<li><a class="ajax-nav" href="'+url+'stay/'+this.link+'" data-background="'+this.image.main_image+'"><ul><li>'+this.name+'<span class="currency float-right">'+this.price+'</span></li><li>'+this.destination.name+'</li></ul></a></li>');
     });
     $('.results>ul>li>a').on('mouseover',function(){
       var background = $(this).data('background');

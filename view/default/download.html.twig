@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block main %}
+<section class="center content">
+  <h1>{{ content.name }}<span>{{ content.description }}</span></h1>
+  <h2>Most popular</h2>
+  <ul class="slabs">
+  {% for each in download %}
+    <li class="shadow">
+      <a>
+        <span class="image background" data-background="{{ (data.image.destination ~ data.image.thumbnail.prefix ~ each.preview) | absolute }}">
+          <span class="block-child">
+            <span class="type">{{ each.format.name }}</span>
+            <span class="download">{{ each.count }}</span>
+          </span>
+          <span class="icon background" data-background="{{ (data.file.destination ~ each.format.image) | absolute }}"></span>
+        </span>
+        <span class="name-hold">
+          <span class="name">{{ each.name }}<span class="float-right button download{{ each.id }}" onclick="download({{ each.id }});">Download</span></span>
+          <span class="description">{{ each.description }}</span>
+        </span>
+      </a>
+    </li>
+  {% endfor %}
+  </ul>
+  {% for key, row in category %}
+    <h2>{{ row }}</h2>
+    <ul class="slabs">
+      {% for each in download %}
+        {% if key == each.category.id %}
+          <li class="shadow">
+            <a>
+              <span class="image background" data-background="{{ (data.image.destination ~ data.image.thumbnail.prefix ~ each.preview) | absolute }}">
+                <span class="block-child">
+                  <span class="type">{{ each.format.name }}</span>
+                  <span class="download">{{ each.count }}</span>
+                </span>
+                <span class="icon background" data-background="{{ (data.file.destination ~ each.format.image) | absolute }}"></span>
+              </span>
+              <span class="name-hold">
+                <span class="name">{{ each.name }}<span class="float-right button download{{ each.id }}" onclick="download({{ each.id }});">Download</span></span>
+                <span class="description">{{ each.description }}</span>
+              </span>
+            </a>
+          </li>
+        {% endif %}
+      {% endfor %}
+    </ul>
+  {% endfor %}
+</section>
+{% endblock %}

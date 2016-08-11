@@ -2,6 +2,7 @@
 
 {% block main %}
 <section class="center content">
+  <h1>{{ content.name }}<span>{{ content.description }}</span></h1>
   <h2>Recommended articles</h2>
   <ul class="slabs">
   {% for each in blog if each.featured %}

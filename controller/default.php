@@ -15,7 +15,11 @@ class Page {
   static function Home() {
     global $dbh,$data,$twig,$session;
     $content = Process::getSingle('page','','link_permalink');
-    print $twig->render('default/home.html.twig', array('data' => $data,'content' => $content));
+    $sql = "SELECT `name` FROM suggestion";
+    $query = $dbh->prepare($sql);
+    $query->execute();
+    $suggestion = $query->fetchAll();
+    print $twig->render('default/home.html.twig', array('data' => $data,'content' => $content,'suggestion' => $suggestion));
   }
   public function Blog() {
     global $dbh,$data,$twig;
@@ -177,6 +181,10 @@ class Page {
     $query = $dbh->prepare($sql);
     $query->execute();
     $stays = $query->fetchAll();
+    $sql = "SELECT `searchterms`,`price_float` FROM `finance` ORDER BY `price_float` DESC";
+    $query = $dbh->prepare($sql);
+    $query->execute();
+    $finance = $query->fetchAll();
     $json = array();
     foreach ($stays as $stay) {
       $searchterms = array();
@@ -184,12 +192,17 @@ class Page {
       $query = $dbh->prepare($sql);
       $query->execute(array(':i' => $stay['id']));
       $image = $query->fetch();
+      $sql = "SELECT `price_float` FROM room WHERE `stay_id` = :i ORDER BY `price_float` LIMIT 0,1";
+      $query = $dbh->prepare($sql);
+      $query->execute(array(':i' => $stay['id']));
+      $price = $query->fetch();
       $type = Process::getSingle('type',$stay['type_id']);
       $category = Process::getMultiple('category',$stay['category_ids']);
       $facility = Process::getMultiple('facility',$stay['facility_ids']);
       $activity = Process::getMultiple('activity',$stay['activity_ids']);
       $destination = Process::getSingle('destination',$stay['destination_id']);
       $searchterms[] = strtolower($stay['name']);
+      $searchterms[] = strtolower($type['name']);
       $searchterms[] = strtolower($destination['name']);
       foreach ($category as $each)
       $searchterms[] = strtolower($each['name']);
@@ -197,6 +210,11 @@ class Page {
       $searchterms[] = strtolower($each['name']);
       foreach ($activity as $each)
       $searchterms[] = strtolower($each['name']);
+      foreach ($finance as $money) {
+        if($price['price_float']>$money['price_float']){
+          $searchterms[] = $money['searchterms'];
+        }
+      }
       $json[] = array(
         'name' => $stay['name'],
         'type' => $type,
@@ -204,10 +222,75 @@ class Page {
         'activity' => $activity,
         'destination' => $destination,
         'image' => $image,
+        'price' => $price['price_float'],
         'search' => implode(' ',$searchterms),
         'link' => $stay['link_permalink'],
       );
     }
+    print(json_encode($json));
+  }
+  public function Offer() {
+    global $dbh,$data,$twig;
+    $content = Process::getSingle('page','offer','link_permalink');
+    $sql = "SELECT `id`,`name`,`description`,`main_image`,`price_float`,`stay_id`,`from_datetime`,`to_datetime`,`link_permalink` FROM offer";
+    $offer = array();
+    foreach ($dbh->query($sql) as $row)
+    {
+      $offer[] = array(
+          'name' => $row['name'],
+          'description' => $row['description'],
+          'main_image' => $row['main_image'],
+          'price' => $row['price_float'],
+          'stay' => Process::getSingle('stay',$row['stay_id']),
+          'from' => strtotime($row['from_datetime']),
+          'to' => strtotime($row['to_datetime']),
+          'link' => $row['link_permalink']
+          );
+    }
+    $current = strtotime(date("Y-m-d H:i:s"));
+    print $twig->render('default/offer.html.twig', array('data' => $data,'content' => $content,'offer' => $offer,'current' => $current));
+  }
+  public function offerEach() {
+    global $dbh,$data,$twig;
+    $content = Process::getSingle('offer',$data['path']['argument'][1],'link_permalink');
+    $content['title'] = $content['name'];
+
+    print $twig->render('default/offer.each.html.twig', array('data' => $data,'content' => $content));
+  }
+  public function Download() {
+    global $dbh,$data,$twig;
+    $content = Process::getSingle('page','download','link_permalink');
+    $sql = "SELECT `id`,`name`,`description`,`format_id`,`category_id`,`preview_image`,`count_int` FROM download";
+    $download = array();
+    $category = array();
+    foreach ($dbh->query($sql) as $row)
+    {
+      $categoryrow = Process::getSingle('category',$row['category_id']);
+      $download[] = array(
+          'id' => $row['id'],
+          'name' => $row['name'],
+          'description' => $row['description'],
+          'format' => Process::getSingle('format',$row['format_id']),
+          'category' => $categoryrow,
+          'preview' => $row['preview_image'],
+          'count' => $row['count_int']
+          );
+      $category[$row['category_id']] = $categoryrow['name'];
+    }
+
+    $category = array_unique($category);
+
+    print $twig->render('default/download.html.twig', array('data' => $data,'content' => $content,'download' => $download,'category' => $category));
+  }
+  public function downloadEach() {
+    global $dbh,$data,$twig;
+    $content = Process::getSingle('download',$data['path']['argument'][1]);
+    $json['download'] = $content['download'];
+
+    $sql = "UPDATE download SET `count_int`=`count_int`+1 WHERE id = ?";
+    $q = $dbh->prepare($sql);
+    $q->execute(array($content['id']));
+
     print(json_encode($json));
   }
 }

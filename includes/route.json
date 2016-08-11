@@ -58,5 +58,21 @@
   "14": {
     "route": "blog/:each",
     "namespace": "Page::blogEach"
+  },
+  "15": {
+    "route": "offer",
+    "namespace": "Page::Offer"
+  },
+  "16": {
+    "route": "offer/:each",
+    "namespace": "Page::offerEach"
+  },
+  "17": {
+    "route": "download",
+    "namespace": "Page::Download"
+  },
+  "18": {
+    "route": "download/:each",
+    "namespace": "Page::downloadEach"
   }
 }

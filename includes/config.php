@@ -54,15 +54,11 @@ $data = array(
     ),
     array(
       'name' => 'Offers',
-      'route' => 'offers'
+      'route' => 'offer'
     ),
     array(
-      'name' => 'Packages',
-      'route' => 'packages'
-    ),
-    array(
-      'name' => 'Wallpapers',
-      'route' => 'wallpaper'
+      'name' => 'Downloads',
+      'route' => 'download'
     )
   ),
   'footer' => array(
@@ -109,6 +105,14 @@ $data = array(
       array(
 				'name' => 'Type',
 				'table' => 'type'
+			),
+      array(
+				'name' => 'Downloads',
+				'table' => 'download'
+			),
+      array(
+				'name' => 'Formats',
+				'table' => 'format'
 			)
     )
   ),
