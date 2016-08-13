@@ -16,14 +16,25 @@ function script(script){
     bookingButton();
     initMap();
   }
-  else if(script=="disqus"){
-    (function() { // DON'T EDIT BELOW THIS LINE
-        var d = document, s = d.createElement('script');
-        s.src = '//travrnr.disqus.com/embed.js';
-        s.setAttribute('data-timestamp', +new Date());
-        (d.head || d.body).appendChild(s);
-    })();
+  else if(script=="article"){
+    markdown();
+    disqus();
   }
+}
+
+function markdown(){
+  $('.markdown>p').each(function(){
+    $( this ).has( "img" ).addClass( "full" );
+  });
+}
+
+function disqus() {
+  (function() { // DON'T EDIT BELOW THIS LINE
+      var d = document, s = d.createElement('script');
+      s.src = '//travrnr.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+  })();
 }
 
 function findHoliday(){

@@ -18,6 +18,8 @@ class Filter {
     $args = Process::columnSplits($column);
     if($args[1]=='markdown')
     return "<span class='whitespacenowrap'>Markdown HTML</span>";
+    elseif($args[1]=='text')
+    return "<span class='whitespacenowrap'>Small Text</span>";
     elseif($args[1]=='image'){
       $filename = $data['constant']['url'].$data['image']['destination'].$data['image']['thumbnail']['prefix'].$value;
       if((pathinfo($filename, PATHINFO_EXTENSION)&&(getimagesize($filename))))

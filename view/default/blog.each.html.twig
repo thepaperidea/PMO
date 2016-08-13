@@ -3,36 +3,29 @@
 {% block main %}
 <section class="header-image">
   <div class="background" data-background="{{ (data.image.destination ~ content.header) | absolute }}"></div>
-</section>
-<section class="title shadow">
-  <div class="center">
-    <div class="float-right">
-      <ul class="share">
-        {% for each in sociallink %}
-          <li>
-            <a target="_blank" class="{{ each.name }}" href="{{ each.link }}">
-              <span class="text"></span>
-              <span class="count">{{ each.count }}</span>
-            </a>
-          </li>
-        {% endfor %}
-      </ul>
-    </div>
-    <h1>{{ content.name }}</h1>
-    <span class="inline-child">
-      <span class="author">{{ content.user.name }}</span>
-      <span class="published">{{ content.added|ago }}</span>
-    </span>
+  <div class="middle">
+    <div class="name">{{ content.name }}</div>
+    <div class="description">{{ content.description }}</div>
+    <div class="author">{{ content.user.name }}</div>
+    <ul class="share">
+      {% for each in sociallink %}
+        <li>
+          <a target="_blank" class="{{ each.name }}" href="{{ each.link }}">
+            <span class="text"></span>
+            <span class="count">{{ each.count }}</span>
+          </a>
+        </li>
+      {% endfor %}
+    </ul>
   </div>
 </section>
-<section class="center markdown article">
+<section class="markdown article">
   {{ content.content | markdown }}
 </section>
 <section class="center comments">
-  <h1>Comments</h1>
   <div id="disqus_thread"></div>
   <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 </section>
 {% endblock %}
 
-{% block script %}disqus{% endblock %}
+{% block script %}article{% endblock %}
