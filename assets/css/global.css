@@ -1058,6 +1058,7 @@ section.title span>a{
 	border-radius:3px;
 	font-family:"Alegreya Sans",sans-serif;
 	font-size:.8em;
+	min-height:32px;
 }
 .form textarea{
 	height:90px;
