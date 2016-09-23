@@ -2,14 +2,14 @@
 
 {% block main %}
 {% if images[1] %}
-<section class="header-image slider">
-  <ul class="images">
+<section id="homeSlider" class="header-image swipe">
+  <ul class="swipe-wrap">
     {% for each in images %}
-      <li class="background" data-background="{{ (data.image.destination ~ each.main_image) | absolute }}"></li>
+      <li><a class="background" data-background="{{ (data.image.destination ~ each.main_image) | absolute }}"></a></li>
     {% endfor %}
   </ul>
-  <a class="navigation previous"></a>
-  <a class="navigation next"></a>
+  <a class="navigation previous" onclick='mySwipe.prev()'></a>
+  <a class="navigation next" onclick='mySwipe.next()'></a>
 </section>
 {% else %}
 <section class="header-image">

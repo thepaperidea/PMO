@@ -70,7 +70,7 @@ main {
 .content>h2{
   font-size:1.4em;
 }
-.slider{
+.swipe-wrap>li>a{
   height:260px;
 }
 .stay-map{
@@ -160,12 +160,8 @@ section.title h1{
 #lightbox{
   top:100px;
 }
-.slider>.navigation.next:after,.slider>.navigation.previous:before{
-	width:26px;
-	height:40px;
-}
-.slider>.navigation.next:before,.slider>.navigation.previous:after{
-	display:none;
+.swipe>.navigation{
+  display:none;
 }
 div.navigation-hold{
 	overflow:auto;

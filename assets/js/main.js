@@ -25,6 +25,7 @@ function script(script){
   }
   else if(script=="stay"){
     //bookingButton();
+    swipeimages();
     initMap();
   }
   else if(script=="staybook"){
@@ -37,6 +38,15 @@ function script(script){
     countryTabs();
     contentWrap();
   }
+}
+
+function swipeimages() {
+  var elem = document.getElementById('homeSlider');
+  window.mySwipe = Swipe(elem, {
+    auto: 3000,
+    speed: 600,
+    continuous: true
+  });
 }
 
 function roomcount() {
