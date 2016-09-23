@@ -1,6 +1,6 @@
 <?php
 
-$path = $_GET['path'];
+$path = (isset($_GET['path']))?$_GET['path']:"";
 $routes = json_decode(file_get_contents('includes/route.json'));
 foreach($routes as $route)
 {

@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block main %}
+<section class="center content">
+  <h1>{{ content.name }}<span>{{ content.description }}</span></h1>
+  <ul class="faq">
+  {% for each in faq %}
+    <li>
+      <span class="question">{{ each.question }}</span>
+      <span class="answer markdown">{{ each.answer | markdown }}</span>
+    </li>
+  {% endfor %}
+  </ul>
+</section>
+{% endblock %}

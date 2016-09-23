@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block main %}
+<section class="center content">
+  <h1>{{ content.name }}<span>{{ content.description }}</span></h1>
+  <ul class="slabs">
+  {% for each in package %}
+    <li class="shadow">
+      <a class="ajax-nav" href="{{ ('package/' ~ each.link) | absolute }}">
+        <span class="image background" data-background="{{ (data.image.destination ~ data.image.thumbnail.prefix ~ each.main_image) | absolute }}" >
+        </span>
+        <span class="name-hold">
+          <span class="name">{{ each.name }}<span class="float-right currency signature">{{ each.price }}</span></span>
+          <span class="description">{{ each.description }}</span>
+        </span>
+      </a>
+    </li>
+  {% endfor %}
+  </ul>
+</section>
+{% endblock %}

@@ -32,7 +32,14 @@
 </section>
 <section class="shadow booking">
   <div class="center">
-    <table>
+    <span class="button large float-right"><a class="ajax-nav" href="{{ ('stay/' ~ content.link ~ '/book') | absolute }}">Book now</a></span>
+    <ul class="category">
+      {% for each in content.category %}
+        <li>{{ each.name }}</li>
+      {% endfor %}
+    </ul>
+
+    <!-- <table>
       <tr>
         <td>
           <label>Check in</label>
@@ -73,7 +80,7 @@
           <a class="ajax-nav" href="{{ 'booking' | absolute }}">Book Now</a>
         </td>
       </tr>
-    </table>
+    </table> -->
   </div>
 </section>
 <section class="center content">
@@ -87,9 +94,11 @@
       {% for each in rooms %}
       <li>
         <img src="{{ (data.image.destination ~ data.image.thumbnail.prefix ~ each.images[0].main_image) | absolute }}" alt="{{ each.name }}"/>
-        <span class="name">{{ each.name }}</span>
-        <span class="currency">{{ each.price }}</span>
-        <span class="capacity">{{ each.adults + each.children }}</span>
+        <span>
+          <span class="capacity float-right">{{ each.adults + each.children }}</span>
+          <span class="name">{{ each.name }}</span>
+          <span class="currency">{{ each.price }}</span>
+        </span>
       </li>
       {% endfor %}
     </ul>
@@ -122,8 +131,22 @@
   </div>
 </section>
 {% if content.latitude %}
-<section class="map stay-map" data-latitude="{{ content.latitude }}" data-longitude="{{ content.longitude }}" data-zoom="17">
-
+<section class="stay-map">
+  <ul class="transport">
+    {% for each in content.transport %}
+    <li>
+      <a>
+        <span class="name">{{ each.transport.name }}</span>
+        <span class="time">
+          {% if each.split[0] != '00' %}{{ each.split[0] }} hours{% endif %}
+          {% if each.split[1] != '00' %}{{ each.split[1] }} minutes{% endif %}
+          {% if each.split[2] != '00' %}{{ each.split[2] }} seconds{% endif %}
+        </span>
+      </a>
+    </li>
+    {% endfor %}
+  </ul>
+  <div class="map" data-latitude="{{ content.latitude }}" data-longitude="{{ content.longitude }}" data-zoom="8" data-airportlatitude="{{ data.constant.airport.latitude }}" data-airportlongitude="{{ data.constant.airport.longitude }}"></div>
 </section>
 {% endif %}
 {% endblock %}

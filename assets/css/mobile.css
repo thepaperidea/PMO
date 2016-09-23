@@ -1,0 +1,200 @@
+header{
+  padding:0;
+  transition: top 200ms ease-in-out;
+}
+#background{
+  background-image:url('../../assets/img/background-mobile.jpg');
+}
+.nav-up {
+  top: -100px;
+}
+#logo{
+  float:none;
+  margin:10px auto;
+}
+.tiles>li{
+  width:100%;
+}
+header>nav{
+  text-align:center;
+  overflow:auto;
+  padding:6px 20px;
+  background:#f9f9f9;
+  -webkit-overflow-scrolling: touch;
+}
+header>nav>ul{
+  white-space:nowrap;
+}
+header>nav>ul>li{
+  margin-right:32px;
+}
+main {
+  padding-top: 100px !important;
+}
+#search>.categories>.holder>ul>li{
+  margin-right:7px;
+}
+#search>.categories>.holder>ul>li:last-child{
+  margin-right:0;
+}
+.highlight.tiles>li:first-child>a>span.name-hold,.highlight.tiles>li>a>span.name-hold,.tiles>li>a>span.name-hold{
+  display:block;
+  width:auto;
+  border:0;
+}
+.tiles>li>a>span.image,.highlight.tiles>li:first-child>a>span.image{
+  height:220px;
+  display:block;
+  width:100%;
+}
+.tiles>li>a>span.name-hold>span.name{
+  font-size:1.3em
+}
+.tiles>li>a>span.name-hold>span.description{
+  font-size:1em;
+}
+.tiles>li>a>span.name-hold{
+  min-height:200px;
+}
+.slabs{
+  margin:0;
+}
+.slabs>li{
+  width:100%;
+  margin:0;
+  margin-bottom:5%;
+}
+.content>h1{
+  font-size:2em;
+}
+.content>h2{
+  font-size:1.4em;
+}
+.slider{
+  height:260px;
+}
+.stay-map{
+  height:360px;
+}
+.transport{
+  min-width: 60%;
+}
+.rooms>li{
+  width:calc((100% - 20px) / 2);
+  margin-right:20px;
+}
+.rooms>li:nth-child(2n){
+  margin-right:0;
+}
+#tripadvisor{
+  display:none;
+}
+section.title{
+  padding:30px 0;
+}
+section.title h1{
+  font-size:1.3em;
+}
+.fullscreen{
+	top:100px;
+}
+#background.video>video{
+	display:none;
+}
+#search{
+  width:100%;
+}
+#search>.categories>.holder>span{
+  display:block;
+}
+#search>.categories>.holder>ul{
+  margin:0;
+}
+#search>.results>ul>li{
+  width:100%;
+  margin:0;
+  margin-bottom:6px;
+}
+.content.markdown>p, .content.markdown>ul, .content.markdown>h1, .content.markdown>h2{
+  padding:0 20px 40px 20px;
+}
+.article.markdown>p, .article.markdown>ul, .article.markdown>h1, .article.markdown>h2{
+  padding:0 20px 40px 20px;
+}
+.markdown>p{
+  font-size:1.1em;
+}
+.article.markdown>ul{
+  padding:0 40px 40px 40px;
+}
+.article.markdown>p.full{
+  padding: 0 0 40px 0;
+}
+.article{
+  margin:40px 0;
+}
+.slabs.two>li{
+  width:100%;
+}
+.split>div:first-child{
+  width:40%;
+}
+.split>div:last-child{
+  width:60%;
+}
+.countrymap>svg{
+  height:400px;
+}
+.header-image>div.background{
+  height:400px;
+}
+.header-image>div.middle{
+  width:90%;
+}
+.header-image>div.middle>.name{
+  font-size:1.5em;
+}
+#lightbox>div{
+  padding:10px;
+}
+#lightbox{
+  top:100px;
+}
+.slider>.navigation.next:after,.slider>.navigation.previous:before{
+	width:26px;
+	height:40px;
+}
+.slider>.navigation.next:before,.slider>.navigation.previous:after{
+	display:none;
+}
+div.navigation-hold{
+	overflow:auto;
+  -webkit-overflow-scrolling: touch;
+}
+div.navigation-hold>.navigation{
+  white-space:nowrap;
+  float:left;
+}
+div.navigation-hold>.navigation>li{
+  float:none;
+  display:inline-block;
+}
+.countrydestination>li>ul.slabs{
+  display:none;
+}
+.faq>li{
+  list-style-type:none;
+}
+.faq>li>span.question{
+  font-size:.9em;
+}
+.table .column{
+  display:block;
+  width:100% !important;
+}
+.center{
+  box-sizing:border-box;
+}
+.social>li{
+  padding:10px;
+}

@@ -44,12 +44,12 @@
     "namespace": "Page::Tripadvisor"
   },
   "11": {
-    "route": "updatebooking",
-    "namespace": "Page::updateBooking"
+    "route": "update",
+    "namespace": "Page::update"
   },
   "12": {
     "route": "booking",
-    "namespace": "Page::viewBooking"
+    "namespace": "Page::booking"
   },
   "13": {
     "route": "blog",
@@ -74,5 +74,49 @@
   "18": {
     "route": "download/:each",
     "namespace": "Page::downloadEach"
+  },
+  "19": {
+    "route": "package",
+    "namespace": "Page::Package"
+  },
+  "20": {
+    "route": "package/:each",
+    "namespace": "Page::packageEach"
+  },
+  "21": {
+    "route": "faq",
+    "namespace": "Page::FAQ"
+  },
+  "22": {
+    "route": "about",
+    "namespace": "Page::About"
+  },
+  "23": {
+    "route": "contact",
+    "namespace": "Page::Contact"
+  },
+  "24": {
+    "route": "send",
+    "namespace": "Page::Send"
+  },
+  "25": {
+    "route": "country/:each",
+    "namespace": "Page::Country"
+  },
+  "26": {
+    "route": "package/:each/book",
+    "namespace": "Page::packageBook"
+  },
+  "27": {
+    "route": "plan",
+    "namespace": "Page::plan"
+  },
+  "28": {
+    "route": "offer/:each/book",
+    "namespace": "Page::offerBook"
+  },
+  "29": {
+    "route": "stay/:each/book",
+    "namespace": "Page::stayBook"
   }
 }

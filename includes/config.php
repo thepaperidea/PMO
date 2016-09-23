@@ -15,6 +15,10 @@ $data = array(
 		'fbadmin' => '523187088',
 		'captcha' => '6LcE8B8TAAAAAB_H_wJ99zviL1l0S6qdGVzMA9RT',
 		'login' => 'a36f292da91457067c828ed764214618',
+		'airport' => array(
+      'latitude' => 4.186678,
+      'longitude' => 73.528177
+    ),
   ),
   'email' => array(
     'from' => array(
@@ -24,6 +28,23 @@ $data = array(
     'to' => array(
       'name' => '',
       'address' => 'eegan@live.com'
+    )
+  ),
+  'social' => array(
+    array(
+      'name' => 'twitter',
+      'link' => 'http://twitter.com/',
+      'username' => 'travrnr',
+    ),
+    array(
+      'name' => 'facebook',
+      'link' => 'http://facebook.com/',
+      'username' => 'travrnr',
+    ),
+    array(
+      'name' => 'instagram',
+      'link' => 'http://instagram.com/',
+      'username' => 'travrnr',
     )
   ),
   'file' => array(
@@ -53,8 +74,16 @@ $data = array(
       'route' => 'stay'
     ),
     array(
+      'name' => 'Maldives',
+      'route' => 'country/maldives'
+    ),
+    array(
       'name' => 'Offers',
       'route' => 'offer'
+    ),
+    array(
+      'name' => 'Packages',
+      'route' => 'package'
     ),
     array(
       'name' => 'Downloads',
@@ -62,10 +91,25 @@ $data = array(
     )
   ),
   'footer' => array(
-
+    array(
+      'name' => 'About',
+      'route' => 'about'
+    ),
+    array(
+      'name' => 'Contact',
+      'route' => 'contact'
+    ),
+    array(
+      'name' => 'Frequently Asked',
+      'route' => 'faq'
+    )
   ),
   'admin' => array(
     'database' => array(
+      array(
+				'name' => 'Search Suggestions',
+				'table' => 'suggestion'
+			),
       array(
 				'name' => 'Pages',
 				'table' => 'page'
@@ -78,6 +122,10 @@ $data = array(
 				'name' => 'Offers',
 				'table' => 'offer'
 			),
+      array(
+        'name' => 'Packages',
+        'table' => 'package'
+      ),
       array(
 				'name' => 'Stay',
 				'table' => 'stay'
@@ -99,6 +147,18 @@ $data = array(
 				'table' => 'facility'
 			),
       array(
+				'name' => 'Finance',
+				'table' => 'finance'
+			),
+      array(
+				'name' => 'Country',
+				'table' => 'country'
+			),
+      array(
+				'name' => 'Country Tabs',
+				'table' => 'tabbed'
+			),
+      array(
 				'name' => 'Destination',
 				'table' => 'destination'
 			),
@@ -113,6 +173,26 @@ $data = array(
       array(
 				'name' => 'Formats',
 				'table' => 'format'
+			),
+      array(
+				'name' => 'Transport Types',
+				'table' => 'transport'
+			),
+      array(
+				'name' => 'Transport Duration',
+				'table' => 'transporttime'
+			),
+      array(
+				'name' => 'Frequently Asked Questions',
+				'table' => 'faq'
+			),
+      array(
+				'name' => 'Continents',
+				'table' => 'continent'
+			),
+      array(
+				'name' => 'Airline',
+				'table' => 'airline'
 			)
     )
   ),

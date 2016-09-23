@@ -1,0 +1,79 @@
+{% extends 'base.html.twig' %}
+
+{% block main %}
+<section class="content">
+  <h1>{{ content.name }}<span>{{ content.description }}</span></h1>
+</section>
+<section class="content markdown">
+  {{ content.content | markdown }}
+</section>
+<section class="center countrytabs">
+  <div class="navigation-hold"><ul class="navigation shadow">{% for each in tabs %}<li><a data-id="{{ each.id }}">{{ each.name }}</a></li>{% endfor %}</ul></div>
+  <div class="tabdescription">
+  {% for each in tabs %}
+    <div id="countrytab{{ each.id }}" class="markdown">{{ each.content_markdown | markdown }}</div>
+  {% endfor %}
+</div>
+</section>
+<section class="content center">
+  <h2>Explore the destinations</h2>
+  <div class="split">
+    <div class="svg svgmap countrymap" data-svg="{{ (data.file.destination ~ content.map) | absolute }}" data-callback="countrymap" data-variable="{% for each in destination if each.highlight |slice(0, 1) %}{{ each.link }}{% endfor %}"></div>
+    <div>
+      <ul class="countrydestination">
+        {% for each in destination %}
+          <li class="{{ each.link }}">
+            <h1>{{ each.name }}</h1>
+            <span class="markdown">{{ each.description | markdown }}</span>
+            <ul class="slabs two">
+              {% for seach in stay %}
+                {% if seach.destination.id == each.id %}
+                <li class="shadow">
+                  <a class="ajax-nav" href="{{ ('stay/' ~ seach.link) | absolute }}">
+                    <span class="image background" data-background="{{ (data.image.destination ~ data.image.thumbnail.prefix ~ seach.image.main_image) | absolute }}" ></span>
+                    <span class="name-hold">
+                      <span class="name">{{ seach.name }}</span>
+                      <span class="inline-child">
+                        <ul class="rating">
+                          {% for i in 1..seach.rating %}
+                            <li></li>
+                          {% endfor %}
+                        </ul>
+                      </span>
+                    </span>
+                  </a>
+                </li>
+                {% endif %}
+              {% endfor %}
+            </ul>
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+</section>
+<section class="content center margin-bottom">
+  <h2>How to get here<span>Which part of the world are you from?</span></h2>
+  <div class="svg svgmap continentmap" data-svg="{{ ('assets/svg/continents.svg') | absolute }}" data-callback="continentmap"></div>
+  <ul class="continentlist">
+  {% for each in continent %}
+    <li class="{{ each.link }}">
+      <h2>{{ each.name }}</h2>
+      <ul>
+        {% for row in airline %}
+        {% if each.id in row.continent %}
+          <li>
+            <a target="_blank" href="{{ row.website }}" title="{{ row.name }}">
+              <span class="background" data-background="{{ (data.file.destination ~ row.logo) | absolute }}" ></span>
+            </a>
+          </li>
+        {% endif %}
+        {% endfor %}
+      </ul>
+    </li>
+  {% endfor %}
+  </ul>
+</section>
+{% endblock %}
+
+{% block script %}country{% endblock %}

@@ -3,19 +3,33 @@
 {% block main %}
 <section class="center content">
   <h1>{{ content.name }}<span>{{ content.description }}</span></h1>
-  <h2>Ongoing offers</h2>
-  <ul class="slabs">
+  <ul class="navigation shadow">
+    <li>
+      <a class="active" data-filter="*">All</a>
+    </li>
+    <li>
+      <a data-filter=".ongoing">Ongoing</a>
+    </li>
+    <li>
+      <a data-filter=".upcoming">Upcoming</a>
+    </li>
+    <li>
+      <a data-filter=".expired">Expired</a>
+    </li>
+  </ul>
+  <ul class="slabs nav">
   {% for each in offer %}
-    {% if current > each.from and current < each.to %}
-    <li class="shadow">
-      <a class="ajax-nav" href="{{ ('offer/' ~ each.link) | absolute }}">
+    <li class="shadow{% if current > each.from and current < each.to %} ongoing{% elseif current < each.from and current < each.to %} upcoming{% else %} expired{% endif %}">
+      <a class="ajax-nav" {% if current > each.from and current < each.to %} href="{{ ('offer/' ~ each.link) | absolute }}"{% elseif current < each.from and current < each.to %} href="{{ ('offer/' ~ each.link) | absolute }}"{% endif %}>
         <span class="image background" data-background="{{ (data.image.destination ~ data.image.thumbnail.prefix ~ each.main_image) | absolute }}" >
           <span class="inline-child">
-            <span class="location white"><span>{{ each.stay.destination.country.name }}</span><span>{{ each.stay.destination.name }}</span><span>{{ each.stay.name }}</span></span>
+            <span class="location white"><span>{{ each.stay.name }}</span></span>
           </span>
+          {% if current > each.from and current < each.to %}
           <span class="remaining">
             {{ hmd(each.to - current) }}
           </span>
+          {% endif %}
         </span>
         <span class="name-hold">
           <span class="name">{{ each.name }}<span class="float-right currency signature">{{ each.price }}</span></span>
@@ -23,27 +37,6 @@
         </span>
       </a>
     </li>
-    {% endif %}
-  {% endfor %}
-  </ul>
-  <h2>Upcoming offers</h2>
-  <ul class="slabs">
-  {% for each in offer %}
-    {% if current < each.from and current < each.to %}
-    <li class="shadow">
-      <a class="ajax-nav" href="{{ ('offer' ~ each.link) | absolute }}">
-        <span class="image background" data-background="{{ (data.image.destination ~ data.image.thumbnail.prefix ~ each.main_image) | absolute }}" >
-          <span class="inline-child">
-            <span class="location white"><span>{{ each.stay.destination.country.name }}</span><span>{{ each.stay.destination.name }}</span><span>{{ each.stay.name }}</span></span>
-          </span>
-        </span>
-        <span class="name-hold">
-          <span class="name">{{ each.name }}<span class="float-right currency signature">{{ each.price }}</span></span>
-          <span class="description">{{ each.description }}</span>
-        </span>
-      </a>
-    </li>
-    {% endif %}
   {% endfor %}
   </ul>
 </section>

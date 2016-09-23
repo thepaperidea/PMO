@@ -1,5 +1,8 @@
 <?php
 
+// Error
+error_reporting(0);
+
 //DateTime
 date_default_timezone_set('Indian/Maldives');
 

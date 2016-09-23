@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block main %}
+<section class="content">
+  <h1>{{ content.name }} Booking<span class="currency">{{ content.price }} per person</span></h1>
+</section>
+<section class="content markdown">
+  {{ content.content | markdown }}
+</section>
+<section class="center form table">
+  <div class="form-return"></div>
+  <input class="form-input" type="hidden" name="package" value="{{ content.name }} "/>
+  <div class="row">
+    <div class="column label"><label>Full name</label></div>
+    <div class="column input"><input class="form-input required" type="text" name="fullname" placeholder="John Doe"/></div>
+  </div>
+  <div class="row">
+    <div class="column label"><label>Email</label></div>
+    <div class="column input"><input class="form-input required" type="text" name="email" placeholder="person@example.com"/></div>
+  </div>
+  <div class="row">
+    <div class="column label"><label>Phone Number</label></div>
+    <div class="column input"><input class="form-input required" type="text" name="phone" placeholder="+1-541-754-3010"/></div>
+  </div>
+  <div class="row">
+    <div class="column label"><label>Arrival - departure</label></div>
+    <div class="column input double">
+      <input class="form-input required" type="date" name="from"/>
+      <input class="form-input required" type="date" name="to"/>
+    </div>
+  </div>
+  <div class="row">
+    <div class="column label"><label>People</label></div>
+    <div class="column input double">
+      <input class="form-input required" type="text" name="adult" placeholder="Number of Adults" />
+      <input class="form-input required" type="text" name="children" placeholder="Number of Children"/>
+    </div>
+  </div>
+  <div class="row">
+    <div class="column label"><label>Message</label></div>
+    <div class="column input"><textarea class="form-input" name="message" placeholder="Any extra notes"></textarea></div>
+  </div>
+  <div class="row">
+    <div class="column label"></div>
+    <div class="column input align-right"><a class="button large form-submit">Submit</a></div>
+  </div>
+</section>
+{% endblock %}
+
+{% block script %}stay{% endblock %}

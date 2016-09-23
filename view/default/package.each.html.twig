@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block main %}
+<section class="header-image small">
+  <div class="background" data-background="{{ (data.image.destination ~ content.main) | absolute }}"></div>
+  <div class="middle">
+    <div class="name">{{ content.name }}</div>
+    <div class="description">{{ content.description }}</div>
+    <div class="price">
+      <span class="currency">{{ content.price }}</span>
+      <span>per person</span>
+    </div>
+    <ul class="list">
+      {% for each in content.activity %}
+        <li>
+          <a>{{ each.name }}</a>
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+</section>
+<section class="content markdown article">
+  {{ content.content | markdown }}
+  <div class="center align-right">
+    <a class="ajax-nav" href="{{ ('package/' ~ content.link ~ '/book') | absolute }}">
+      <span class="button large">Book this package now</span>
+    </a>
+  </div>
+</section>
+{% endblock %}
+
+{% block script %}stay{% endblock %}

@@ -19,7 +19,19 @@ class Page {
     $query = $dbh->prepare($sql);
     $query->execute();
     $suggestion = $query->fetchAll();
-    print $twig->render('default/home.html.twig', array('data' => $data,'content' => $content,'suggestion' => $suggestion));
+    $sql = "SELECT `id`,`name`,`fancy_svg` FROM activity";
+    $query = $dbh->prepare($sql);
+    $query->execute();
+    $activity = $query->fetchAll();
+    $sql = "SELECT `id`,`name`,`fancy_svg` FROM category";
+    $query = $dbh->prepare($sql);
+    $query->execute();
+    $category = $query->fetchAll();
+    $sql = "SELECT `id`,`name`,`fancy_svg` FROM finance";
+    $query = $dbh->prepare($sql);
+    $query->execute();
+    $finance = $query->fetchAll();
+    print $twig->render('default/home.html.twig', array('data' => $data,'content' => $content,'suggestion' => $suggestion,'category' => $category,'activity' => $activity,'category' => $category,'finance' => $finance));
   }
   public function Blog() {
     global $dbh,$data,$twig;
@@ -68,24 +80,34 @@ class Page {
   public function Stay() {
     global $dbh,$data,$twig;
     $content = Process::getSingle('page','stay','link_permalink');
-    $sql = "SELECT `id`,`name`,`rating_int`,`type_id`,`destination_id`,`link_permalink` FROM stay ORDER BY `name` ASC";
+    $sql = "SELECT `id`,`name`,`rating_int`,`type_id`,`category_ids`,`activity_ids`,`destination_id`,`link_permalink` FROM stay ORDER BY `name` ASC";
     $stay = array();
+    $types = array();
     foreach ($dbh->query($sql) as $row)
     {
       $sql = "SELECT `id`,`main_image`,`od` FROM stayimage WHERE `stay_id` = :i ORDER BY `od` LIMIT 0,1";
       $query = $dbh->prepare($sql);
       $query->execute(array(':i' => $row['id']));
       $image = $query->fetch();
+      $sql = "SELECT `price_float` FROM room WHERE `stay_id` = :i ORDER BY `price_float` LIMIT 0,1";
+      $query = $dbh->prepare($sql);
+      $query->execute(array(':i' => $row['id']));
+      $price = $query->fetch();
+      $type = Process::getSingle('type',$row['type_id']);
+      $types[$row['type_id']] = $type;
       $stay[] = array(
           'name' => $row['name'],
           'rating' => $row['rating_int'],
-          'type' => Process::getSingle('type',$row['type_id']),
+          'type' => $type,
           'destination' => Process::getSingle('destination',$row['destination_id']),
+          'category' => Process::getMultiple('category',$row['category_ids']),
+          'activity' => Process::getMultiple('activity',$row['activity_ids']),
           'image' => $image,
+          'price' => $price,
           'link' => $row['link_permalink']
           );
     }
-    print $twig->render('default/stay.html.twig', array('data' => $data,'content' => $content,'stay' => $stay));
+    print $twig->render('default/stay.html.twig', array('data' => $data,'content' => $content,'stay' => $stay,'type' => $types));
   }
   public function stayEach() {
     global $dbh,$data,$twig;
@@ -113,11 +135,25 @@ class Page {
       );
     }
 
+    $sql = "SELECT `transport_id`,`duration_time` FROM transporttime WHERE `stay_id` = :i";
+    $query = $dbh->prepare($sql);
+    $query->execute(array(':i' => $content['id']));
+    $transports = $query->fetchAll();
+    $means = array();
+    foreach ($transports as $transport) {
+      $means[] = array(
+        'transport' => Process::getSingle('transport',$transport['transport_id']),
+        'duration' => $transport['duration_time'],
+        'split' => explode(':',$transport['duration_time'])
+      );
+    }
+
+    $content['transport'] = $means;
+
     $sql = "SELECT `id`,`name`,`main_image` FROM stayimage WHERE `stay_id` = :i ORDER BY `od`";
     $query = $dbh->prepare($sql);
     $query->execute(array(':i' => $content['id']));
     $images = $query->fetchAll();
-
 
     print $twig->render('default/stay.each.html.twig', array('data' => $data,'content' => $content,'rooms' => $stayroom,'images' => $images));
   }
@@ -126,11 +162,17 @@ class Page {
     $content = Process::getSingle('stay',$data['path']['argument'][1],'link_permalink');
     print $twig->render('default/tripadvisor.html.twig', array('data' => $data,'content' => $content));
   }
-  public function updateBooking(){
+  public function update(){
       global $session;
       $session->start();
-      $segment = $session->getSegment('booking');
-      $segment->set('items', $_POST['booking']);
+      if($_POST['booking']){
+        $segment = $session->getSegment('booking');
+        $segment->set('items', $_POST['booking']);
+      }
+      elseif($_POST['preferences']){
+        $segment = $session->getSegment('preferences');
+        $segment->set('settings', $_POST['preferences']);
+      }
       $session->commit();
   }
   public function viewBooking(){
@@ -257,6 +299,74 @@ class Page {
 
     print $twig->render('default/offer.each.html.twig', array('data' => $data,'content' => $content));
   }
+  public function Package() {
+    global $dbh,$data,$twig;
+    $content = Process::getSingle('page','package','link_permalink');
+    $sql = "SELECT `id`,`name`,`description`,`main_image`,`activity_ids`,`price_float`,`link_permalink` FROM package";
+    $package = array();
+    foreach ($dbh->query($sql) as $row)
+    {
+      $package[] = array(
+          'name' => $row['name'],
+          'description' => $row['description'],
+          'main_image' => $row['main_image'],
+          'price' => $row['price_float'],
+          'link' => $row['link_permalink']
+          );
+    }
+    print $twig->render('default/package.html.twig', array('data' => $data,'content' => $content,'package' => $package));
+  }
+  public function packageEach() {
+    global $dbh,$data,$twig;
+    $content = Process::getSingle('package',$data['path']['argument'][1],'link_permalink');
+    $content['title'] = $content['name'];
+
+    print $twig->render('default/package.each.html.twig', array('data' => $data,'content' => $content));
+  }
+  public function packageBook() {
+    global $dbh,$data,$twig;
+    $content = Process::getSingle('package',$data['path']['argument'][1],'link_permalink');
+    $content['title'] = $content['name'];
+
+    print $twig->render('default/package.book.html.twig', array('data' => $data,'content' => $content));
+  }
+  public function offerBook() {
+    global $dbh,$data,$twig;
+    $content = Process::getSingle('offer',$data['path']['argument'][1],'link_permalink');
+    $content['title'] = $content['name'];
+
+    print $twig->render('default/offer.book.html.twig', array('data' => $data,'content' => $content));
+  }
+  public function stayBook() {
+    global $dbh,$data,$twig;
+    $content = Process::getSingle('stay',$data['path']['argument'][1],'link_permalink');
+    $content['title'] = $content['name'];
+
+    $sql = "SELECT `id`,`name`,`price_float`,`adults_int`,`children_int` FROM room WHERE `stay_id` = :i ORDER BY `od`";
+    $query = $dbh->prepare($sql);
+    $query->execute(array(':i' => $content['id']));
+    $rooms = $query->fetchAll();
+    $stayroom = array();
+    foreach ($rooms as $room) {
+      $sql = "SELECT `id`,`main_image` FROM roomimage WHERE `stay_id` = :j AND `room_id` = :i ORDER BY `od`";
+      $query = $dbh->prepare($sql);
+      $query->execute(array(':j' => $content['id'],':i' => $room['id']));
+      $images = $query->fetchAll();
+      $stayroom[] = array(
+        'id' => $room['id'],
+        'name' => $room['name'],
+        'description' => $room['description_markdown'],
+        'price' => $room['price_float'],
+        'adults' => $room['adults_int'],
+        'children' => $room['children_int'],
+        'images' => $images
+      );
+    }
+
+    $content['room'] = $stayroom;
+
+    print $twig->render('default/stay.book.html.twig', array('data' => $data,'content' => $content));
+  }
   public function Download() {
     global $dbh,$data,$twig;
     $content = Process::getSingle('page','download','link_permalink');
@@ -275,10 +385,8 @@ class Page {
           'preview' => $row['preview_image'],
           'count' => $row['count_int']
           );
-      $category[$row['category_id']] = $categoryrow['name'];
+      $category[$row['category_id']] = $categoryrow;
     }
-
-    $category = array_unique($category);
 
     print $twig->render('default/download.html.twig', array('data' => $data,'content' => $content,'download' => $download,'category' => $category));
   }
@@ -292,5 +400,212 @@ class Page {
     $q->execute(array($content['id']));
 
     print(json_encode($json));
+  }
+  public function FAQ() {
+    global $dbh,$data,$twig;
+    $content = Process::getSingle('page','faq','link_permalink');
+    $sql = "SELECT `id`,`question_text`,`answer_markdown` FROM faq ORDER BY `od`";
+    $faq = array();
+    foreach ($dbh->query($sql) as $row)
+    {
+      $faq[] = array(
+          'question' => $row['question_text'],
+          'answer' => $row['answer_markdown'],
+          );
+    }
+    print $twig->render('default/faq.html.twig', array('data' => $data,'content' => $content,'faq' => $faq));
+  }
+  static function About() {
+    global $dbh,$data,$twig;
+    $content = Process::getSingle('page','about','link_permalink');
+    print $twig->render('default/content.html.twig', array('data' => $data,'content' => $content));
+  }
+  static function Contact() {
+    global $dbh,$data,$twig;
+    $content = Process::getSingle('page','contact','link_permalink');
+    print $twig->render('default/contact.html.twig', array('data' => $data,'content' => $content));
+  }
+  public function Send() {
+      global $twig,$data,$mail,$mailer;
+      if(isset($_POST['formdata'])){
+          $to = $data['email']['to']['address'];
+          $from = $data['email']['from']['address'];
+          $subject = 'From website';
+          $message = '';
+          foreach ($_POST['formdata'] as $row) {
+              $key = ucwords($row['name']);
+              $value = $row['value'];
+              if($row['name']=='from'||$row['name']=='to'){
+                $d=new DateTime($value);
+                $value = $d->format('l jS F Y');
+              }
+              if(is_array($value))
+              $value = implode(',',$value);
+              $message .= "$key: $value<br>";
+          }
+          $mail->setFrom($from)
+              ->addTo($to)
+              ->setSubject($subject)
+              ->setHTMLBody($message);
+          $mailer->send($mail);
+          return true;
+      }
+  }
+  public function Country() {
+    global $dbh,$data,$twig;
+    $content = Process::getSingle('country',$data['path']['argument'][1],'link_permalink');
+    $content['title'] = $content['name'];
+    $sql = "SELECT `id`,`name`,`content_markdown` FROM tabbed WHERE `country_id` = :i";
+    $query = $dbh->prepare($sql);
+    $query->execute(array(':i' => $content['id']));
+    $tabs = $query->fetchAll();
+    $sql = "SELECT `id`,`name`,`link_permalink`,`highlight_bool`,`description_markdown` FROM destination";
+    $destination = array();
+    foreach ($dbh->query($sql) as $row)
+    {
+      $destination[] = array(
+          'id' => $row['id'],
+          'name' => $row['name'],
+          'highlight' => $row['highlight_bool'],
+          'description' => $row['description_markdown'],
+          'link' => $row['link_permalink']
+          );
+    }
+    $sql = "SELECT `id`,`name`,`rating_int`,`type_id`,`destination_id`,`link_permalink` FROM stay ORDER BY `name` ASC";
+    $stay = array();
+    foreach ($dbh->query($sql) as $row)
+    {
+      $sql = "SELECT `id`,`main_image`,`od` FROM stayimage WHERE `stay_id` = :i ORDER BY `od` LIMIT 0,1";
+      $query = $dbh->prepare($sql);
+      $query->execute(array(':i' => $row['id']));
+      $image = $query->fetch();
+      $stay[] = array(
+          'id' => $row['id'],
+          'name' => $row['name'],
+          'rating' => $row['rating_int'],
+          'type' => Process::getSingle('type',$row['type_id']),
+          'destination' => Process::getSingle('destination',$row['destination_id']),
+          'image' => $image,
+          'link' => $row['link_permalink']
+          );
+    }
+    $sql = "SELECT `id`,`name`,`link_permalink` FROM continent";
+    $continent = array();
+    foreach ($dbh->query($sql) as $row)
+    {
+      $continent[] = array(
+          'id' => $row['id'],
+          'name' => $row['name'],
+          'link' => $row['link_permalink']
+          );
+    }
+    $sql = "SELECT `name`,`continent_ids`,`website`,`logo_svg` FROM airline";
+    $airline = array();
+    foreach ($dbh->query($sql) as $row)
+    {
+      $airline[] = array(
+          'name' => $row['name'],
+          'continent' => explode(',',$row['continent_ids']),
+          'website' => $row['website'],
+          'logo' => $row['logo_svg']
+          );
+    }
+    print $twig->render('default/country.each.html.twig', array('data' => $data,'content' => $content,'destination' => $destination,'continent' => $continent,'airline' => $airline,'stay' => $stay,'tabs' => $tabs));
+  }
+  public function plan() {
+    global $dbh,$data,$twig,$session;
+    $content = Process::getSingle('page','plan','link_permalink');
+    $session->start();
+    $segment = $session->getSegment('preferences');
+    $preferences = $segment->get('settings');
+    $sql = "SELECT `id`,`price_float` FROM `finance` ORDER BY `price_float` DESC";
+    $query = $dbh->prepare($sql);
+    $query->execute();
+    $finance = $query->fetchAll();
+    $sql = "SELECT `id`,`name`,`rating_int`,`type_id`,`category_ids`,`activity_ids`,`destination_id`,`link_permalink` FROM stay";
+    $stay = array();
+    $maxrelevance = 0;
+    foreach ($dbh->query($sql) as $row){
+      $relevance = 0;
+      $sql = "SELECT `id`,`main_image`,`od` FROM stayimage WHERE `stay_id` = :i ORDER BY `od` LIMIT 0,1";
+      $query = $dbh->prepare($sql);
+      $query->execute(array(':i' => $row['id']));
+      $image = $query->fetch();
+      $sql = "SELECT `price_float` FROM room WHERE `stay_id` = :i ORDER BY `price_float` LIMIT 0,1";
+      $query = $dbh->prepare($sql);
+      $query->execute(array(':i' => $row['id']));
+      $price = $query->fetch();
+      foreach ($finance as $money) {
+        if($price['price_float']>$money['price_float']){
+          $row['finance_ids'] = $money['id'];
+          break;
+        }
+      }
+      foreach ($preferences as $each) {
+        $arrayfromdb = explode(',',$row[$each['name'].'_ids']);
+        foreach ($each['value'] as $spec){
+          if(in_array($spec,$arrayfromdb)){
+            $relevance++;
+          }
+        }
+      }
+      if($relevance>0){
+        $stay[] = array(
+            'name' => $row['name'],
+            'rating' => $row['rating_int'],
+            'type' => Process::getSingle('type',$row['type_id']),
+            'destination' => Process::getSingle('destination',$row['destination_id']),
+            'category' => Process::getMultiple('category',$row['category_ids']),
+            'activity' => Process::getMultiple('activity',$row['activity_ids']),
+            'image' => $image,
+            'price' => $price,
+            'relevance' => $relevance,
+            'link' => $row['link_permalink']
+            );
+      }
+      if($relevance>$maxrelevance)
+      $maxrelevance = $relevance;
+    }
+    $content['relevance'] = $maxrelevance;
+    usort($stay, function($a, $b) {
+        return $b['relevance'] - $a['relevance'];
+    });
+    print $twig->render('default/plan.html.twig', array('data' => $data,'content' => $content,'stay' => $stay));
+  }
+  public function booking() {
+    global $dbh,$data,$twig,$session;
+    $content = Process::getSingle('page','plan','link_permalink');
+    $session->start();
+    $segment = $session->getSegment('preferences');
+    $preferences = $segment->get('settings');
+
+    $array = Array();
+
+    $sql = "SELECT `id`,`name` FROM activity";
+    $query = $dbh->prepare($sql);
+    $query->execute();
+    $array['activity'] = $query->fetchAll();
+
+    $sql = "SELECT `id`,`name` FROM category";
+    $query = $dbh->prepare($sql);
+    $query->execute();
+    $array['category'] = $query->fetchAll();
+
+    $sql = "SELECT `id`,`name` FROM finance";
+    $query = $dbh->prepare($sql);
+    $query->execute();
+    $array['finance'] = $query->fetchAll();
+
+    $list = Array();
+
+    foreach ($preferences as $row) {
+      $values = $row['value'];
+      foreach ($array[$row['name']] as $each) {
+        if(in_array($each['id'],$values))
+        $list[$row['name']][] = $each['name'];
+      }
+    }
+
+    print $twig->render('default/plan.book.html.twig', array('data' => $data,'content' => $content,'list' => $list));
   }
 }

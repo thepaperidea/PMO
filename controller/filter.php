@@ -87,6 +87,9 @@ class Filter {
       else
       return "<input type='text' class='datetimepicker' name='$column' value='$value'>";
     }
+    elseif($args[1]=="time"){
+      return "<input type='text' class='timepicker' name='$column' value='$value'>";
+    }
     elseif(($args[1]=="file")||($args[1]=="svg"))
     return "<input type='hidden' name='$column' value='$value'><input type='file' name='$column' value='$value'>";
     elseif($args[1]=="text")
