@@ -489,7 +489,7 @@ footer>ul>li>a{
   bottom:0;
   left:0;
   z-index:3;
-  background:#FCB415;
+  background:#f9f9f9;
   -webkit-transition:-webkit-transform 400ms ease;
           transition:transform 400ms ease;
   visibility:hidden;
@@ -554,7 +554,7 @@ footer>ul>li>a{
 }
 #lightbox>div>h2{
   font-size:1.8em;
-  color:white;
+	color:rgba(0,0,0,.6);
 	margin:24px 0;
 }
 #lightbox>div>ul{
@@ -563,8 +563,8 @@ footer>ul>li>a{
 #lightbox>div>ul>li{
   display:inline-block;
   margin-right:24px;
-  width:50px;
-  height:50px;
+  width:60px;
+  height:60px;
   position:relative;
 }
 #lightbox>div>ul>li>a{
@@ -572,7 +572,7 @@ footer>ul>li>a{
 	height:100%;
   display:block;
   cursor:pointer;
-	background-size:cover;
+	background-size:auto 120%;
 	background-position:center;
 	background-repeat:no-repeat;
   -webkit-transition:-webkit-transform 200ms ease;
@@ -597,14 +597,14 @@ footer>ul>li>a{
       -ms-transform:scale(1.2);
           transform:scale(1.2);
 }
-#lightbox>div>ul>li.active>span{
+#lightbox>div>ul>li.active>span,#lightbox>div>ul>li.active:hover>span{
   visibility:visible;
   opacity:1;
   filter: alpha(opacity=100);
   -webkit-transform:translate(-50%,6px);
       -ms-transform:translate(-50%,6px);
           transform:translate(-50%,6px);
-  color:rgba(0,0,0,.6);
+  color:rgba(0,0,0,1);
 }
 #lightbox>div>ul>li:hover>span{
   visibility:visible;

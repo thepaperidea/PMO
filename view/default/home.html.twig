@@ -8,19 +8,19 @@
       <h2>What do you want to do?</h2>
       <ul class="multiple-select select-change" data-id="activity">
         {% for each in activity %}
-          <li data-id="{{ each.id }}"><a class="background" data-background="{{ (data.file.destination ~ each.fancy_svg) | absolute }}"></a><span>{{ each.name }}</span></li>
+          <li data-id="{{ each.id }}"><a class="background" data-background="{{ (data.image.destination ~ each.fancy_image_120x120) | absolute }}"></a><span>{{ each.name }}</span></li>
         {% endfor %}
       </ul>
       <h2>What are you looking for?</h2>
       <ul class="multiple-select select-change" data-id="category">
         {% for each in category %}
-          <li data-id="{{ each.id }}"><a class="background" data-background="{{ (data.file.destination ~ each.fancy_svg) | absolute }}"></a><span>{{ each.name }}</span></li>
+          <li data-id="{{ each.id }}"><a class="background" data-background="{{ (data.image.destination ~ each.fancy_image_120x120) | absolute }}"></a><span>{{ each.name }}</span></li>
         {% endfor %}
       </ul>
       <h2>What budget are you on?</h2>
       <ul class="single-select select-change" data-id="finance">
         {% for each in finance %}
-          <li data-id="{{ each.id }}"><a class="background" data-background="{{ (data.file.destination ~ each.fancy_svg) | absolute }}"></a><span>{{ each.name }}</span></li>
+          <li data-id="{{ each.id }}"><a class="background" data-background="{{ (data.image.destination ~ each.fancy_image_120x120) | absolute }}"></a><span>{{ each.name }}</span></li>
         {% endfor %}
       </ul>
       <a class="ajax-nav" href="{{ 'plan' | absolute }}"><span class="button large margin-right">Show me my options!</span></a>

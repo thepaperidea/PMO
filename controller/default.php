@@ -19,15 +19,15 @@ class Page {
     $query = $dbh->prepare($sql);
     $query->execute();
     $suggestion = $query->fetchAll();
-    $sql = "SELECT `id`,`name`,`fancy_svg` FROM activity";
+    $sql = "SELECT `id`,`name`,`fancy_image_120x120` FROM activity";
     $query = $dbh->prepare($sql);
     $query->execute();
     $activity = $query->fetchAll();
-    $sql = "SELECT `id`,`name`,`fancy_svg` FROM category";
+    $sql = "SELECT `id`,`name`,`fancy_image_120x120` FROM category";
     $query = $dbh->prepare($sql);
     $query->execute();
     $category = $query->fetchAll();
-    $sql = "SELECT `id`,`name`,`fancy_svg` FROM finance";
+    $sql = "SELECT `id`,`name`,`fancy_image_120x120` FROM finance";
     $query = $dbh->prepare($sql);
     $query->execute();
     $finance = $query->fetchAll();
