@@ -38,49 +38,6 @@
         <li>{{ each.name }}</li>
       {% endfor %}
     </ul>
-
-    <!-- <table>
-      <tr>
-        <td>
-          <label>Check in</label>
-        </td>
-        <td>
-          <label>Check out</label>
-        </td>
-        <td>
-          <label>Adults</label>
-        </td>
-        <td>
-          <label>Children</label>
-        </td>
-        <td><input class="booking-input" type="hidden" name="stayid" value="{{ content.id }}" /></td>
-      </tr>
-      <tr>
-        <td>
-          <input class="booking-input" type="date" name="checkin" />
-        </td>
-        <td>
-          <input class="booking-input" type="date" name="checkout" />
-        </td>
-        <td>
-          <select class="booking-input" name="adults">
-            {% for i in 1..20 %}
-              <option value="{{ i }}">{{ i }}</option>
-            {% endfor %}
-          </select>
-        </td>
-        <td>
-          <select class="booking-input" name="children">
-            {% for i in 1..20 %}
-              <option value="{{ i }}">{{ i }}</option>
-            {% endfor %}
-          </select>
-        </td>
-        <td class="booking-button">
-          <a class="ajax-nav" href="{{ 'booking' | absolute }}">Book Now</a>
-        </td>
-      </tr>
-    </table> -->
   </div>
 </section>
 <section class="center content">

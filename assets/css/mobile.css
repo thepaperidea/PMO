@@ -5,6 +5,9 @@ header{
 #background{
   background-image:url('../../assets/img/background-mobile.jpg');
 }
+.home .nav-up{
+  top:0;
+}
 .nav-up {
   top: -100px;
 }
@@ -74,10 +77,18 @@ main {
   height:260px;
 }
 .stay-map{
-  height:360px;
+  height:auto;
 }
 .transport{
   min-width: 60%;
+  display:block;
+  position:relative;
+  top:auto;
+  left:auto;
+  transform:none;
+}
+.stay-map>.map{
+  height:360px;
 }
 .rooms>li{
   width:calc((100% - 20px) / 2);
@@ -85,6 +96,9 @@ main {
 }
 .rooms>li:nth-child(2n){
   margin-right:0;
+}
+#lightbox>div>ul>li{
+  margin-bottom:24px;
 }
 #tripadvisor{
   display:none;
