@@ -100,7 +100,7 @@ $data = array(
       'route' => 'contact'
     ),
     array(
-      'name' => 'Frequently Asked',
+      'name' => 'FAQ',
       'route' => 'faq'
     )
   ),
@@ -193,6 +193,10 @@ $data = array(
       array(
 				'name' => 'Airline',
 				'table' => 'airline'
+			),
+      array(
+				'name' => 'Team',
+				'table' => 'team'
 			)
     )
   ),

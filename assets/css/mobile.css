@@ -1,5 +1,6 @@
 header{
   padding:0;
+  -webkit-transition:top 200ms ease-in-out;
   transition: top 200ms ease-in-out;
 }
 #background{
@@ -44,6 +45,7 @@ main {
   display:block;
   width:auto;
   border:0;
+  min-height:0;
 }
 .tiles>li>a>span.image,.highlight.tiles>li:first-child>a>span.image{
   height:220px;
@@ -85,7 +87,8 @@ main {
   position:relative;
   top:auto;
   left:auto;
-  transform:none;
+  -webkit-transform:none;
+          transform:none;
 }
 .stay-map>.map{
   height:360px;
@@ -207,4 +210,30 @@ div.navigation-hold>.navigation>li{
 }
 .social>li{
   padding:10px;
+}
+.table .column.label{
+  text-align:left;
+  padding:10px 0;
+}
+.transport-interactive {
+    position: static;
+    text-align: center;
+}
+.booking .input-group input{
+  width:80px;
+  padding:7px 10px;
+}
+.booking .input-group .hold:last-child{
+  margin-right:0;
+}
+.about>li>div:first-child{
+  width:100px;
+  height:100px;
+}
+.about>li>div:last-child{
+  width:calc(100% - 100px);
+  padding:10px 20px;
+}
+ul.navigation>li>a{
+  padding:12px;
 }

@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block main %}
+{% if content.header %}
+<section class="header-image">
+  <div class="background" data-background="{{ (data.image.destination ~ content.header) | absolute }}"></div>
+</section>
+{% endif %}
+<section class="center content">
+  <h1>{{ content.name }}<span>{{ content.description }}</span></h1>
+  <div class="markdown">{{ content.content | markdown }}</div>
+</section>
+<section class="center content">
+  <h2>Team Travrnr</h2>
+  <ul class="about">
+    {% for each in team %}
+      <li>
+        <div class="background" data-background="{{ (data.image.destination ~ each.profile) | absolute }}"></div>
+        <div>
+          <h3>{{ each.name }}</h3>
+          <h4>{{ each.designation }}</h4>
+          <p>{{ each.description }}</p>
+        </div>
+      </li>
+    {% endfor %}
+  </ul>
+</section>
+{% endblock %}

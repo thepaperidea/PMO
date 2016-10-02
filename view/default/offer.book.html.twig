@@ -23,10 +23,10 @@
     <div class="column input"><input class="form-input required" type="text" name="phone" placeholder="+1-541-754-3010"/></div>
   </div>
   <div class="row">
-    <div class="column label"><label>Arrival - departure</label></div>
-    <div class="column input double">
-      <input class="form-input required" type="date" name="from"/>
-      <input class="form-input required" type="date" name="to"/>
+    <div class="column label"><label>Arrival / Departure</label></div>
+    <div class="input-daterange column input double" id="datepicker">
+      <input placeholder="Arrival" type="text" class="input-sm form-control form-input required" name="start" />
+      <input placeholder="Departure" type="text" class="input-sm form-control form-input required" name="end" />
     </div>
   </div>
   <div class="row">
@@ -47,4 +47,4 @@
 </section>
 {% endblock %}
 
-{% block script %}stay{% endblock %}
+{% block script %}staybooking{% endblock %}

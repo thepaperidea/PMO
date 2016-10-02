@@ -1,11 +1,18 @@
 {% extends 'base.html.twig' %}
 
 {% block main %}
-<section class="content">
-  <h1>{{ content.name }}</h1>
-</section>
-<section class="content markdown">
-  {{ content.content | markdown }}
+<section class="title book">
+  <div class="center">
+    <h1>{{ content.name }}</h1>
+    <span class="inline-child">
+      <span class="location"><a class="ajax-nav" href="{{ ('country/' ~ content.destination.country.link) | absolute }}">{{ content.destination.country.name }}</a><a class="ajax-nav" href="{{ ('destination/' ~ content.destination.link) | absolute }}">{{ content.destination.name }}</a></span>
+      <ul class="rating">
+        {% for i in 1..content.rating %}
+          <li></li>
+        {% endfor %}
+      </ul>
+    </span>
+  </div>
 </section>
 <section class="center form table">
   <div class="form-return"></div>
@@ -23,10 +30,10 @@
     <div class="column input"><input class="form-input required" type="text" name="phone" placeholder="+1-541-754-3010"/></div>
   </div>
   <div class="row">
-    <div class="column label"><label>Arrival - departure</label></div>
-    <div class="column input double">
-      <input class="form-input required" type="date" name="from"/>
-      <input class="form-input required" type="date" name="to"/>
+    <div class="column label"><label>Check-in / out</label></div>
+    <div class="input-daterange column input double" id="datepicker">
+      <input placeholder="Check-in" type="text" class="input-sm form-control form-input required" name="start" value="{{ content.dates.start }}" />
+      <input placeholder="Check-out" type="text" class="input-sm form-control form-input required" name="end" value="{{ content.dates.end }}" />
     </div>
   </div>
   <div class="row">

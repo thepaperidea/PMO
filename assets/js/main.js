@@ -25,12 +25,19 @@ function script(script){
   else if(script=="stayall"){
 
   }
+  else if(script=="staybooking"){
+    bookingButton();
+  }
   else if(script=="stay"){
-    //bookingButton();
+    svgCircle();
+    bookingButton();
+    bookingInputAJAX();
+    tripadvisor();
     swipeimages();
     initMap();
   }
   else if(script=="staybook"){
+    bookingButton();
     roomcount();
   }
   else if(script=="article"){
@@ -40,6 +47,21 @@ function script(script){
     countryTabs();
     contentWrap();
   }
+}
+
+function svgCircle(){
+  var scrollcircle = true;
+  $(window).on('scroll',function() {
+     if($(window).scrollTop() + $(window).height() > ($(document).height()-500)) {
+       if(scrollcircle){
+         $('svg>circle').each(function() {
+           var line = $(this).data('line');
+           $(this).css('stroke-dashoffset',line);
+         });
+         scrollcircle = false;
+       }
+     }
+  });
 }
 
 function swipeimages() {
@@ -294,11 +316,11 @@ function findHoliday(){
   $('#lightbox').toggleClass('active');
 }
 
-function bookingButton(){
-  $('.booking-input').on('change',function(){
+function bookingInputAJAX(){
+  $('.booking input').on('change',function(){
     var empty = true;
     arr = [];
-    $( ".booking-input" ).each(function() {
+    $( ".booking input" ).each(function() {
       var name = $(this).attr('name');
       var value = $(this).val();
       arr.push({
@@ -309,14 +331,24 @@ function bookingButton(){
       empty = false;
     });
     if(empty){
-      $('.booking-button').addClass('active');
+      $('.booking .button').addClass('active');
       var url = $('html').data('url');
       $.post( url+"update", { booking: arr } );
     }
     else{
-      $('.booking-button').removeClass('active');
+      $('.booking .button').removeClass('active');
     }
   });
+}
+
+function bookingButton(){
+  $('.input-daterange').datepicker({
+    format: "dd M yyyy",
+    startDate: "today"
+  });
+}
+
+function tripadvisor(){
   var count = $('#tripadvisor script').length;
   if(count==1){
     var url = $('html').data('url');
@@ -352,7 +384,7 @@ function initMap() {
       zoom: zoom,
       center: myLatLng,
       scrollwheel: false,
-      disableDefaultUI: true,
+      draggable: !("ontouchend" in document),
       styles: [{"featureType":"water","elementType":"geometry","stylers":[{"color":"#e9e9e9"},{"lightness":17}]},{"featureType":"landscape","elementType":"geometry","stylers":[{"color":"#f5f5f5"},{"lightness":20}]},{"featureType":"road.highway","elementType":"geometry.fill","stylers":[{"color":"#ffffff"},{"lightness":17}]},{"featureType":"road.highway","elementType":"geometry.stroke","stylers":[{"color":"#ffffff"},{"lightness":29},{"weight":0.2}]},{"featureType":"road.arterial","elementType":"geometry","stylers":[{"color":"#ffffff"},{"lightness":18}]},{"featureType":"road.local","elementType":"geometry","stylers":[{"color":"#ffffff"},{"lightness":16}]},{"featureType":"poi","elementType":"geometry","stylers":[{"color":"#f5f5f5"},{"lightness":21}]},{"featureType":"poi.park","elementType":"geometry","stylers":[{"color":"#dedede"},{"lightness":21}]},{"elementType":"labels.text.stroke","stylers":[{"visibility":"on"},{"color":"#ffffff"},{"lightness":16}]},{"elementType":"labels.text.fill","stylers":[{"saturation":36},{"color":"#333333"},{"lightness":40}]},{"elementType":"labels.icon","stylers":[{"visibility":"off"}]},{"featureType":"transit","elementType":"geometry","stylers":[{"color":"#f2f2f2"},{"lightness":19}]},{"featureType":"administrative","elementType":"geometry.fill","stylers":[{"color":"#fefefe"},{"lightness":20}]},{"featureType":"administrative","elementType":"geometry.stroke","stylers":[{"color":"#fefefe"},{"lightness":17},{"weight":1.2}]}]
     });
 

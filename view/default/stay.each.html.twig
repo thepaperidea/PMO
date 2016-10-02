@@ -33,11 +33,12 @@
 <section class="shadow booking">
   <div class="center">
     <span class="button large float-right"><a class="ajax-nav" href="{{ ('stay/' ~ content.link ~ '/book') | absolute }}">Book now</a></span>
-    <ul class="category">
-      {% for each in content.category %}
-        <li>{{ each.name }}</li>
-      {% endfor %}
-    </ul>
+    <div class="input-group">
+      <div class="input-daterange" id="datepicker">
+        <div class="hold"><input placeholder="Check-in" type="text" class="input-sm form-control" name="start" value="{{ dates.start }}" /></div>
+        <div class="hold"><input placeholder="Check-out" type="text" class="input-sm form-control" name="end" value="{{ dates.end }}" /></div>
+      </div>
+    </div>
   </div>
 </section>
 <section class="center content">
@@ -89,7 +90,26 @@
 </section>
 {% if content.latitude %}
 <section class="stay-map">
-  <ul class="transport">
+  <ul class="transport-interactive shadow">
+    {% for each in content.transport %}
+    <li>
+      <a>
+        <span class="circle">
+          <svg x="0px" y="0px" viewBox="0 0 65 65" enable-background="new 0 0 65 65" xml:space="preserve">
+            <circle data-line="{{ each.dividant }}" fill="#FFFFFF" stroke="#000000" stroke-width="5" stroke-miterlimit="10" cx="32.5" cy="32.5" r="30"/>
+          </svg>
+        </span>
+        <span class="name">{{ each.transport.name }}</span>
+        <span class="time">
+          {% if each.split[0] != '00' %}{{ each.split[0] }} hour{% endif %}
+          {% if each.split[1] != '00' %}{{ each.split[1] }} min{% endif %}
+          {% if each.split[2] != '00' %}{{ each.split[2] }} secs{% endif %}
+        </span>
+      </a>
+    </li>
+    {% endfor %}
+  </ul>
+  <!-- <ul class="transport">
     {% for each in content.transport %}
     <li>
       <a>
@@ -102,7 +122,7 @@
       </a>
     </li>
     {% endfor %}
-  </ul>
+  </ul> -->
   <div class="map" data-latitude="{{ content.latitude }}" data-longitude="{{ content.longitude }}" data-zoom="8" data-airportlatitude="{{ data.constant.airport.latitude }}" data-airportlongitude="{{ data.constant.airport.longitude }}"></div>
 </section>
 {% endif %}

@@ -110,7 +110,16 @@ class Page {
     print $twig->render('default/stay.html.twig', array('data' => $data,'content' => $content,'stay' => $stay,'type' => $types));
   }
   public function stayEach() {
-    global $dbh,$data,$twig;
+    global $dbh,$data,$twig,$session;
+    $session->start();
+    $segment = $session->getSegment('booking');
+    $items = $segment->get('items');
+
+    $dates = array();
+    foreach ($items as $item) {
+      $dates[$item['name']] = $item['value'];
+    }
+
     $content = Process::getSingle('stay',$data['path']['argument'][1],'link_permalink');
     $content['title'] = $content['name'];
 
@@ -141,10 +150,12 @@ class Page {
     $transports = $query->fetchAll();
     $means = array();
     foreach ($transports as $transport) {
+      $split = explode(':',$transport['duration_time']);
       $means[] = array(
         'transport' => Process::getSingle('transport',$transport['transport_id']),
         'duration' => $transport['duration_time'],
-        'split' => explode(':',$transport['duration_time'])
+        'split' => $split,
+        'dividant' => 188-(($split[0]+($split[1]/60)+($split[2]/3600))/12*188)
       );
     }
 
@@ -155,7 +166,7 @@ class Page {
     $query->execute(array(':i' => $content['id']));
     $images = $query->fetchAll();
 
-    print $twig->render('default/stay.each.html.twig', array('data' => $data,'content' => $content,'rooms' => $stayroom,'images' => $images));
+    print $twig->render('default/stay.each.html.twig', array('data' => $data,'content' => $content,'rooms' => $stayroom,'images' => $images,'dates' => $dates));
   }
   public function Tripadvisor(){
     global $dbh,$data,$twig;
@@ -180,41 +191,7 @@ class Page {
       $session->start();
       $segment = $session->getSegment('booking');
       $items = $segment->get('items');
-      $values = array();
-      foreach($items as $item){
-        if($item['name']=='stayid')
-        $id = $item['value'];
-        $values[$item['name']] = $item['value'];
-      }
-      if($id){
-        $days = (strtotime($values['checkout'])-strtotime($values['checkin']))/86400;
-        $values['days'] = $days;
-        $content = Process::getSingle('stay',$id);
-        $content['title'] = $content['name'].' Booking';
-
-        $sql = "SELECT `id`,`name`,`price_float`,`adults_int`,`children_int` FROM room WHERE `stay_id` = :i ORDER BY `od`";
-        $query = $dbh->prepare($sql);
-        $query->execute(array(':i' => $content['id']));
-        $rooms = $query->fetchAll();
-        $stayroom = array();
-        foreach ($rooms as $room) {
-          $sql = "SELECT `id`,`main_image` FROM roomimage WHERE `stay_id` = :j AND `room_id` = :i ORDER BY `od`";
-          $query = $dbh->prepare($sql);
-          $query->execute(array(':j' => $content['id'],':i' => $room['id']));
-          $images = $query->fetchAll();
-          $stayroom[] = array(
-            'id' => $room['id'],
-            'name' => $room['name'],
-            'description' => $room['description_markdown'],
-            'price' => $room['price_float'],
-            'adults' => $room['adults_int'],
-            'children' => $room['children_int'],
-            'images' => $images
-          );
-        }
-
-        print $twig->render('default/booking.html.twig', array('data' => $data,'content' => $content,'rooms' => $stayroom,'values' => $values));
-      }
+      print_r($items);
   }
   public function stayJSON() {
     header("Content-type: application/json");
@@ -338,7 +315,16 @@ class Page {
     print $twig->render('default/offer.book.html.twig', array('data' => $data,'content' => $content));
   }
   public function stayBook() {
-    global $dbh,$data,$twig;
+    global $dbh,$data,$twig,$session;
+    $session->start();
+    $segment = $session->getSegment('booking');
+    $items = $segment->get('items');
+
+    $dates = array();
+    foreach ($items as $item) {
+      $dates[$item['name']] = $item['value'];
+    }
+
     $content = Process::getSingle('stay',$data['path']['argument'][1],'link_permalink');
     $content['title'] = $content['name'];
 
@@ -364,6 +350,7 @@ class Page {
     }
 
     $content['room'] = $stayroom;
+    $content['dates'] = $dates;
 
     print $twig->render('default/stay.book.html.twig', array('data' => $data,'content' => $content));
   }
@@ -418,7 +405,18 @@ class Page {
   static function About() {
     global $dbh,$data,$twig;
     $content = Process::getSingle('page','about','link_permalink');
-    print $twig->render('default/content.html.twig', array('data' => $data,'content' => $content));
+    $sql = "SELECT `name`,`designation`,`profile_image_300x300`,`description_text` FROM team";
+    $team = array();
+    foreach ($dbh->query($sql) as $row)
+    {
+      $team[] = array(
+          'name' => $row['name'],
+          'designation' => $row['designation'],
+          'profile' => $row['profile_image_300x300'],
+          'description' => $row['description_text'],
+          );
+    }
+    print $twig->render('default/about.html.twig', array('data' => $data,'content' => $content,'team' => $team));
   }
   static function Contact() {
     global $dbh,$data,$twig;
