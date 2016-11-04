@@ -32,11 +32,18 @@
 </section>
 <section class="shadow booking">
   <div class="center">
-    <span class="button large float-right"><a class="ajax-nav" href="{{ ('stay/' ~ content.link ~ '/book') | absolute }}">Book now</a></span>
+    <span class="button large float-right"><a class="ajax-nav" href="{{ ('stay/' ~ content.link ~ '/book') | absolute }}">Book</a></span>
     <div class="input-group">
       <div class="input-daterange" id="datepicker">
-        <div class="hold"><input placeholder="Check-in" type="text" class="input-sm form-control" name="start" value="{{ dates.start }}" /></div>
-        <div class="hold"><input placeholder="Check-out" type="text" class="input-sm form-control" name="end" value="{{ dates.end }}" /></div>
+        <div class="hold"><input placeholder="Check-in" type="text" class="input-sm form-control" name="start" /></div>
+        <div class="hold"><input placeholder="Check-out" type="text" class="input-sm form-control" name="end" /></div>
+        <div class="hold">
+          <select class="input-sm" name="adult">
+            {% for i in 1..10 %}
+              <option value="{{ i }}">{{ i }} Guest</option>
+            {% endfor %}
+          </select>
+        </div>
       </div>
     </div>
   </div>

@@ -237,3 +237,27 @@ div.navigation-hold>.navigation>li{
 ul.navigation>li>a{
   padding:12px;
 }
+.about>li>div:first-child>a{
+	-webkit-filter: grayscale(0); /* Old WebKit */
+  filter: grayscale(0);
+}
+.booking .button{
+  display:block;
+  float:none;
+  margin-bottom:10px;
+}
+.booking .input-group .hold>input, .booking .input-group .hold>select{
+  width:100%;
+}
+.booking .input-group .hold:nth-child(1),.booking .input-group .hold:nth-child(2){
+  margin-bottom:10px;
+}
+.booking .input-group .hold{
+  width:calc((100% - 14px) / 2)
+}
+.booking .input-group .hold:nth-child(2n){
+  margin-right:0;
+}
+.booking {
+    padding: 20px 0;
+}

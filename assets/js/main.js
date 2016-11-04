@@ -317,10 +317,10 @@ function findHoliday(){
 }
 
 function bookingInputAJAX(){
-  $('.booking input').on('change',function(){
+  $('.booking .input-sm').on('change',function(){
     var empty = true;
     arr = [];
-    $( ".booking input" ).each(function() {
+    $( ".booking .input-sm" ).each(function() {
       var name = $(this).attr('name');
       var value = $(this).val();
       arr.push({
@@ -343,7 +343,7 @@ function bookingInputAJAX(){
 
 function bookingButton(){
   $('.input-daterange').datepicker({
-    format: "dd M yyyy",
+    format: "dd M yyyy, DD",
     startDate: "today"
   });
 }

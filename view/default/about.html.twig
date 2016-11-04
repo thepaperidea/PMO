@@ -15,7 +15,9 @@
   <ul class="about">
     {% for each in team %}
       <li>
-        <div class="background" data-background="{{ (data.image.destination ~ each.profile) | absolute }}"></div>
+        <div>
+          <a class="background" data-background="{{ (data.image.destination ~ each.profile) | absolute }}"></a>
+        </div>
         <div>
           <h3>{{ each.name }}</h3>
           <h4>{{ each.designation }}</h4>
