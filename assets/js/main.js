@@ -21,6 +21,7 @@ function script(script){
       suggestion(json);
     });
     makeHoliday();
+    speaker();
   }
   else if(script=="stayall"){
 
@@ -47,6 +48,18 @@ function script(script){
     countryTabs();
     contentWrap();
   }
+}
+
+function speaker() {
+  $('#speaker').on('click',function(){
+    $(this).toggleClass('active');
+    if($( "#speaker" ).hasClass( "active" )){
+      $("#background>video").prop('muted', true);
+    }
+    else{
+      $("#background>video").prop('muted', false);
+    }
+  });
 }
 
 function svgCircle(){

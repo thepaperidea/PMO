@@ -219,6 +219,9 @@ div.navigation-hold>.navigation>li{
     position: static;
     text-align: center;
 }
+.booking .input-group{
+  display:none;
+}
 .booking .input-group input{
   width:80px;
   padding:7px 10px;
@@ -244,7 +247,10 @@ ul.navigation>li>a{
 .booking .button{
   display:block;
   float:none;
-  margin-bottom:10px;
+  margin-bottom:0;
+}
+#speaker{
+  display:none;
 }
 .booking .input-group .hold>input, .booking .input-group .hold>select{
   width:100%;

@@ -769,16 +769,19 @@ section.title span>a{
 	display:inline-block;
 	position:relative;
 	background: transparent;
-	margin-right:20px;
-	width:calc((100% - 60px) / 3);
 	box-sizing:border-box;
 	vertical-align:top;
+}
+.booking .input-group .hold:nth-child(1),.booking .input-group .hold:nth-child(2){
+	width: calc((100% - 287px) / 2);
+	margin-right: 60px;
 }
 .booking .input-group .hold:last-child{
 	margin-right:0;
 }
 .booking .input-group .hold:nth-child(3){
 	border-left:1px solid rgba(0,0,0,.3);
+	width:160px !important;
 }
 .booking .input-group .hold:nth-child(3):after{
 	content:"";
@@ -811,6 +814,7 @@ section.title span>a{
 	border-radius:0;
 	font-size: 1em;
   padding: 10px;
+	padding-left:15px;
   background: transparent;
   z-index: 2;
   position: relative;
@@ -1816,13 +1820,25 @@ ul.navigation>li>a:hover,ul.navigation>li>a.active{
   filter: alpha(opacity=80);
 }
 #find-holiday{
-	display:inline-block;
-	margin-top:20px;
-	color:white;
-	padding: 12px 20px;
-	background: rgba(0,0,0,.5);
-	border-radius: 3px;
+	display: inline-block;
+  margin-top: 0px;
+  color: white;
+  padding: 12px 20px;
+  cursor: pointer;
+  font-weight: 600;
+}
+#speaker{
 	cursor:pointer;
+	position:absolute;
+	bottom:20px;
+	right:20px;
+	width:18px;
+	height:18px;
+	z-index:4;
+	background:url('../../assets/svg/unmute.svg') no-repeat center / contain;
+}
+#speaker.active{
+	background:url('../../assets/svg/mute.svg') no-repeat center / contain;
 }
 
 /*header*/
