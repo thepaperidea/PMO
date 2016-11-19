@@ -6,22 +6,17 @@ function script(script){
   slider();
   markdown();
   svg();
-  navigation();
-  opacity();
   form();
   scroll();
-  $('body').removeClass('home');
+  section();
+  $('body').removeClass('headerimg');
+  // linetitle();
   if(script=="home"){
-    $('body').addClass('home');
-    $('#background').addClass('video');
-    $.getJSON("stay.json",function(json){
-      searchShow();
-      searchBlur();
-      searchInput(json);
-      suggestion(json);
-    });
-    makeHoliday();
-    speaker();
+    swipeimages('#homeSlider');
+    headerimg();
+  }
+  else if(script=="category"){
+    category();
   }
   else if(script=="stayall"){
 
@@ -30,12 +25,14 @@ function script(script){
     bookingButton();
   }
   else if(script=="stay"){
-    svgCircle();
-    bookingButton();
-    bookingInputAJAX();
     tripadvisor();
-    swipeimages();
-    initMap();
+    swipeimages('#homeSlider');
+    headerimg();
+    category();
+    $(".roomSlider").each(function() {
+      var room = $(this).data('room');
+      swipeimages(".roomSlider.roomSlider"+room);
+    });
   }
   else if(script=="staybook"){
     bookingButton();
@@ -48,6 +45,47 @@ function script(script){
     countryTabs();
     contentWrap();
   }
+}
+
+function headerimg(){
+  $('body').addClass('headerimg');
+  $(window).on('scroll',function() {
+     if($(window).scrollTop() > $(window).height()) {
+       $('body').removeClass('headerimg');
+     }
+     else{
+       $('body').addClass('headerimg');
+     }
+  });
+}
+
+function category() {
+  $('.stay').mixItUp({
+    animation: {
+  		duration: 400,
+  		effects: 'fade translateZ(-360px) stagger(34ms)',
+  		easing: 'ease'
+  	}
+  });
+}
+
+function linetitle() {
+  $(".line-title").each(function() {
+    var fullwidth = $(this).width();
+    var width = $('*',this).width();
+    var value = fullwidth - width;
+    $('*',this).data('width',value);
+  });
+}
+
+function section() {
+  var height = $(window).height();
+  $('#arrow-bottom').on('click',function(){
+    $('main').animate({ scrollTop: height }, 1000);
+  });
+  $(".full-height").each(function() {
+    $(this).css('min-height',height);
+  });
 }
 
 function speaker() {
@@ -77,10 +115,10 @@ function svgCircle(){
   });
 }
 
-function swipeimages() {
-  var elem = document.getElementById('homeSlider');
-  window.mySwipe = Swipe(elem, {
-    auto: 3000,
+function swipeimages(element) {
+  var elem = $(element);
+  window.mySwipe = Swipe(elem[0], {
+    auto: 8000,
     speed: 600,
     continuous: true
   });

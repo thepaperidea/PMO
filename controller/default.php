@@ -1,9 +1,5 @@
 <?php
 
-use Suin\RSSWriter\Channel;
-use Suin\RSSWriter\Feed;
-use Suin\RSSWriter\Item;
-
 class Page {
   static function notFound() {
     global $dbh,$data,$twig;
@@ -15,23 +11,45 @@ class Page {
   static function Home() {
     global $dbh,$data,$twig,$session;
     $content = Process::getSingle('page','','link_permalink');
-    $sql = "SELECT `name` FROM suggestion";
+    $sql = "SELECT * FROM slides";
     $query = $dbh->prepare($sql);
     $query->execute();
-    $suggestion = $query->fetchAll();
-    $sql = "SELECT `id`,`name`,`fancy_image_120x120` FROM activity";
+    $content['slides'] = $query->fetchAll();
+    $sql = "SELECT * FROM category";
     $query = $dbh->prepare($sql);
     $query->execute();
-    $activity = $query->fetchAll();
-    $sql = "SELECT `id`,`name`,`fancy_image_120x120` FROM category";
+    $content['category'] = $query->fetchAll();
+    print $twig->render('default/home.html.twig', array('data' => $data,'content' => $content));
+  }
+  static function eachCategory() {
+    global $dbh,$data,$twig,$session;
+    $content = Process::getSingle('category',$data['path']['argument'][1],'link_permalink');
+    $sql = "SELECT * FROM stay WHERE `category_id` = :i";
+    $query = $dbh->prepare($sql);
+    $query->execute(array(':i' => $content['id']));
+    $stay = $query->fetchAll();
+    $sql = "SELECT * FROM type";
     $query = $dbh->prepare($sql);
     $query->execute();
-    $category = $query->fetchAll();
-    $sql = "SELECT `id`,`name`,`fancy_image_120x120` FROM finance";
-    $query = $dbh->prepare($sql);
-    $query->execute();
-    $finance = $query->fetchAll();
-    print $twig->render('default/home.html.twig', array('data' => $data,'content' => $content,'suggestion' => $suggestion,'category' => $category,'activity' => $activity,'category' => $category,'finance' => $finance));
+    $content['type'] = $query->fetchAll();
+    foreach ($stay as $row){
+      $sql = "SELECT `id`,`main_image`,`od` FROM stayimage WHERE `stay_id` = :i ORDER BY `od` LIMIT 0,1";
+      $query = $dbh->prepare($sql);
+      $query->execute(array(':i' => $row['id']));
+      $image = $query->fetch();
+      $content['stay'][] = array(
+        'name' => $row['name'],
+        'rating' => $row['rating_int'],
+        'image' => $image,
+        'activity' => Process::getMultiple('activity',$row['activity_ids']),
+        'type' => Process::getSingle('type',$row['type_id']),
+        'holiday' => Process::getMultiple('holiday',$row['holiday_ids']),
+        'destination' => Process::getSingle('destination',$row['type_id']),
+        'link' => $row['link_permalink'],
+      );
+    }
+    $content['title'] = $content['name'];
+    print $twig->render('default/each.category.html.twig', array('data' => $data,'content' => $content));
   }
   public function Blog() {
     global $dbh,$data,$twig;
@@ -75,6 +93,10 @@ class Page {
     $content = Process::getSingle('blog',$data['path']['argument'][1],'link_permalink');
     $content['title'] = $content['name'];
 
+    $content['facebook'] = $content['social'];
+    $content['twitter'] = $content['social'];
+    $content['google'] = $content['social'];
+
     print $twig->render('default/blog.each.html.twig', array('data' => $data,'content' => $content,'sociallink' => $sociallink));
   }
   public function Stay() {
@@ -111,62 +133,38 @@ class Page {
   }
   public function stayEach() {
     global $dbh,$data,$twig,$session;
-    $session->start();
-    $segment = $session->getSegment('booking');
-    $items = $segment->get('items');
-
-    $dates = array();
-    foreach ($items as $item) {
-      $dates[$item['name']] = $item['value'];
-    }
-
     $content = Process::getSingle('stay',$data['path']['argument'][1],'link_permalink');
     $content['title'] = $content['name'];
 
-    $sql = "SELECT `id`,`name`,`price_float`,`adults_int`,`children_int` FROM room WHERE `stay_id` = :i ORDER BY `od`";
+    $sql = "SELECT * FROM room WHERE `stay_id` = :i ORDER BY `od`";
     $query = $dbh->prepare($sql);
     $query->execute(array(':i' => $content['id']));
     $rooms = $query->fetchAll();
-    $stayroom = array();
+    $content['room'] = array();
     foreach ($rooms as $room) {
       $sql = "SELECT `id`,`main_image` FROM roomimage WHERE `stay_id` = :j AND `room_id` = :i ORDER BY `od`";
       $query = $dbh->prepare($sql);
       $query->execute(array(':j' => $content['id'],':i' => $room['id']));
       $images = $query->fetchAll();
-      $stayroom[] = array(
+      $content['room'][] = array(
         'id' => $room['id'],
         'name' => $room['name'],
+        'tagline' => $room['tagline'],
         'description' => $room['description_markdown'],
         'price' => $room['price_float'],
         'adults' => $room['adults_int'],
         'children' => $room['children_int'],
-        'images' => $images
+        'images' => $images,
+        'amenity' => Process::getMultiple('amenity',$room['amenity_ids'])
       );
     }
-
-    $sql = "SELECT `transport_id`,`duration_time` FROM transporttime WHERE `stay_id` = :i";
-    $query = $dbh->prepare($sql);
-    $query->execute(array(':i' => $content['id']));
-    $transports = $query->fetchAll();
-    $means = array();
-    foreach ($transports as $transport) {
-      $split = explode(':',$transport['duration_time']);
-      $means[] = array(
-        'transport' => Process::getSingle('transport',$transport['transport_id']),
-        'duration' => $transport['duration_time'],
-        'split' => $split,
-        'dividant' => 188-(($split[0]+($split[1]/60)+($split[2]/3600))/12*188)
-      );
-    }
-
-    $content['transport'] = $means;
 
     $sql = "SELECT `id`,`name`,`main_image` FROM stayimage WHERE `stay_id` = :i ORDER BY `od`";
     $query = $dbh->prepare($sql);
     $query->execute(array(':i' => $content['id']));
-    $images = $query->fetchAll();
+    $content['stayimage'] = $query->fetchAll();
 
-    print $twig->render('default/stay.each.html.twig', array('data' => $data,'content' => $content,'rooms' => $stayroom,'images' => $images,'dates' => $dates));
+    print $twig->render('default/stay.each.html.twig', array('data' => $data,'content' => $content));
   }
   public function Tripadvisor(){
     global $dbh,$data,$twig;
@@ -405,18 +403,7 @@ class Page {
   static function About() {
     global $dbh,$data,$twig;
     $content = Process::getSingle('page','about','link_permalink');
-    $sql = "SELECT `name`,`designation`,`profile_image_300x300`,`description_text` FROM team";
-    $team = array();
-    foreach ($dbh->query($sql) as $row)
-    {
-      $team[] = array(
-          'name' => $row['name'],
-          'designation' => $row['designation'],
-          'profile' => $row['profile_image_300x300'],
-          'description' => $row['description_text'],
-          );
-    }
-    print $twig->render('default/about.html.twig', array('data' => $data,'content' => $content,'team' => $team));
+    print $twig->render('default/content.html.twig', array('data' => $data,'content' => $content,'team' => $team));
   }
   static function Contact() {
     global $dbh,$data,$twig;
@@ -605,5 +592,30 @@ class Page {
     }
 
     print $twig->render('default/plan.book.html.twig', array('data' => $data,'content' => $content,'list' => $list));
+  }
+  static function Login() {
+    global $dbh,$data,$twig;
+    $user = new Customer();
+		if($user->getUser())
+    Essential::Redirect('');
+    $content = Process::getSingle('page','plan','link_permalink');
+    if($_POST['login-submit']){
+      $client = new GuzzleHttp\Client();
+      $captcha = $client->request('POST', 'https://www.google.com/recaptcha/api/siteverify', [
+        'form_params' => [
+          'secret' => $data['constant']['captcha'],
+          'response' => $_POST['g-recaptcha-response']
+        ]
+      ]);
+      $captcha = (array) json_decode($captcha->getBody());
+      if($captcha['success']){
+        $error['login'] = $user->login();
+      	if($user->getUser())
+        Essential::Redirect('');
+      }
+      else
+      $error['login'] = array('code'=>3,'name'=>'Incorrect Captcha','class'=>'red');
+    }
+    print $twig->render('default/login.html.twig', array('data' => $data,'content' => $content,'return' => $error));
   }
 }

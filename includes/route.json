@@ -35,21 +35,17 @@
     "route": "stay/:each",
     "namespace": "Page::stayEach"
   },
-  "9": {
-    "route": "stay.json",
-    "namespace": "Page::stayJSON"
-  },
   "10": {
     "route": "tripadvisor/:each",
     "namespace": "Page::Tripadvisor"
   },
   "11": {
-    "route": "update",
-    "namespace": "Page::update"
+    "route": "category",
+    "namespace": "Page::Category"
   },
   "12": {
-    "route": "booking",
-    "namespace": "Page::booking"
+    "route": "category/:each",
+    "namespace": "Page::eachCategory"
   },
   "13": {
     "route": "blog",
@@ -118,5 +114,13 @@
   "29": {
     "route": "stay/:each/book",
     "namespace": "Page::stayBook"
+  },
+  "29": {
+    "route": "stay/:each/book",
+    "namespace": "Page::stayBook"
+  },
+  "30": {
+    "route": "login",
+    "namespace": "Page::Login"
   }
 }

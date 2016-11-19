@@ -1,65 +1,39 @@
 {% extends 'base.html.twig' %}
 
 {% block main %}
-  <div id="lightbox" class="text-center">
-    <div>
-      <span class="close" onclick="findHoliday()"></span>
-      <h1>Let's Plan</h1>
-      <h2>What do you want to do?</h2>
-      <ul class="multiple-select select-change" data-id="activity">
-        {% for each in activity %}
-          <li data-id="{{ each.id }}"><a class="background" data-background="{{ (data.image.destination ~ each.fancy_image_120x120) | absolute }}"></a><span>{{ each.name }}</span></li>
-        {% endfor %}
-      </ul>
-      <h2>What are you looking for?</h2>
-      <ul class="multiple-select select-change" data-id="category">
-        {% for each in category %}
-          <li data-id="{{ each.id }}"><a class="background" data-background="{{ (data.image.destination ~ each.fancy_image_120x120) | absolute }}"></a><span>{{ each.name }}</span></li>
-        {% endfor %}
-      </ul>
-      <h2>What budget are you on?</h2>
-      <ul class="single-select select-change" data-id="finance">
-        {% for each in finance %}
-          <li data-id="{{ each.id }}"><a class="background" data-background="{{ (data.image.destination ~ each.fancy_image_120x120) | absolute }}"></a><span>{{ each.name }}</span></li>
-        {% endfor %}
-      </ul>
-      <a class="ajax-nav" href="{{ 'plan' | absolute }}"><span class="button large margin-right">Show me my options!</span></a>
-      <a class="ajax-nav" href="{{ 'booking' | absolute }}"><span class="button large alternate">Make this trip!</span></a>
-    </div>
+<section id="homeSlider" class="header-image swipe full-height">
+  <ul class="swipe-wrap">
+    {% for each in content.slides %}
+      <li>
+        <span class="background" data-background="{{ (data.image.destination ~ each.main_image) | absolute }}">
+          <span class="middle">
+            <a class="ajax-nav" href="{{ each.link_permalink | absolute }}">
+              <h2>{{ each.name }}</h2>
+              <p>{{ each.description }}</p>
+            </a>
+          </span>
+        </span>
+      </li>
+    {% endfor %}
+  </ul>
+  <a class="navigation previous" onclick='mySwipe.prev()'></a>
+  <a class="navigation next" onclick='mySwipe.next()'></a>
+  <div class="category">
+    <span class="line-title">
+      <h2>I want to</h2>
+    </span>
+    <ul>
+      {% for each in content.category %}
+        <li>
+          <a class="ajax-nav" href="{{ ('category/' ~ each.link_permalink) | absolute }}">
+            <span class="background" data-background="{{ (data.image.destination ~ each.fancy_image_120x120) | absolute }}"></span>
+            <p>{{ each.name }}</p>
+          </a>
+        </li>
+      {% endfor %}
+    </ul>
   </div>
-  <div class="fullscreen">
-    <div id="background">
-      <video autoplay loop>
-        <source src="{{ 'assets/video/waveform.mp4' | absolute }}" type="video/mp4">
-      </video>
-    </div>
-    <div id="main" class="center">
-      <div id="search">
-        <div class="search-input">
-          <input type="text" name="Search" placeholder="What do you want to do?">
-        </div>
-        <div class="categories">
-          <div class="holder">
-            <span>Suggestions</span>
-            <ul>
-              {% for each in suggestion %}
-                <li>{{ each.name }}</li>
-              {% endfor %}
-            </ul>
-          </div>
-        </div>
-        <div class="results">
-        </div>
-      </div>
-      <div class="text-center">
-        <a onclick="findHoliday()" id="find-holiday">
-          <span class="info"></span>
-          <span>Should we recommend?</span>
-        </a>
-      </div>
-    </div>
-    <div id="speaker"></div>
-  </div>
+</section>
 {% endblock %}
 
 {% block script %}home{% endblock %}

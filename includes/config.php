@@ -3,14 +3,14 @@
 $data = array(
   'credential' => array(
 		'host' => 'localhost',
-		'database' => 'travrnr',
+		'database' => 'funnel',
 		'username' => 'root',
 		'password' => 'apple'
 	),
   'constant' => array(
     'name' => 'Travrnr',
     'description' => 'The travel people',
-    'url' => 'http://localhost/~eegan/travrnr/',
+    'url' => 'http://localhost/~eegan/funnel/',
 		'domain' => 'localhost',
 		'fbadmin' => '523187088',
 		'captcha' => '6LcE8B8TAAAAAB_H_wJ99zviL1l0S6qdGVzMA9RT',
@@ -34,17 +34,17 @@ $data = array(
     array(
       'name' => 'twitter',
       'link' => 'http://twitter.com/',
-      'username' => 'travrnr',
+      'username' => 'funnel',
     ),
     array(
       'name' => 'facebook',
       'link' => 'http://facebook.com/',
-      'username' => 'travrnr',
+      'username' => 'funnel',
     ),
     array(
       'name' => 'instagram',
       'link' => 'http://instagram.com/',
-      'username' => 'travrnr',
+      'username' => 'funnel',
     )
   ),
   'file' => array(
@@ -66,42 +66,38 @@ $data = array(
   ),
   'page' => array(
     array(
-      'name' => 'Blog',
-      'route' => 'blog'
-    ),
-    array(
-      'name' => 'Stay',
-      'route' => 'stay'
+      'name' => 'About Us',
+      'route' => 'about'
     ),
     array(
       'name' => 'Maldives',
-      'route' => 'country/maldives'
+      'route' => 'destination/maldives'
     ),
     array(
-      'name' => 'Offers',
-      'route' => 'offer'
+      'name' => 'Destinations',
+      'route' => 'destination'
     ),
     array(
-      'name' => 'Packages',
-      'route' => 'package'
+      'name' => 'Holiday Types',
+      'route' => 'holiday'
     ),
     array(
-      'name' => 'Downloads',
-      'route' => 'download'
+      'name' => 'Special Offers',
+      'route' => 'offers'
+    ),
+    array(
+      'name' => 'Blog',
+      'route' => 'blog'
     )
   ),
   'footer' => array(
     array(
-      'name' => 'About',
-      'route' => 'about'
+      'name' => 'Services',
+      'route' => 'services'
     ),
     array(
-      'name' => 'Contact',
-      'route' => 'contact'
-    ),
-    array(
-      'name' => 'FAQ',
-      'route' => 'faq'
+      'name' => 'Privacy Policy',
+      'route' => 'privacy-policy'
     )
   ),
   'admin' => array(
@@ -115,6 +111,10 @@ $data = array(
 				'table' => 'page'
 			),
       array(
+				'name' => 'Slides',
+				'table' => 'slides'
+			),
+      array(
 				'name' => 'Blog',
 				'table' => 'blog'
 			),
@@ -122,10 +122,6 @@ $data = array(
 				'name' => 'Offers',
 				'table' => 'offer'
 			),
-      array(
-        'name' => 'Packages',
-        'table' => 'package'
-      ),
       array(
 				'name' => 'Stay',
 				'table' => 'stay'
@@ -151,14 +147,6 @@ $data = array(
 				'table' => 'finance'
 			),
       array(
-				'name' => 'Country',
-				'table' => 'country'
-			),
-      array(
-				'name' => 'Country Tabs',
-				'table' => 'tabbed'
-			),
-      array(
 				'name' => 'Destination',
 				'table' => 'destination'
 			),
@@ -167,36 +155,8 @@ $data = array(
 				'table' => 'type'
 			),
       array(
-				'name' => 'Downloads',
-				'table' => 'download'
-			),
-      array(
-				'name' => 'Formats',
-				'table' => 'format'
-			),
-      array(
-				'name' => 'Transport Types',
-				'table' => 'transport'
-			),
-      array(
-				'name' => 'Transport Duration',
-				'table' => 'transporttime'
-			),
-      array(
 				'name' => 'Frequently Asked Questions',
 				'table' => 'faq'
-			),
-      array(
-				'name' => 'Continents',
-				'table' => 'continent'
-			),
-      array(
-				'name' => 'Airline',
-				'table' => 'airline'
-			),
-      array(
-				'name' => 'Team',
-				'table' => 'team'
 			)
     )
   ),

@@ -25,27 +25,6 @@
           <li class="{{ each.link }}">
             <h1>{{ each.name }}</h1>
             <span class="markdown">{{ each.description | markdown }}</span>
-            <ul class="slabs two">
-              {% for seach in stay %}
-                {% if seach.destination.id == each.id %}
-                <li class="shadow">
-                  <a class="ajax-nav" href="{{ ('stay/' ~ seach.link) | absolute }}">
-                    <span class="image background" data-background="{{ (data.image.destination ~ data.image.thumbnail.prefix ~ seach.image.main_image) | absolute }}" ></span>
-                    <span class="name-hold">
-                      <span class="name">{{ seach.name }}</span>
-                      <span class="inline-child">
-                        <ul class="rating">
-                          {% for i in 1..seach.rating %}
-                            <li></li>
-                          {% endfor %}
-                        </ul>
-                      </span>
-                    </span>
-                  </a>
-                </li>
-                {% endif %}
-              {% endfor %}
-            </ul>
           </li>
         {% endfor %}
       </ul>

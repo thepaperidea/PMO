@@ -1,138 +1,80 @@
 {% extends 'base.html.twig' %}
 
 {% block main %}
-{% if images[1] %}
-<section id="homeSlider" class="header-image swipe">
+{% if content.stayimage[1] %}
+<section id="homeSlider" class="header-image swipe full-height">
   <ul class="swipe-wrap">
-    {% for each in images %}
-      <li><a class="background" data-background="{{ (data.image.destination ~ each.main_image) | absolute }}"></a></li>
+    {% for each in content.stayimage %}
+      <li><span class="background" data-background="{{ (data.image.destination ~ each.main_image) | absolute }}"></span></li>
     {% endfor %}
   </ul>
   <a class="navigation previous" onclick='mySwipe.prev()'></a>
   <a class="navigation next" onclick='mySwipe.next()'></a>
+  <div class="middle title">
+    <h1>{{ content.name }}</h1>
+    <span class="location"><a class="ajax-nav" href="{{ ('country/' ~ content.destination.country.link) | absolute }}">{{ content.destination.country.name }}</a><a class="ajax-nav" href="{{ ('destination/' ~ content.destination.link) | absolute }}">{{ content.destination.name }}</a></span>
+  </div>
 </section>
 {% else %}
-<section class="header-image">
+<section class="header-image full-height">
   <div class="background" data-background="{{ (data.image.destination ~ images[0].main_image) | absolute }}"></div>
 </section>
 {% endif %}
 <section class="title">
-  <div class="center">
-    <div id="tripadvisor" class="float-right" data-permalink="{{ content.link }}">{{ content.tripadvisor | raw }}</div>
-    <h1>{{ content.name }}</h1>
-    <span class="inline-child">
-      <span class="location"><a class="ajax-nav" href="{{ ('country/' ~ content.destination.country.link) | absolute }}">{{ content.destination.country.name }}</a><a class="ajax-nav" href="{{ ('destination/' ~ content.destination.link) | absolute }}">{{ content.destination.name }}</a></span>
-      <ul class="rating">
-        {% for i in 1..content.rating %}
-          <li></li>
-        {% endfor %}
-      </ul>
-    </span>
+  <div class="center align-center">
+    <div id="tripadvisor" data-permalink="{{ content.link }}">{{ content.tripadvisor | raw }}</div>
   </div>
 </section>
-<section class="shadow booking">
-  <div class="center">
-    <span class="button large float-right"><a class="ajax-nav" href="{{ ('stay/' ~ content.link ~ '/book') | absolute }}">Book</a></span>
-    <div class="input-group">
-      <div class="input-daterange" id="datepicker">
-        <div class="hold"><input placeholder="Check-in" type="text" class="input-sm form-control" name="start" /></div>
-        <div class="hold"><input placeholder="Check-out" type="text" class="input-sm form-control" name="end" /></div>
-        <div class="hold">
-          <select class="input-sm" name="adult">
-            {% for i in 1..10 %}
-              <option value="{{ i }}">{{ i }} Guest</option>
-            {% endfor %}
-          </select>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-<section class="center content">
-  <div>
-    <div class="description">{{ content.generaldesc }}</div>
-  </div>
-  <div>
-    <h1>Accomodation</h1>
-    <div class="description">{{ content.accomodationdesc }}</div>
-    <ul class="rooms">
-      {% for each in rooms %}
-      <li>
-        <img src="{{ (data.image.destination ~ data.image.thumbnail.prefix ~ each.images[0].main_image) | absolute }}" alt="{{ each.name }}"/>
-        <span>
-          <span class="capacity float-right">{{ each.adults + each.children }}</span>
-          <span class="name">{{ each.name }}</span>
-          <span class="currency">{{ each.price }}</span>
-        </span>
+<section>
+  <div class="line-title"><h2>Room Details</h2></div>
+  <ul class="stay room container">
+    {% for each in content.room %}
+      <li class="mix type{{ each.type.link }}" data-room="{{ each.id }}">
+        <a>
+          <span class="background" data-background="{{ (data.image.destination ~ each.images[0].main_image  ) | absolute }}"></span>
+          <ul class="caption">
+            <li>{{ each.tagline }}</li>
+            <li>{{ each.name }}</li>
+            <li class="currency">{{ each.price }}</li>
+          </ul>
+        </a>
       </li>
-      {% endfor %}
-    </ul>
-  </div>
-  <div>
-    <h1>Activities</h1>
-    <div class="description">{{ content.activitydesc }}</div>
-    <ul class="icons">
-      {% for each in content.activity %}
-      <li>
-        <a><span class="background icon" data-background="{{ (data.file.destination ~ each.image_svg) | absolute }}"></span><span class="name">{{ each.name }}</span></a>
-      </li>
-      {% endfor %}
-    </ul>
-  </div>
-  <div>
-    <h1>Facilities</h1>
-    <div class="description">{{ content.facilitydesc }}</div>
-    <ul class="icons">
-      {% for each in content.facility %}
-      <li>
-        <a><span class="background icon" data-background="{{ (data.file.destination ~ each.image_svg) | absolute }}"></span><span class="name">{{ each.name }}</span></a>
-      </li>
-      {% endfor %}
-    </ul>
-  </div>
-  <div>
-    <h1>Dining</h1>
-    <div class="description">{{ content.diningdesc }}</div>
-  </div>
-</section>
-{% if content.latitude %}
-<section class="stay-map">
-  <ul class="transport-interactive shadow">
-    {% for each in content.transport %}
-    <li>
-      <a>
-        <span class="circle">
-          <svg x="0px" y="0px" viewBox="0 0 65 65" enable-background="new 0 0 65 65" xml:space="preserve">
-            <circle data-line="{{ each.dividant }}" fill="#FFFFFF" stroke="#000000" stroke-width="5" stroke-miterlimit="10" cx="32.5" cy="32.5" r="30"/>
-          </svg>
-        </span>
-        <span class="name">{{ each.transport.name }}</span>
-        <span class="time">
-          {% if each.split[0] != '00' %}{{ each.split[0] }} hour{% endif %}
-          {% if each.split[1] != '00' %}{{ each.split[1] }} min{% endif %}
-          {% if each.split[2] != '00' %}{{ each.split[2] }} secs{% endif %}
-        </span>
-      </a>
-    </li>
     {% endfor %}
   </ul>
-  <!-- <ul class="transport">
-    {% for each in content.transport %}
-    <li>
-      <a>
-        <span class="name">{{ each.transport.name }}</span>
-        <span class="time">
-          {% if each.split[0] != '00' %}{{ each.split[0] }} hours{% endif %}
-          {% if each.split[1] != '00' %}{{ each.split[1] }} minutes{% endif %}
-          {% if each.split[2] != '00' %}{{ each.split[2] }} seconds{% endif %}
-        </span>
-      </a>
-    </li>
+  <div class="roomdetails">
+    {% for each in content.room %}
+      <div class="specificroom room{{ each.id }}">
+        <div class="swipe roomSlider roomSlider{{ each.id }}" data-room="{{ each.id }}">
+          <ul class="swipe-wrap">
+            {% for each in content.stayimage %}
+              <li><span class="background" data-background="{{ (data.image.destination ~ each.main_image) | absolute }}"></span></li>
+            {% endfor %}
+          </ul>
+          <a class="navigation previous" onclick='mySwipe.prev()'></a>
+          <a class="navigation next" onclick='mySwipe.next()'></a>
+        </div>
+        <div>
+          <div class="caption">
+            <li>{{ each.tagline }}</li>
+            <li>{{ each.name }}</li>
+            <li class="currency">{{ each.price }}</li>
+            <li>{{ each.description }}</li>
+          </div>
+          <div class="amenity">
+            <ul>
+              {% for amenity in each.amenity %}
+                <li>
+                  <span class="background" data-background="{{ (data.image.destination ~ amenity.fancy_image_120x120) | absolute }}"></span>
+                  <p>{{ amenity.name }}</p>
+                </li>
+              {% endfor %}
+            </ul>
+          </div>
+        </div>
+      </div>
     {% endfor %}
-  </ul> -->
-  <div class="map" data-latitude="{{ content.latitude }}" data-longitude="{{ content.longitude }}" data-zoom="8" data-airportlatitude="{{ data.constant.airport.latitude }}" data-airportlongitude="{{ data.constant.airport.longitude }}"></div>
+  </div>
 </section>
-{% endif %}
 {% endblock %}
 
 {% block script %}stay{% endblock %}

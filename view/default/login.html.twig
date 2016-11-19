@@ -1,0 +1,66 @@
+{% extends 'base.html.twig' %}
+
+{% block main %}
+<section class="column title">
+  <h1>{{ content.name }}</h1>
+</section>
+<section class="column detail border-top">
+  <section class="padding-bottom">
+    <section class="column title">
+      <h1>Returning Customer</h1>
+      {% if return.login %}
+      <span class="{{ return.login.class }}">{{ return.login.name }}</span>
+      {% endif %}
+    </section>
+    <section class="column detail">
+      <form class="form" method="post" action="{{ 'login' | absolute }}">
+        <div>
+          <input type="text" name="login-email" placeholder="Email">
+        </div>
+        <div class="border-top">
+          <input type="password" name="login-password" placeholder="Password">
+        </div>
+        <div class="padding-top border-top">
+          <div class="g-recaptcha" data-sitekey="6LcE8B8TAAAAAEkG9OXG1U1YUY93QIj__sN9uyDR"></div>
+        </div>
+        <div class="padding-top text-align-right">
+          <a href="{{ 'recover' | absolute }}" class="main-button alternate">Forgot my Password</a>
+          <input name="login-submit" type="submit" class="main-button" value="Login">
+        </div>
+      </form>
+    </section>
+  </section>
+  <section class="border-top margin-top">
+    <section class="column title">
+      <h1>New Customer</h1>
+      {% if return.register %}
+        {% for each in return.register %}
+        <span class="{{ each.class }}">{{ each.name }}</span>
+        {% endfor %}
+      {% endif %}
+    </section>
+    <section class="column detail">
+      <form class="form" method="post" action="{{ 'login' | absolute }}">
+        <div>
+          <input type="text" name="firstname" placeholder="First Name">
+        </div>
+        <div class="border-top">
+          <input type="text" name="lastname" placeholder="Last Name">
+        </div>
+        <div class="border-top">
+          <input type="text" name="email" placeholder="Email">
+        </div>
+        <div class="border-top">
+          <input type="password" name="password" placeholder="Password">
+        </div>
+        <div class="border-top">
+          <input type="password" name="repeat-password" placeholder="Re-enter Password">
+        </div>
+        <div class="border-top padding-top text-align-right">
+          <input name="register-submit" type="submit" class="main-button" value="Register">
+        </div>
+      </form>
+    </section>
+  </section>
+</section>
+{% endblock %}

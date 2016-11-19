@@ -64,31 +64,19 @@
   <body>
     <div id="loader">
       <div id="icon">
-        <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-        	 viewBox="2.2 87 595.5 524.3" enable-background="new 2.2 87 595.5 524.3" xml:space="preserve">
-        <g>
-        	<path fill="#52C3C2" d="M299.6,568c-7.6,0-14.3-4-18.3-10.4L5.7,120.3c-4.4-6.8-4.4-15.1-0.8-22.3C8.8,91.3,15.9,87,23.9,87h0.8
-        	l264.9,51.6c6.8,1.2,13.9,1.2,20.6,0L575.1,87h0.8c7.9,0,15.1,4.4,19.1,11.1c4,7.2,3.6,15.1-0.8,22.3L318.2,558
-        	C313.8,564.4,307,568,299.6,568z M23.1,103.2c-2.4,0.4-4,1.9-4.4,2.8c-0.4,0.8-1.2,3.2,0.4,5.5l276.1,437.7c1.5,2.4,3.6,2.8,4.7,2.8
-        	c0.8,0,3.2-0.4,4.7-2.8l275.7-437.7c1.5-2.4,0.8-4.7,0-5.5c-0.4-0.8-1.5-2.8-4.4-2.8l-262.9,51.3c-8.7,1.5-17.8,1.5-26.6,0
-        	L23.1,103.2z"/>
-        </g>
-        <g>
-        	<line fill="none" stroke="#53C3C2" stroke-width="9" stroke-miterlimit="10" x1="300" y1="162.6" x2="300" y2="318.5"/>
-        	<line fill="none" stroke="#53C3C2" stroke-width="9" stroke-miterlimit="10" x1="300" y1="351.5" x2="300" y2="392.5"/>
-        	<line fill="none" stroke="#53C3C2" stroke-width="9" stroke-miterlimit="10" x1="300" y1="415.4" x2="300" y2="442.7"/>
-        	<line fill="none" stroke="#53C3C2" stroke-width="9" stroke-miterlimit="10" x1="300" y1="470.4" x2="300" y2="488.4"/>
-        	<line fill="none" stroke="#53C3C2" stroke-width="9" stroke-miterlimit="10" x1="300" y1="597.7" x2="300" y2="611.3"/>
-        </g>
-        </svg>
 
       </div>
     </div>
     <header>
-      <a class="ajax-nav" id="logo" title="Logo" href="{{ '' | absolute }}"></a>
-      <nav>
+      <nav class="center">
         <ul>
-          {% for each in data.page %}
+          {% for each in data.page|slice(0, 3) %}
+          <li><a class="ajax-nav" href="{{ each.route | absolute }}">{{ each.name }}</a></li>
+          {% endfor %}
+        </ul>
+        <a class="ajax-nav" id="logo" title="Logo" href="{{ '' | absolute }}"></a>
+        <ul>
+          {% for each in data.page|slice(3, 3) %}
           <li><a class="ajax-nav" href="{{ each.route | absolute }}">{{ each.name }}</a></li>
           {% endfor %}
         </ul>
@@ -96,29 +84,39 @@
     </header>
 
     <main>
-    <div class="ajax-container">
-        <div id="ajax-content">{% block main %}{% endblock %}</div>
-    </div>
+      <div class="ajax-container">
+          <div id="ajax-content">{% block main %}{% endblock %}</div>
+      </div>
     </main>
 
     <footer>
-      <ul>
-        {% for each in data.footer %}
-        <li><a class="ajax-nav" href="{{ each.route | absolute }}">{{ each.name }}</a></li>
-        {% endfor %}
-      </ul>
+      <nav>
+        <ul>
+          {% for each in data.footer %}
+          <li><a class="ajax-nav" href="{{ each.route | absolute }}">{{ each.name }}</a></li>
+          {% endfor %}
+        </ul>
+      </nav>
     </footer>
-
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBr8w15LAHx1687bVh1tMk0CyvGWsSBBLk&callback=initMap"></script>
+    <script src='https://www.google.com/recaptcha/api.js'></script>
     <script src="{{ asset('js/jquery-2.1.4.min.js') }}"></script>
-    <script src="{{ asset('js/isotope.pkgd.min.js') }}"></script>
     <script src="{{ asset('js/bootstrap-datepicker.min.js') }}"></script>
+    <script src="{{ asset('js/jquery.mixitup.min.js') }}"></script>
     <script src="{{ asset('js/swipe.js') }}"></script>
     <script src="{{ asset('js/ajax.js') }}"></script>
     <script src="{{ asset('js/main.js') }}"></script>
-    <script src="{{ asset('js/download.js') }}"></script>
     <script type="text/javascript">
     script('{% block script %}{% endblock %}');
+    </script>
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-86968917-1', 'auto');
+      ga('send', 'pageview');
+
     </script>
   </body>
 </html>
