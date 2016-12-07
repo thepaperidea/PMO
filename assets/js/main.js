@@ -9,11 +9,11 @@ function script(script){
   form();
   scroll();
   section();
-  $('body').removeClass('headerimg');
+  headerimg();
   // linetitle();
   if(script=="home"){
-    swipeimages('#homeSlider');
-    headerimg();
+    swiper();
+    background();
   }
   else if(script=="category"){
     category();
@@ -21,18 +21,15 @@ function script(script){
   else if(script=="stayall"){
 
   }
-  else if(script=="staybooking"){
+  else if(script=="packagebook"){
     bookingButton();
   }
   else if(script=="stay"){
     tripadvisor();
-    swipeimages('#homeSlider');
-    headerimg();
     category();
-    $(".roomSlider").each(function() {
-      var room = $(this).data('room');
-      swipeimages(".roomSlider.roomSlider"+room);
-    });
+    swiper();
+    roomdetail();
+    initMap();
   }
   else if(script=="staybook"){
     bookingButton();
@@ -47,15 +44,38 @@ function script(script){
   }
 }
 
+function roomdetail() {
+  $('.stay.room>li').on('click',function() {
+    $('.roomdetails').addClass('active');
+    var id = $(this).data("room");
+    $('.roomdetails>.specificroom').removeClass('active');
+    $('.specificroom.room'+id).addClass('active');
+  });
+}
+
+function swiper(){
+  var mySwiper = new Swiper ('.swiper-container', {
+    direction: 'horizontal',
+    nextButton: '.swiper-button-next',
+    prevButton: '.swiper-button-prev',
+    preloadImages: false,
+    lazyLoading: true
+  });
+}
+
 function headerimg(){
+  $('body').removeClass('headerimg');
+  if ($('section:first-child').hasClass('header-image'))
   $('body').addClass('headerimg');
   $(window).on('scroll',function() {
-     if($(window).scrollTop() > $(window).height()) {
-       $('body').removeClass('headerimg');
-     }
-     else{
-       $('body').addClass('headerimg');
-     }
+    if ($('section:first-child').hasClass('header-image')){
+      if($(window).scrollTop() > $(window).height()) {
+        $('body').removeClass('headerimg');
+      }
+      else{
+        $('body').addClass('headerimg');
+      }
+    }
   });
 }
 
@@ -100,27 +120,14 @@ function speaker() {
   });
 }
 
-function svgCircle(){
-  var scrollcircle = true;
-  $(window).on('scroll',function() {
-     if($(window).scrollTop() + $(window).height() > ($(document).height()-500)) {
-       if(scrollcircle){
-         $('svg>circle').each(function() {
-           var line = $(this).data('line');
-           $(this).css('stroke-dashoffset',line);
-         });
-         scrollcircle = false;
-       }
-     }
-  });
-}
-
 function swipeimages(element) {
-  var elem = $(element);
-  window.mySwipe = Swipe(elem[0], {
-    auto: 8000,
-    speed: 600,
-    continuous: true
+  var mySwiper = new Swiper ('.swiper-container', {
+    // Optional parameters
+    direction: 'horizontal',
+
+    // Navigation arrows
+    nextButton: '.swiper-button-next',
+    prevButton: '.swiper-button-prev'
   });
 }
 
@@ -226,40 +233,6 @@ function countryTabs(){
   });
 }
 
-function makeHoliday(){
-  var check = new Array();
-  var preference = new Array();
-  $('.select-change').each(function() {
-    var selectid = $(this).data('id');
-    check.push({
-        name: selectid,
-        value:  ""
-    });
-    preference[selectid] = new Array();
-    $(this).on('click','li',function(){
-      var id = $(this).data('id');
-      if(selectid=="finance")
-      preference[selectid] = new Array();
-      if(jQuery.inArray( id, preference[selectid] )==-1){
-    		preference[selectid].push(id);
-    	}else{
-        var index = preference[selectid].indexOf(id);
-      	preference[selectid].splice(index, 1);
-      }
-      $.each(check,function() {
-        if(this.name==selectid){
-          this.value = preference[selectid];
-        }
-      });
-      var index = preference[selectid].indexOf(id);
-      var url = $('html').data('url');
-      $.post( url+"update", { preferences: check } );
-    });
-  });
-  singleSelect();
-  multipleSelect();
-}
-
 function singleSelect() {
   $('.single-select').each(function() {
     var element = this;
@@ -363,42 +336,6 @@ function disqus() {
   })();
 }
 
-function findHoliday(){
-  $('#lightbox').toggleClass('active');
-}
-
-function bookingInputAJAX(){
-  $('.booking .input-sm').on('change',function(){
-    var empty = true;
-    arr = [];
-    $( ".booking .input-sm" ).each(function() {
-      var name = $(this).attr('name');
-      var value = $(this).val();
-      arr.push({
-          name: name,
-          value:  value
-      });
-      if(!value)
-      empty = false;
-    });
-    if(empty){
-      $('.booking .button').addClass('active');
-      var url = $('html').data('url');
-      $.post( url+"update", { booking: arr } );
-    }
-    else{
-      $('.booking .button').removeClass('active');
-    }
-  });
-}
-
-function bookingButton(){
-  $('.input-daterange').datepicker({
-    format: "dd M yyyy, DD",
-    startDate: "today"
-  });
-}
-
 function tripadvisor(){
   var count = $('#tripadvisor script').length;
   if(count==1){
@@ -407,15 +344,6 @@ function tripadvisor(){
     var link = url+'tripadvisor/'+permalink;
     $('#tripadvisor').html('<iframe src="'+link+'" width="500" height="47" frameBorder="0">Browser not compatible.</iframe>');
   }
-}
-
-function download(id) {
-  var url = $('html').data('url');
-  $.getJSON( url + "download/" + id, function( data ) {
-    downloadFile(url + 'uploads/file/' + data.download);
-    $('.download'+id).html('Downloaded');
-    $('.download'+id).attr( "onclick", "" );
-  });
 }
 
 function initMap() {
@@ -455,8 +383,8 @@ function initMap() {
     flightPath.setMap(map);
 
     var icon = {
-      path: "M9.9,25c-0.2,0-0.4-0.3-0.6-0.6L0.2,2.7C0,2.1,0,1.8,0,1.5c0.2-0.3,0.4-0.6,0.8-0.6l0,0l8.7,2.7c0.2,0,0.4,0,0.6,0l8.9-2.7l0,0c0.4,0,0.6,0.3,0.8,0.6s0.2,0.9,0,1.2l-9.3,21.6C10.3,24.7,10.1,25,9.9,25z",
-      fillColor: '#52C3C2',
+      path: "M11.4,0C5.1,0,0,5.1,0,11.4s9.5,19,11.4,19c1.9,0,11.4-12.7,11.4-19S17.7,0,11.4,0z M11.4,19c-4.2,0-7.6-3.4-7.6-7.6s3.4-7.6,7.6-7.6c4.2,0,7.6,3.4,7.6,7.6S15.6,19,11.4,19z",
+      fillColor: '#f39c12',
       fillOpacity: 1,
       anchor: new google.maps.Point(10,24),
       strokeWeight: 0,
@@ -464,10 +392,10 @@ function initMap() {
     }
 
     var plane = {
-      path: "M0,0c0.4-1.1,0.3-1.9-0.2-2.5c-0.6-0.5-1.4-0.6-2.5-0.2c-1.1,0.4-2.1,1-2.9,1.8l-2.7,2.7l-11.4-2.7c-0.2-0.1-0.4,0-0.5,0.1l-2.2,2.2c-0.1,0.1-0.2,0.3-0.2,0.5c0,0.2,0.1,0.3,0.3,0.4l8.7,4.8l-4.4,4.4l-3.3-0.9c0,0-0.1,0-0.1,0c-0.2,0-0.3,0.1-0.4,0.2l-1.6,1.7c-0.1,0.1-0.2,0.3-0.2,0.4c0,0.2,0.1,0.3,0.2,0.4l4.3,3.2l3.2,4.3c0.1,0.1,0.2,0.2,0.4,0.2h0c0.2,0,0.3-0.1,0.4-0.2l1.6-1.6c0.1-0.2,0.2-0.3,0.1-0.5l-0.9-3.3l4.4-4.4l4.8,8.7c0.1,0.1,0.2,0.2,0.4,0.3c0,0,0.1,0,0.1,0c0.1,0,0.2,0,0.3-0.1l2.2-1.6c0.2-0.2,0.3-0.3,0.2-0.6l-2.7-11.9l2.8-2.8z",
-      fillColor: '#52C3C2',
+      path: "M20.2,9.2h-4.6L7.6,0H6.1l2.7,9.2H3.5L0,4.6v4.7v1.5v1.5v1.5v4.6l3.5-4.6h5.3l-2.6,9.2h1.5l7.9-9.2h4.6c1.4,0,2.6-1,2.9-2.3C22.8,10.2,21.6,9.2,20.2,9.2z",
+      fillColor: '#f39c12',
       fillOpacity: 1,
-      anchor: new google.maps.Point(-12,12),
+      anchor: new google.maps.Point(6,12),
       strokeWeight: 0,
       scale: 1
     }

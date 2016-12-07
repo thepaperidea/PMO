@@ -2,35 +2,21 @@
 
 {% block main %}
 <section class="content">
-  <ul class="tiles featured">
-  {% for each in blog if each.featured %}
-    <li>
-      <a class="ajax-nav" href="{{ ('blog/' ~ each.link) | absolute }}">
-        <span class="image background" data-background="{{ (data.image.destination ~ each.image) | absolute }}" >
-        </span>
-        <span class="name-hold">
-          <span class="author">{{ each.user.name }}</span>
-          <span class="name">{{ each.name }}</span>
-          <span class="description">{{ each.description }}</span>
-        </span>
-      </a>
-    </li>
-  {% endfor %}
-  </ul>
-  <ul class="tiles highlight">
-  {% for each in blog %}
-    <li>
-      <a class="ajax-nav" href="{{ ('blog/' ~ each.link) | absolute }}">
-        <span class="image background" data-background="{{ (data.image.destination ~ each.image) | absolute }}" >
-        </span>
-        <span class="name-hold">
-          <span class="author">{{ each.user.name }}</span>
-          <span class="name">{{ each.name }}</span>
-          <span class="description">{{ each.description }}</span>
-        </span>
-      </a>
-    </li>
-  {% endfor %}
+  <h1>{{ content.name }}</h1>
+  <p>{{ content.description }}</p>
+  <ul class="stay container">
+    {% for each in content.blog %}
+      <li class="mix static">
+        <a class="ajax-nav" href="{{ ('blog/' ~ each.link) | absolute }}">
+          <span class="background" data-background="{{ (data.image.destination ~ each.image  ) | absolute }}"></span>
+          <ul class="caption">
+            <li>{{ each.name }}</li>
+            <li class="description">{{ each.description }}</li>
+            <li class="author">{{ each.user.name }}</li>
+          </ul>
+        </a>
+      </li>
+    {% endfor %}
   </ul>
 </section>
 {% endblock %}

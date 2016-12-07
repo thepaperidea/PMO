@@ -1,88 +1,90 @@
 {% extends 'base.html.twig' %}
 
 {% block main %}
-<section class="title book">
-  <div class="center">
-    <h1>{{ content.name }}</h1>
-    <span class="inline-child">
-      <span class="location"><a class="ajax-nav" href="{{ ('country/' ~ content.destination.country.link) | absolute }}">{{ content.destination.country.name }}</a><a class="ajax-nav" href="{{ ('destination/' ~ content.destination.link) | absolute }}">{{ content.destination.name }}</a></span>
-      <ul class="rating">
-        {% for i in 1..content.rating %}
-          <li></li>
+<section class="header-image swipe full-height">
+  <div class="swiper-container">
+    <div class="swiper-wrapper">
+        {% for each in content.stayimage %}
+          <div class="swiper-slide full-height">
+            <span class="background" data-background="{{ (data.image.destination ~ each.main_image) | absolute }}">
+            </span>
+          </div>
         {% endfor %}
-      </ul>
-    </span>
+    </div>
+    <div class="swiper-button-prev"></div>
+    <div class="swiper-button-next"></div>
+    <div class="middle title">
+      <h1>{{ content.name }}</h1>
+      <span><a>{{ content.type.name }} Booking</a></span>
+    </div>
   </div>
 </section>
-<section class="center form table">
-  <div class="form-return"></div>
-  <input class="form-input" type="hidden" name="offer" value="{{ content.name }} "/>
-  <div class="row">
-    <div class="column label"><label>Full name</label></div>
-    <div class="column input"><input class="form-input required" type="text" name="fullname" placeholder="John Doe"/></div>
-  </div>
-  <div class="row">
-    <div class="column label"><label>Email</label></div>
-    <div class="column input"><input class="form-input required" type="text" name="email" placeholder="person@example.com"/></div>
-  </div>
-  <div class="row">
-    <div class="column label"><label>Phone Number</label></div>
-    <div class="column input"><input class="form-input required" type="text" name="phone" placeholder="+1-541-754-3010"/></div>
-  </div>
-  <div class="row">
-    <div class="column label"><label>Check-in / out</label></div>
-    <div class="input-daterange column input double" id="datepicker">
-      <input placeholder="Check-in" type="text" class="input-sm form-control form-input required" name="start" value="{{ content.dates.start }}" />
-      <input placeholder="Check-out" type="text" class="input-sm form-control form-input required" name="end" value="{{ content.dates.end }}" />
+<section class="sub-content">
+  <div class="line-title"><h2>Booking Form</h2></div>
+  <div class="form center">
+    <div class="form-return"></div>
+    <input class="form-input" type="hidden" name="offer" value="{{ content.name }} "/>
+    <div class="row">
+      <div class="column label"><label>Full name</label></div>
+      <div class="column input"><input class="form-input required" type="text" name="fullname" placeholder="John Doe"/></div>
     </div>
-  </div>
-  <div class="row">
-    <div class="column label"><label>People</label></div>
-    <div class="column input double">
-      <input class="form-input required" type="text" name="adult" placeholder="Number of Adults" value="{{ content.dates.adult }}" />
-      <input class="form-input required" type="text" name="children" placeholder="Number of Children" value="{{ content.dates.children }}"/>
+    <div class="row">
+      <div class="column label"><label>Email</label></div>
+      <div class="column input"><input class="form-input required" type="text" name="email" placeholder="person@example.com"/></div>
     </div>
-  </div>
-  <div class="row">
-    <div class="column label"><label>Accomodation</label></div>
-    <div class="column input">
-      <div class="room-list">
-        {% for each in content.room %}
-        <div>
-          <div class="image"><img src="{{ (data.image.destination ~ data.image.thumbnail.prefix ~ each.images[0].main_image) | absolute }}" alt="{{ each.name }}"/></div>
-          <div class="description">
-            <div class="inline-child">
+    <div class="row">
+      <div class="column label"><label>Phone Number</label></div>
+      <div class="column input"><input class="form-input required" type="text" name="phone" placeholder="+1-541-754-3010"/></div>
+    </div>
+    <div class="row">
+      <div class="column label"><label>Check-in / out</label></div>
+      <div class="input-daterange column input double" id="datepicker">
+        <input placeholder="Check-in" type="text" class="input-sm form-control form-input required" name="start" />
+        <input placeholder="Check-out" type="text" class="input-sm form-control form-input required" name="end" />
+      </div>
+    </div>
+    <div class="row">
+      <div class="column label"><label>People</label></div>
+      <div class="column input double">
+        <input class="form-input required" type="text" name="adult" placeholder="Number of Adults" />
+        <input class="form-input required" type="text" name="children" placeholder="Number of Children" />
+      </div>
+    </div>
+    <div class="row">
+      <div class="column label"><label>Accomodation</label></div>
+      <div class="column input">
+        <div class="room-list">
+          {% for each in content.room %}
+          <div>
+            <div class="image"><img src="{{ (data.image.destination ~ data.image.thumbnail.prefix ~ each.images[0].main_image) | absolute }}" alt="{{ each.name }}"/></div>
+            <div class="description">
               <div class="name">{{ each.name }}</div>
               <div class="currency">{{ each.price }}</div>
             </div>
-            <div class="inline-child">
-              <div class="adult">{{ each.adults }}</div>
-              <div class="children">{{ each.children }}</div>
+            <div class="float-right">
+              <input class="form-input" type="hidden" name="roomname[]" value="{{ each.name }}"/>
+              <select class="roomcount form-input" name="roomquantity[]" data-price="{{ each.price }}">
+                {% for i in 0..5 %}
+                  <option value="{{ i }}">{{ i }}</option>
+                {% endfor %}
+              </select>
             </div>
           </div>
-          <div class="float-right">
-            <input class="form-input" type="hidden" name="roomname[]" value="{{ each.name }}"/>
-            <select class="roomcount form-input" name="roomquantity[]" data-price="{{ each.price }}">
-              {% for i in 0..5 %}
-                <option value="{{ i }}">{{ i }}</option>
-              {% endfor %}
-            </select>
-          </div>
+          {% endfor %}
         </div>
-        {% endfor %}
-      </div>
-      <div class="price-summary">
-        Total: <span class="total currency float-right">0</span>
+        <div class="price-summary">
+          Total: <span class="total currency float-right">0</span>
+        </div>
       </div>
     </div>
-  </div>
-  <div class="row">
-    <div class="column label"><label>Message</label></div>
-    <div class="column input"><textarea class="form-input" name="message" placeholder="Any extra notes"></textarea></div>
-  </div>
-  <div class="row">
-    <div class="column label"></div>
-    <div class="column input align-right"><a class="button large form-submit">Submit</a></div>
+    <div class="row">
+      <div class="column label"><label>Message</label></div>
+      <div class="column input"><textarea class="form-input" name="message" placeholder="Any extra notes"></textarea></div>
+    </div>
+    <div class="row">
+      <div class="column label"></div>
+      <div class="column input align-right"><a class="button large form-submit">Submit</a></div>
+    </div>
   </div>
 </section>
 {% endblock %}

@@ -1,0 +1,170 @@
+.desktop{
+  display:none;
+}
+.mobile{
+  display:block;
+}
+.center{
+  padding:0 20px;
+}
+.nav-up{
+  top:0;
+}
+.nav-up {
+  top: -100px;
+}
+.stay>li>a>ul.tags>li {
+    display: inline-block;
+    color: black;
+    padding: 4px 8px;
+    font-size: .7em;
+    margin-right: 10px;
+    background: white;
+    border-radius: 14px;
+    margin-bottom: 4px;
+}
+.headerimg header{
+  background:rgba(0,0,0,.4);
+}
+.title>span.location>a:after{
+  height:14px;
+}
+.swiper-button-prev,.swiper-button-next{
+  display:none;
+}
+.roomdetails,.roomdetails>.specificroom{
+  max-height:600px
+}
+.roomdetails>.specificroom>div{
+  width:100% !important;
+}
+.roomdetails>.specificroom>div:first-child{
+  height:200px;
+}
+.roomdetails>.specificroom>div:nth-child(2){
+  padding:30px 40px;
+}
+.roomdetails>.specificroom>div:nth-child(2)>div.caption>div:nth-child(1){
+  font-size:1.2em;
+}
+.roomdetails>.specificroom>div:nth-child(2)>div.caption>div:nth-child(2){
+  font-size:1.8em;
+}
+.roomdetails>.specificroom>div:nth-child(2)>div.caption>div:nth-child(3){
+  font-size:1.2em;
+}
+.roomdetails>.specificroom>div:nth-child(2)>div.caption>div:nth-child(4) {
+    padding: 5px 0 10px 0;
+    font-size:.9em;
+}
+.amenity:before {
+    font-size: 1.2em;
+}
+#tripadvisor{
+  display:none;
+}
+section.title{
+  width:100%;
+}
+.markdown>ul,.markdown>p{
+  font-size:1em;
+}
+.markdown>h2{
+  font-size:1.2em;
+}
+.inline-child>div>h2{
+  font-size:1em;
+}
+header>nav.center{
+  padding:10px 0 0 0 !important;
+}
+header>nav>ul{
+  white-space:nowrap;
+  overflow:auto;
+  -webkit-overflow-scrolling: touch;
+  padding:10px 0;
+}
+header>nav>ul>li, footer>nav>ul>li{
+  margin-right:14px;
+  padding:0;
+}
+header>nav{
+  padding:0 14px;
+  padding-top:15px !important;
+  padding-bottom:15px !important;
+}
+.swiper-slide>.background>span>a>h2{
+  font-size: 2em;
+}
+.swiper-slide>.background>span>a>p{
+  font-size:1.2em;
+}
+.header-image>.category>ul>li{
+  margin-right:4px;
+}
+.header-image>.category>ul>li>a>span{
+  width:60px;
+  height:60px;
+}
+.line-title>*{
+  padding:10px;
+  font-size:1.4em;
+}
+.header-image>.category>ul{
+  margin:-20px 0 20px 0;
+}
+#logo:before,#logo:after{
+  display:inline-block;
+}
+#logo:before{
+  width:60px;
+  height:44px;
+  background:url('../../assets/svg/logo.svg') no-repeat center / contain;
+}
+#logo:after{
+  width:60px;
+  height:30px;
+  background:url('../../assets/svg/logo-black.svg') no-repeat center / contain;
+}
+.container .mix{
+  width:100%;
+  margin:0;
+  margin-bottom:10px;
+}
+.container .mix:last-child{
+  margin-bottom:0;
+}
+.stay{
+  margin:10px;
+}
+.stay>li>a>span.background{
+  height:180px;
+}
+.content {
+    padding: 130px 20px;
+}
+.content>h1{
+  font-size:2.4em;
+}
+.title>h1{
+  font-size:2.4em;
+}
+.title>h2{
+  font-size:1.4em;
+}
+.title>span>a{
+  font-size:1em;
+}
+.title{
+  width:80%;
+}
+.title>p{
+  font-size:1em;
+}
+.button, .button>a{
+  padding:10px;
+}
+.controls>a{
+  padding:6px 10px;
+  font-size:.8em;
+}

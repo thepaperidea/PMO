@@ -55,22 +55,6 @@
     "route": "blog/:each",
     "namespace": "Page::blogEach"
   },
-  "15": {
-    "route": "offer",
-    "namespace": "Page::Offer"
-  },
-  "16": {
-    "route": "offer/:each",
-    "namespace": "Page::offerEach"
-  },
-  "17": {
-    "route": "download",
-    "namespace": "Page::Download"
-  },
-  "18": {
-    "route": "download/:each",
-    "namespace": "Page::downloadEach"
-  },
   "19": {
     "route": "package",
     "namespace": "Page::Package"
@@ -97,19 +81,11 @@
   },
   "25": {
     "route": "country/:each",
-    "namespace": "Page::Country"
-  },
-  "26": {
-    "route": "package/:each/book",
-    "namespace": "Page::packageBook"
-  },
-  "27": {
-    "route": "plan",
-    "namespace": "Page::plan"
+    "namespace": "Page::countryEach"
   },
   "28": {
-    "route": "offer/:each/book",
-    "namespace": "Page::offerBook"
+    "route": "package/:each/book",
+    "namespace": "Page::packageBook"
   },
   "29": {
     "route": "stay/:each/book",
@@ -120,7 +96,27 @@
     "namespace": "Page::stayBook"
   },
   "30": {
-    "route": "login",
-    "namespace": "Page::Login"
+    "route": "country",
+    "namespace": "Page::Country"
+  },
+  "31": {
+    "route": "holiday",
+    "namespace": "Page::Holiday"
+  },
+  "32": {
+    "route": "holiday/:each",
+    "namespace": "Page::holidayEach"
+  },
+  "33": {
+    "route": "destination/:each",
+    "namespace": "Page::destinationEach"
+  },
+  "34": {
+    "route": "services",
+    "namespace": "Page::Services"
+  },
+  "35": {
+    "route": "privacy-policy",
+    "namespace": "Page::Privacy"
   }
 }

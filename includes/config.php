@@ -10,8 +10,8 @@ $data = array(
   'constant' => array(
     'name' => 'Travrnr',
     'description' => 'The travel people',
-    'url' => 'http://localhost/~eegan/funnel/',
-		'domain' => 'localhost',
+    'url' => $_SERVER['REQUEST_SCHEME'].'://'.$_SERVER['HTTP_HOST'].'/~eegan/funnel/',
+		'domain' => $_SERVER['HTTP_HOST'],
 		'fbadmin' => '523187088',
 		'captcha' => '6LcE8B8TAAAAAB_H_wJ99zviL1l0S6qdGVzMA9RT',
 		'login' => 'a36f292da91457067c828ed764214618',
@@ -71,11 +71,11 @@ $data = array(
     ),
     array(
       'name' => 'Maldives',
-      'route' => 'destination/maldives'
+      'route' => 'country/maldives'
     ),
     array(
       'name' => 'Destinations',
-      'route' => 'destination'
+      'route' => 'country'
     ),
     array(
       'name' => 'Holiday Types',
@@ -83,7 +83,7 @@ $data = array(
     ),
     array(
       'name' => 'Special Offers',
-      'route' => 'offers'
+      'route' => 'package'
     ),
     array(
       'name' => 'Blog',
@@ -98,14 +98,14 @@ $data = array(
     array(
       'name' => 'Privacy Policy',
       'route' => 'privacy-policy'
+    ),
+    array(
+      'name' => 'FAQ',
+      'route' => 'faq'
     )
   ),
   'admin' => array(
     'database' => array(
-      array(
-				'name' => 'Search Suggestions',
-				'table' => 'suggestion'
-			),
       array(
 				'name' => 'Pages',
 				'table' => 'page'
@@ -139,12 +139,12 @@ $data = array(
 				'table' => 'activity'
 			),
       array(
-				'name' => 'Facilities',
-				'table' => 'facility'
-			),
-      array(
 				'name' => 'Finance',
 				'table' => 'finance'
+			),
+      array(
+				'name' => 'Country',
+				'table' => 'country'
 			),
       array(
 				'name' => 'Destination',
@@ -153,6 +153,22 @@ $data = array(
       array(
 				'name' => 'Type',
 				'table' => 'type'
+			),
+      array(
+				'name' => 'Room',
+				'table' => 'room'
+			),
+      array(
+				'name' => 'Room Image',
+				'table' => 'roomimage'
+			),
+      array(
+				'name' => 'Transport',
+				'table' => 'transport'
+			),
+      array(
+				'name' => 'Transport Time',
+				'table' => 'transporttime'
 			),
       array(
 				'name' => 'Frequently Asked Questions',

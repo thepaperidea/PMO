@@ -1,21 +1,25 @@
 {% extends 'base.html.twig' %}
 
 {% block main %}
-<section id="homeSlider" class="header-image swipe full-height">
-  <ul class="swipe-wrap">
-    {% for each in content.slides %}
-      <li>
-        <span class="background" data-background="{{ (data.image.destination ~ each.main_image) | absolute }}">
-          <span class="middle">
-            <a class="ajax-nav" href="{{ each.link_permalink | absolute }}">
-              <h2>{{ each.name }}</h2>
-              <p>{{ each.description }}</p>
-            </a>
-          </span>
-        </span>
-      </li>
-    {% endfor %}
-  </ul>
+<section class="header-image full-height homeslider">
+  <div class="swiper-container">
+    <div class="swiper-wrapper">
+        {% for each in content.slides %}
+          <div class="swiper-slide full-height">
+            <span class="background" data-background="{{ (data.image.destination ~ each.main_image) | absolute }}">
+              <span class="middle">
+                <a class="ajax-nav" href="{{ each.link_permalink | absolute }}">
+                  <h2>{{ each.name }}</h2>
+                  <p>{{ each.description }}</p>
+                </a>
+              </span>
+            </span>
+          </div>
+        {% endfor %}
+    </div>
+    <div class="swiper-button-prev"></div>
+    <div class="swiper-button-next"></div>
+  </div>
   <a class="navigation previous" onclick='mySwipe.prev()'></a>
   <a class="navigation next" onclick='mySwipe.next()'></a>
   <div class="category">

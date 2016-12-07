@@ -1,12 +1,12 @@
 {% extends 'base.html.twig' %}
 
 {% block main %}
-<section class="header-image">
+<section class="header-image full-height">
   <div class="background" data-background="{{ (data.image.destination ~ content.header) | absolute }}"></div>
-  <div class="middle">
-    <div class="name">{{ content.name }}</div>
-    <div class="description">{{ content.description }}</div>
-    <div class="author">{{ content.user.name }}</div>
+  <div class="middle title">
+    <h1>{{ content.name }}</h1>
+    <p>{{ content.description }}</p>
+    <p class="author">{{ content.user.name }}</p>
     <ul class="share">
       {% for each in sociallink %}
         <li>
@@ -19,7 +19,7 @@
     </ul>
   </div>
 </section>
-<section class="markdown article">
+<section class="markdown center">
   {{ content.content | markdown }}
 </section>
 <section class="center comments">
