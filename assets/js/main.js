@@ -36,12 +36,19 @@ function script(script){
     roomcount();
   }
   else if(script=="article"){
-    disqus();
+
   }
   else if(script=="country"){
     countryTabs();
     contentWrap();
   }
+}
+
+function bookingButton(){
+  $('.input-daterange').datepicker({
+    format: "dd M yyyy, DD",
+    startDate: "today"
+  });
 }
 
 function roomdetail() {

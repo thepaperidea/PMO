@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Signika');
+@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro');
 
 @font-face {
   font-family: 'BlocExtCond';
@@ -62,6 +62,36 @@ a{
   display:none;
 }
 
+.form-return p {
+    margin-bottom: 40px;
+    padding: 16px;
+    background: #1abc9c;
+    color: white;
+}
+
+#loader{
+	position:fixed;
+	top:0;
+	left:0;
+	bottom:0;
+	right:0;
+	background:white url('../../assets/img/loader.gif') center no-repeat / 160px auto;
+	z-index:6;
+	overflow:hidden;
+	-webkit-transition:opacity 100ms ease;
+	        transition:opacity 100ms ease;
+	opacity:0;
+	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+	filter:alpha(opacity=0);
+	visibility:hidden;
+}
+#loader.partial,#loader.active{
+	visibility:visible;
+	opacity:1;
+	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+	filter:alpha(opacity=100);
+}
+
 ::-moz-selection {
   background: #52C3C2; /* WebKit/Blink Browsers */
 	color:white;
@@ -100,7 +130,7 @@ a{
 .button,.button>a{
   display:block;
   text-align:center;
-	padding:16px 16px;
+	padding:10px 16px;
 	background:#f39c12;
 	color:white;
   font-size:1.2em;
@@ -1035,6 +1065,9 @@ header>nav>*{
   transition:all 400ms ease;
   border-radius:0;
 
+}
+.form .row>.input>input.red,.form .row>.input>textarea.red{
+  border:2px solid crimson;
 }
 .form .row>.input>textarea{
   height:140px;

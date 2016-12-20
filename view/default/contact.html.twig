@@ -2,39 +2,32 @@
 
 {% block main %}
 <section class="center content">
-  <h1>{{ content.name }}<span>{{ content.description }}</span></h1>
+  <h1>{{ content.name }}</h1>
   <div class="markdown">{{ content.content | markdown }}</div>
-</section>
-<section class="center form table">
-  <div class="form-return"></div>
-  <div class="row">
-    <div class="column label"><label>Full name</label></div>
-    <div class="column input"><input class="form-input required" type="text" name="fullname"/></div>
+  <div class="form table">
+    <div class="form-return"></div>
+    <div class="row">
+      <div class="column label"><label>Full name</label></div>
+      <div class="column input"><input class="form-input required" type="text" name="fullname"/></div>
+    </div>
+    <div class="row">
+      <div class="column label"><label>Email</label></div>
+      <div class="column input"><input class="form-input required" type="text" name="email"/></div>
+    </div>
+    <div class="row">
+      <div class="column label"><label>Phone Number</label></div>
+      <div class="column input"><input class="form-input required" type="text" name="phone"/></div>
+    </div>
+    <div class="row">
+      <div class="column label"><label>Message</label></div>
+      <div class="column input"><textarea class="form-input required" name="message"></textarea></div>
+    </div>
+    <div class="row">
+      <div class="column label"></div>
+      <div class="column input align-right"><a class="button large form-submit">Submit</a></div>
+    </div>
   </div>
-  <div class="row">
-    <div class="column label"><label>Email</label></div>
-    <div class="column input"><input class="form-input required" type="text" name="email"/></div>
-  </div>
-  <div class="row">
-    <div class="column label"><label>Phone Number</label></div>
-    <div class="column input"><input class="form-input required" type="text" name="phone"/></div>
-  </div>
-  <div class="row">
-    <div class="column label"><label>Message</label></div>
-    <div class="column input"><textarea class="form-input required" name="message"></textarea></div>
-  </div>
-  <div class="row">
-    <div class="column label"></div>
-    <div class="column input align-right"><a class="button large form-submit">Submit</a></div>
-  </div>
-</section>
-<section class="content center">
-  <ul class="social">
-  {% for each in data.social %}
-    <li>
-      <a target="_blank" class="{{ each.name }}" href="{{ each.link ~ each.username }}"></a>
-    </li>
-  {% endfor %}
-  </ul>
 </section>
 {% endblock %}
+
+{% block script %}contact{% endblock %}

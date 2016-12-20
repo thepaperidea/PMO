@@ -11,7 +11,7 @@
   top:0;
 }
 .nav-up {
-  top: -100px;
+  top: -120px;
 }
 .stay>li>a>ul.tags>li {
     display: inline-block;
@@ -167,4 +167,7 @@ header>nav{
 .controls>a{
   padding:6px 10px;
   font-size:.8em;
+}
+footer>nav>ul>li>a{
+  padding: 8px 10px;
 }

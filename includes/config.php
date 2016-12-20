@@ -102,6 +102,10 @@ $data = array(
     array(
       'name' => 'FAQ',
       'route' => 'faq'
+    ),
+    array(
+      'name' => 'Contact',
+      'route' => 'contact'
     )
   ),
   'admin' => array(
