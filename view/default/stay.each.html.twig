@@ -22,7 +22,11 @@
 </section>
 {% else %}
 <section class="header-image full-height">
-  <div class="background" data-background="{{ (data.image.destination ~ images[0].main_image) | absolute }}"></div>
+  <div class="background" data-background="{{ (data.image.destination ~ content.stayimage[0].main_image) | absolute }}"></div>
+  <div class="middle title">
+    <h1>{{ content.name }}</h1>
+    <span class="location"><a class="ajax-nav" href="{{ ('country/' ~ content.destination.country.link) | absolute }}">{{ content.destination.country.name }}</a><a class="ajax-nav" href="{{ ('destination/' ~ content.destination.link) | absolute }}">{{ content.destination.name }}</a></span>
+  </div>
 </section>
 {% endif %}
 <section class="button">

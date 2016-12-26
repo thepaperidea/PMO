@@ -159,6 +159,10 @@ $data = array(
 				'table' => 'type'
 			),
       array(
+				'name' => 'Holiday Types',
+				'table' => 'holiday'
+			),
+      array(
 				'name' => 'Room',
 				'table' => 'room'
 			),
