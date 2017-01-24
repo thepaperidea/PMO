@@ -4,6 +4,9 @@
 .mobile{
   display:block;
 }
+header>nav>ul{
+  position:static;
+}
 .center{
   padding:0 20px;
 }
@@ -125,6 +128,16 @@ header>nav{
   width:60px;
   height:30px;
   background:url('../../assets/svg/logo-black.svg') no-repeat center / contain;
+}
+#about.markdown>ul>li{
+  float:left;
+  list-style-type:none;
+  width:100%;
+  min-height:180px;
+  box-sizing:border-box;
+  padding:30px;
+  border:1px solid #eee;
+  margin-right:0;
 }
 .container .mix{
   width:100%;

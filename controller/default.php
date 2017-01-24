@@ -284,7 +284,12 @@ class Page {
   static function About() {
     global $dbh,$data,$twig;
     $content = Process::getSingle('page','about','link_permalink');
-    print $twig->render('default/content.html.twig', array('data' => $data,'content' => $content,'team' => $team));
+    print $twig->render('default/about.html.twig', array('data' => $data,'content' => $content,'team' => $team));
+  }
+  static function RTP() {
+    global $dbh,$data,$twig;
+    $content = Process::getSingle('page','rtp','link_permalink');
+    print $twig->render('default/content.html.twig', array('data' => $data,'content' => $content));
   }
   static function Contact() {
     global $dbh,$data,$twig;
@@ -375,26 +380,41 @@ class Page {
       }
     }
 
-    $sql = "SELECT `id`,`name`,`link_permalink` FROM continent";
-    $content['continent'] = array();
+    $sql = "SELECT `id`,`name`,`link_permalink` FROM map";
+    $content['map'] = array();
     foreach ($dbh->query($sql) as $row)
     {
-      $content['continent'][] = array(
+      $content['map'][] = array(
           'id' => $row['id'],
           'name' => $row['name'],
           'link' => $row['link_permalink']
           );
     }
 
-    $sql = "SELECT `name`,`continent_ids`,`website`,`logo_svg` FROM airline";
-    $content['airline'] = array();
+    $sql = "SELECT `id`,`name`,`continent_id` FROM maplist";
+    $content['maplist'] = array();
     foreach ($dbh->query($sql) as $row)
     {
-      $content['airline'][] = array(
+      $content['maplist'][] = array(
+          'id' => $row['id'],
           'name' => $row['name'],
-          'continent' => explode(',',$row['continent_ids']),
-          'website' => $row['website'],
-          'logo' => $row['logo_svg']
+          'continent' => $row['continent_id'],
+          );
+    }
+
+    $sql = "SELECT * FROM schedule";
+    $content['schedule'] = array();
+    foreach ($dbh->query($sql) as $row)
+    {
+      $content['schedule'][] = array(
+          'name' => $row['name'],
+          'maplist' => $row['maplist_id'],
+          'depart' => $row['depart'],
+          'arrive' => $row['arrive'],
+          'duration' => $row['duration'],
+          'flight' => $row['flight'],
+          'layover' => $row['layover'],
+          'inbound' => $row['inbound']
           );
     }
     print $twig->render('default/country.each.html.twig', array('data' => $data,'content' => $content));
@@ -487,7 +507,7 @@ class Page {
   static function Services() {
     global $dbh,$data,$twig;
     $content = Process::getSingle('page','services','link_permalink');
-    print $twig->render('default/content.html.twig', array('data' => $data,'content' => $content));
+    print $twig->render('default/service.html.twig', array('data' => $data,'content' => $content));
   }
   static function Privacy() {
     global $dbh,$data,$twig;

@@ -118,5 +118,9 @@
   "35": {
     "route": "privacy-policy",
     "namespace": "Page::Privacy"
+  },
+  "36": {
+    "route": "rtp",
+    "namespace": "Page::RTP"
   }
 }

@@ -8,7 +8,7 @@ $data = array(
 		'password' => 'apple'
 	),
   'constant' => array(
-    'name' => 'Travrnr',
+    'name' => 'Funnel',
     'description' => 'The travel people',
     'url' => $_SERVER['REQUEST_SCHEME'].'://'.$_SERVER['HTTP_HOST'].'/~eegan/funnel/',
 		'domain' => $_SERVER['HTTP_HOST'],
@@ -23,28 +23,48 @@ $data = array(
   'email' => array(
     'from' => array(
       'name' => '',
-      'address' => 'eegan@live.com'
+      'address' => 'sales@funneltravels.com'
     ),
     'to' => array(
       'name' => '',
-      'address' => 'eegan@live.com'
+      'address' => 'sales@funneltravels.com'
     )
   ),
   'social' => array(
     array(
       'name' => 'twitter',
       'link' => 'http://twitter.com/',
-      'username' => 'funnel',
+      'username' => 'funneltravels',
     ),
     array(
       'name' => 'facebook',
       'link' => 'http://facebook.com/',
-      'username' => 'funnel',
+      'username' => 'funneltravels',
     ),
     array(
       'name' => 'instagram',
       'link' => 'http://instagram.com/',
-      'username' => 'funnel',
+      'username' => 'funneltravels',
+    )
+  ),
+  'contact' => array(
+    array(
+      'name' => 'whatsapp',
+      'href' => 'whatsapp://tel:+9607901193',
+      'title' => 'WhatsApp',
+      'color' => '#25d366'
+    ),
+    array(
+      'name' => 'viber',
+      'href' => 'viber://+9607901193',
+      'title' => 'Viber',
+      'color' => '#8f5db7'
+    ),
+    array(
+      'name' => 'phone',
+      'href' => 'tel:+9607901193',
+      'title' => 'Phone',
+      'color' => '#1d95d3'
     )
   ),
   'file' => array(
@@ -70,10 +90,6 @@ $data = array(
       'route' => 'about'
     ),
     array(
-      'name' => 'Maldives',
-      'route' => 'country/maldives'
-    ),
-    array(
       'name' => 'Destinations',
       'route' => 'country'
     ),
@@ -86,22 +102,22 @@ $data = array(
       'route' => 'package'
     ),
     array(
-      'name' => 'Blog',
-      'route' => 'blog'
-    )
-  ),
-  'footer' => array(
-    array(
       'name' => 'Services',
       'route' => 'services'
     ),
+    array(
+      'name' => 'FAQ',
+      'route' => 'faq'
+    )
+  ),
+  'footer' => array(
     array(
       'name' => 'Privacy Policy',
       'route' => 'privacy-policy'
     ),
     array(
-      'name' => 'FAQ',
-      'route' => 'faq'
+      'name' => 'Tourism Policy',
+      'route' => 'rtp'
     ),
     array(
       'name' => 'Contact',

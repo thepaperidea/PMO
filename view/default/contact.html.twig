@@ -28,6 +28,14 @@
     </div>
   </div>
 </section>
+<section class="center elsewhere markdown">
+  <h2>Elsewhere</h2>
+  <ul class="elsewhere-list">
+    {% for each in data.contact %}
+    <li><a href="{{ each.href }}" class="{{ each.name }}" style="background-color:{{ each.color }};">{{ each.title }}</a></li>
+    {% endfor %}
+  </ul>
+</section>
 {% endblock %}
 
 {% block script %}contact{% endblock %}

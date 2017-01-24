@@ -10,7 +10,7 @@ function script(script){
   scroll();
   section();
   headerimg();
-  // linetitle();
+  subdivision();
   if(script=="home"){
     swiper();
     background();
@@ -41,6 +41,32 @@ function script(script){
   else if(script=="country"){
     countryTabs();
     contentWrap();
+  }
+}
+
+function subdivision() {
+  if ($('.markdown').hasClass('subdivision')){
+    $('.markdown').prepend('<div class="navigation"></div>');
+    $(".markdown>h2").each(function() {
+      var name = $(this).html();
+      var id = name.toLowerCase().replace(/[^a-zA-Z0-9]/g,'');
+      $(this).data('id',id);
+      $(this).attr('class', 'wrap'+id);
+      $(this).nextAll().attr('class', ' ');
+      $(this).nextAll().attr('class', 'wrap'+id);
+      $('.markdown>.navigation').append('<div data-id="'+id+'">'+name+'</div>');
+    });
+    $(".markdown>h2").each(function() {
+      var currentclass = $(this).data('id');
+      $( ".wrap"+currentclass ).wrapAll( "<div class='navigation-toggle' id='"+currentclass+"' />");
+    });
+    $('.navigation>div:first-child,.markdown .navigation-toggle:nth-child(2)').addClass('active');
+    $('.markdown>.navigation>div').on('click',function(){
+      var dataid = $(this).data('id');
+      $('.navigation>div,.markdown .navigation-toggle').removeClass('active');
+      $(this).addClass('active');
+      $('div.navigation-toggle#'+dataid).addClass('active')
+    });
   }
 }
 
@@ -93,15 +119,6 @@ function category() {
   		effects: 'fade translateZ(-360px) stagger(34ms)',
   		easing: 'ease'
   	}
-  });
-}
-
-function linetitle() {
-  $(".line-title").each(function() {
-    var fullwidth = $(this).width();
-    var width = $('*',this).width();
-    var value = fullwidth - width;
-    $('*',this).data('width',value);
   });
 }
 
@@ -303,6 +320,15 @@ function continentmap() {
       $('*',this).attr("class", "active");
       $('.continentlist>li').removeClass('active');
       $('.continentlist>li.'+id).addClass('active');
+      $('.continentlist>li>ul.tabs>li').on('click',function() {
+        var id = $(this).data('id');
+        if(id){
+          $('.continentlist>li>ul.tabs>li').removeClass('active');
+          $(this).addClass("active");
+          $('.continentlist>li>ul.information>li').removeClass('active');
+          $('.continentlist>li>ul.information>li.'+id).addClass('active');
+        }
+      });
     }
   });
 }

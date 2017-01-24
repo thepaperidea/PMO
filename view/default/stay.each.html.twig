@@ -44,7 +44,7 @@
       <div id="rating">
         <h2>Star Rating</h2>
         <ul class="rating">
-          {% for i in 1..each.rating %}
+          {% for i in 1..content.rating %}
             <li></li>
           {% endfor %}
         </ul>
@@ -70,7 +70,6 @@
           <ul class="caption">
             <li>{{ each.tagline }}</li>
             <li>{{ each.name }}</li>
-            <li class="currency">{{ each.price }}</li>
           </ul>
         </a>
       </li>

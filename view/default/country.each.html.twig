@@ -31,7 +31,7 @@
 </section>
 {% endif %}
 <section class="center">
-<div id="description" class="markdown">{{ content.content | markdown }}</div>
+<div id="description" class="markdown subdivision">{{ content.content | markdown }}</div>
 </section>
 <section>
   <div class="line-title"><h2>Where to?</h2></div>
@@ -69,18 +69,35 @@
   <div class="line-title"><h2>Where are you from?</h2></div>
   <div class="svg svgmap continentmap" data-svg="{{ ('assets/svg/continents.svg') | absolute }}" data-callback="continentmap"></div>
   <ul class="continentlist">
-  {% for each in content.continent %}
+  {% for each in content.map %}
     <li class="{{ each.link }}">
       <h2>{{ each.name }}</h2>
-      <ul>
-        {% for row in content.airline %}
-        {% if each.id in row.continent %}
-          <li>
-            <a target="_blank" href="{{ row.website }}" title="{{ row.name }}">
-              <span class="background" data-background="{{ (data.file.destination ~ row.logo) | absolute }}" ></span>
-            </a>
-          </li>
-        {% endif %}
+      <ul class="legends"><li class="inbound">Departure from {{ each.name }}</li><li class="outbound">Departure from {{ content.name }}</li></ul>
+      <ul class="tabs">
+        {% for row in content.maplist %}
+          {% if each.id in row.continent %}
+          <li data-id="maplist{{ row.id }}">{{ row.name }}</li>
+          {% endif %}
+        {% endfor %}
+      </ul>
+      <ul class="information">
+        {% for row in content.maplist %}
+          {% if each.id in row.continent %}
+            <li class="maplist{{ row.id }}">
+              <table>
+                <thead>
+                  <tr><td>Depart</td><td>Arrive</td><td>Duration</td><td>Flight</td><td>Layover</td></tr>
+                </thead>
+                <tbody>
+                {% for sep in content.schedule %}
+                  {% if row.id in sep.maplist %}
+                    <tr class="{% if sep.inbound %}inbound{% else %}outbound{% endif %}"><td>{{ sep.depart }}</td><td>{{ sep.arrive }}</td><td>{{ sep.duration }}</td><td>{{ sep.flight }}</td><td>{{ sep.layover }}</td></tr>
+                  {% endif %}
+                {% endfor %}
+                </tbody>
+              </table>
+            </li>
+          {% endif %}
         {% endfor %}
       </ul>
     </li>
