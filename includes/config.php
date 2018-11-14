@@ -1,203 +1,144 @@
 <?php
 
 $data = array(
-  'credential' => array(
+	'credential' => array(
 		'host' => 'localhost',
-		'database' => 'funnel',
+		'database' => 'pmo',
 		'username' => 'root',
 		'password' => 'apple'
 	),
-  'constant' => array(
-    'name' => 'Funnel',
-    'description' => 'The travel people',
-    'url' => $_SERVER['REQUEST_SCHEME'].'://'.$_SERVER['HTTP_HOST'].'/~eegan/funnel/',
-		'domain' => $_SERVER['HTTP_HOST'],
-		'fbadmin' => '523187088',
-		'captcha' => '6LcE8B8TAAAAAB_H_wJ99zviL1l0S6qdGVzMA9RT',
-		'login' => 'a36f292da91457067c828ed764214618',
-		'airport' => array(
-      'latitude' => 4.186678,
-      'longitude' => 73.528177
-    ),
-  ),
-  'email' => array(
-    'from' => array(
-      'name' => '',
-      'address' => 'sales@funneltravels.com'
-    ),
-    'to' => array(
-      'name' => '',
-      'address' => 'sales@funneltravels.com'
-    )
-  ),
-  'social' => array(
-    array(
-      'name' => 'twitter',
-      'link' => 'http://twitter.com/',
-      'username' => 'funneltravels',
-    ),
-    array(
-      'name' => 'facebook',
-      'link' => 'http://facebook.com/',
-      'username' => 'funneltravels',
-    ),
-    array(
-      'name' => 'instagram',
-      'link' => 'http://instagram.com/',
-      'username' => 'funneltravels',
-    )
-  ),
-  'contact' => array(
-    array(
-      'name' => 'whatsapp',
-      'href' => 'whatsapp://tel:+9607901193',
-      'title' => 'WhatsApp',
-      'color' => '#25d366'
-    ),
-    array(
-      'name' => 'viber',
-      'href' => 'viber://+9607901193',
-      'title' => 'Viber',
-      'color' => '#8f5db7'
-    ),
-    array(
-      'name' => 'phone',
-      'href' => 'tel:+9607901193',
-      'title' => 'Phone',
-      'color' => '#1d95d3'
-    )
-  ),
-  'file' => array(
-	   'destination' => 'uploads/file/'
+	'constant' => array(
+		'name' => 'PMO',
+		'description' => 'Project Management Office',
+		'url' => 'http://localhost/~eegan/pmo/',
+		'domain' => 'localhost'
+	),
+	'address' => array(
+		'house' => 'H. Hasowa Building, 5A',
+		'road' => 'Boduthakurufaanu Magu',
+		'city' => 'Male City',
+		'country' => 'Maldives',
+	),
+	'contact' => array(
+		'T' => '+960 3318065',
+		'F' => '+960 3318065',
+		'E' => 'info@pmo.mv',
+	),
+	'email' => array(
+		'from' => array(
+			'name' => 'PMO',
+			'address' => 'info@pmo.mv'
+		),
+		'to' => array(
+			'name' => 'PMO',
+			'address' => 'info@pmo.mv'
+		)
+	),
+	'social' => array(
+		array(
+			'name' => 'facebook',
+			'link' => 'http://facebook.com/',
+			'username' => 'pmomv',
+		),
+		array(
+			'name' => 'instagram',
+			'link' => 'http://instagram.com/',
+			'username' => 'pmomv',
+		),
+		array(
+			'name' => 'twitter',
+			'link' => 'http://twitter.com/',
+			'username' => 'pmomv',
+		)
+	),
+	'file' => array(
+		'destination' => 'uploads/file/'
 	),
 	'image' => array(
 		'width' => 1960,
 		'height' => 1960,
 		'thumbnail' => array(
-			'size' => 400,
+			'size' => 600,
 			'prefix' => 'thumb_'
-			),
+		),
+		'small' => array(
+			'width' => 800,
+			'height' => 800,
+			'prefix' => 'small_'
+		),
 		'destination' => 'uploads/image/',
 		'quality' => 100,
 	),
-  'path' => array(
-    'template' => 'view',
-    'cache' => 'cache'
-  ),
-  'page' => array(
-    array(
-      'name' => 'About Us',
-      'route' => 'about'
-    ),
-    array(
-      'name' => 'Destinations',
-      'route' => 'country'
-    ),
-    array(
-      'name' => 'Holiday Types',
-      'route' => 'holiday'
-    ),
-    array(
-      'name' => 'Special Offers',
-      'route' => 'package'
-    ),
-    array(
-      'name' => 'Services',
-      'route' => 'services'
-    ),
-    array(
-      'name' => 'FAQ',
-      'route' => 'faq'
-    )
-  ),
-  'footer' => array(
-    array(
-      'name' => 'Privacy Policy',
-      'route' => 'privacy-policy'
-    ),
-    array(
-      'name' => 'Tourism Policy',
-      'route' => 'rtp'
-    ),
-    array(
-      'name' => 'Contact',
-      'route' => 'contact'
-    )
-  ),
-  'admin' => array(
-    'database' => array(
-      array(
+	'path' => array(
+		'template' => 'view',
+		'cache' => 'cache'
+	),
+	'page' => array(
+		array(
+			'name' => 'Featured',
+			'route' => ''
+		),
+		array(
+			'name' => 'About us',
+			'route' => 'about',
+			'links' => [
+				[
+					'name' => 'Team',
+					'route' => 'about/team'
+				],
+				[
+					'name' => 'Philosophy',
+					'route' => 'about/philosophy'
+				],
+				[
+					'name' => 'Community Initiative',
+					'route' => 'about/community-initiative'
+				],
+				[
+					'name' => 'How we collaborate',
+					'route' => 'about/how-we-collaborate'
+				],
+				[
+					'name' => 'Internship',
+					'route' => 'about/internship'
+				]
+			]
+		),
+		array(
+			'name' => 'Projects',
+			'route' => 'project'
+		),
+		array(
+			'name' => 'Contact us',
+			'route' => 'contact'
+		)
+	),
+	'admin' => array(
+		'database' => array(
+			array(
 				'name' => 'Pages',
 				'table' => 'page'
 			),
-      array(
-				'name' => 'Slides',
-				'table' => 'slides'
+			array(
+				'name' => 'Tags',
+				'table' => 'tag'
 			),
-      array(
-				'name' => 'Blog',
-				'table' => 'blog'
+			array(
+				'name' => 'Projects',
+				'table' => 'project'
 			),
-      array(
-				'name' => 'Offers',
-				'table' => 'offer'
+			array(
+				'name' => 'Work',
+				'table' => 'work'
 			),
-      array(
-				'name' => 'Stay',
-				'table' => 'stay'
+			array(
+				'name' => 'Pages',
+				'table' => 'page'
 			),
-      array(
-				'name' => 'Stay Image',
-				'table' => 'stayimage'
-			),
-      array(
-				'name' => 'Category',
-				'table' => 'category'
-			),
-      array(
-				'name' => 'Activity',
-				'table' => 'activity'
-			),
-      array(
-				'name' => 'Finance',
-				'table' => 'finance'
-			),
-      array(
-				'name' => 'Country',
-				'table' => 'country'
-			),
-      array(
-				'name' => 'Destination',
-				'table' => 'destination'
-			),
-      array(
-				'name' => 'Type',
-				'table' => 'type'
-			),
-      array(
-				'name' => 'Holiday Types',
-				'table' => 'holiday'
-			),
-      array(
-				'name' => 'Room',
-				'table' => 'room'
-			),
-      array(
-				'name' => 'Room Image',
-				'table' => 'roomimage'
-			),
-      array(
-				'name' => 'Transport',
-				'table' => 'transport'
-			),
-      array(
-				'name' => 'Transport Time',
-				'table' => 'transporttime'
-			),
-      array(
-				'name' => 'Frequently Asked Questions',
-				'table' => 'faq'
+			array(
+				'name' => 'Jobs',
+				'table' => 'job'
 			)
-    )
-  ),
+		)
+	),
 );

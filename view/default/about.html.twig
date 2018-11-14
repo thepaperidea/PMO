@@ -1,8 +1,15 @@
-{% extends 'base.html.twig' %}
+{% extends 'layout/index.html.twig' %}
 
 {% block main %}
-  <section class="center content">
-    <h1>{{ content.name }}</h1>
-    <div id="about" class="markdown subdivision">{{ content.content | markdown }}</div>
-  </section>
+<input type="hidden" id="theme-input" value="white">
+<div id="cover-image" class="background" data-background="{{ (data.image.destination ~ content.header) | absolute }}"></div>
+<div class="body">
+	<div class="center">
+		<ul class="middle links">
+			{% for each in content.links %}
+			<li class="animated-button"><a href="{{ each.route | absolute }}">{{ each.name }}</a></li>
+			{% endfor %}
+		</ul>
+	</div>
+</div>
 {% endblock %}

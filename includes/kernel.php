@@ -1,7 +1,8 @@
 <?php
 
 // Error
-error_reporting(0);
+// error_reporting(E_ALL);
+// ini_set('display_errors', 1);
 
 //DateTime
 date_default_timezone_set('Indian/Maldives');
@@ -32,12 +33,7 @@ use Nette\Mail\Message;
 use Nette\Mail\SendmailMailer;
 
 $mail = new Message;
-$mailer = new Nette\Mail\SmtpMailer(array(
-        'host' => 'smtp.gmail.com',
-        'username' => 'ibrahimeegan@gmail.com',
-        'password' => 'Pr@Gm@T1c',
-        'secure' => 'ssl',
-));
+$mailer = new SendmailMailer;
 
 //Twig
 $loader = new Twig_Loader_Filesystem($data['path']['template']);
@@ -49,9 +45,14 @@ $filter = new Twig_SimpleFilter('absolute', function ($url) {
 });
 $twig->addFilter($filter);
 
+$filter = new Twig_SimpleFilter('rescape', function ($variable) {
+    return str_replace(' ', '-', strtolower($variable));
+});
+$twig->addFilter($filter);
+
 $filter = new Twig_SimpleFilter('ago', function ($datetime) {
     $timeAgo = new TimeAgo('Indian/Maldives');
-    return $timeAgo->inWords(date('Y/n/d H:i:s',strtotime($datetime)));
+    return $timeAgo->inWords(date('Y/n/d H:i:s',$datetime));
 });
 $twig->addFilter($filter);
 
@@ -59,13 +60,6 @@ $twig->addFilter($filter);
 $function = new Twig_SimpleFunction('datetime', function ($datetime,$format) {
   $set = new DateTime($datetime);
 	return $set->format($format);
-});
-$twig->addFunction($function);
-
-$function = new Twig_SimpleFunction('hmd', function ($seconds) {
-  $dtF = new \DateTime('@0');
-  $dtT = new \DateTime("@$seconds");
-  return $dtF->diff($dtT)->format('%a days, %h hours and %i minutes');
 });
 $twig->addFunction($function);
 
@@ -83,14 +77,6 @@ $function = new Twig_SimpleFunction('output', function ($data,$column) {
 	return Filter::Output($data,$column);
 }, array('is_safe' => array('html')));
 $twig->addFunction($function);
-
-$function = new Twig_SimpleFunction('json_encode', function ($title,$content,$script) {
-	return json_encode(array("page" => $title, "content" => $content, "script" => $script));
-}, array('is_safe' => array('html')));
-$twig->addFunction($function);
-
-if (isset($_GET["view_as"]) && $_GET["view_as"] == "json")
-$twig->addGlobal('asJson', true);
 
 $engine = new MarkdownEngine\MichelfMarkdownEngine();
 $twig->addExtension(new MarkdownExtension($engine));

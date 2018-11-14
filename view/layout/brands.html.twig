@@ -1,0 +1,19 @@
+<section class="content center">
+	<h2 class="primary-color">Our Brands</h2>
+	<div class="swiper-container brands-slide">
+		<div class="swiper-wrapper">
+			{% for brand in data.brands %}
+			<div class="swiper-slide">
+				<div class="card">
+					<img class="logo" src="{{ (data.image.destination ~ brand.logo) | absolute }}">
+					<img class="cover" src="{{ (data.image.destination ~ data.image.small.prefix ~ brand.cover) | absolute }}">
+					<p class="description">{{ brand.description }}</p>
+					<a class="button" href="{{ ('brand/' ~ brand.link) | absolute }}">Find out more</a>
+				</div>
+			</div>
+			{% endfor %}
+		</div>
+		<div class="swiper-button-prev"></div>
+		<div class="swiper-button-next"></div>
+	</div>
+</section>

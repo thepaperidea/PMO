@@ -4,9 +4,12 @@ class Image {
 	public function Process(){
 		global $data;
 		$thumb_square_size 		= $data['image']['thumbnail']['size']; //Thumbnails will be cropped to 200x200 pixels
+		$small_image_width 		= $data['image']['small']['width']; //Maximum image size (height and width)
+		$small_image_height 	= $data['image']['small']['height']; //Maximum image size (height and width)
 		$max_image_width 		= ($_POST['ajaxUploadwidth']!=0)?$_POST['ajaxUploadwidth']:$data['image']['width']; //Maximum image size (height and width)
 		$max_image_height 		= ($_POST['ajaxUploadheight']!=0)?$_POST['ajaxUploadheight']:$data['image']['height']; //Maximum image size (height and width)
 		$thumb_prefix			= $data['image']['thumbnail']['prefix']; //Normal thumb Prefix
+		$small_prefix			= $data['image']['small']['prefix']; //Normal small Prefix
 		$destination_folder		= $data['image']['destination']; //upload directory ends with / (slash)
 		$jpeg_quality 			= $data['image']['quality']; //jpeg quality
 if(isset($_POST) && isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest'){
@@ -54,12 +57,19 @@ if(isset($_POST) && isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SER
 		$new_file_name = $image_name_only. '_' .  rand(0, 9999999999) . '.' . $image_extension;
 
 		//folder path to save resized images and thumbnails
+		$small_save_folder 	= $destination_folder . $small_prefix . $new_file_name;
 		$thumb_save_folder 	= $destination_folder . $thumb_prefix . $new_file_name;
 		$image_save_folder 	= $destination_folder . $new_file_name;
 
 		//call normal_resize_image() function to proportionally resize image
 		if($this->normal_resize_image($image_res, $image_save_folder, $image_type, $max_image_width, $max_image_height, $image_width, $image_height, $jpeg_quality))
 		{
+			//call normal_resize_image() function to create square thumbnails
+			if(!$this->normal_resize_image($image_res, $small_save_folder, $image_type, $small_image_width, $small_image_height, $image_width, $image_height, $jpeg_quality))
+			{
+				die('Error Creating small thumbnail');
+			}
+
 			//call crop_image_square() function to create square thumbnails
 			if(!$this->crop_image_square($image_res, $thumb_save_folder, $image_type, $thumb_square_size, $image_width, $image_height, $jpeg_quality))
 			{

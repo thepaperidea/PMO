@@ -1,0 +1,15 @@
+{% extends 'layout/index.html.twig' %}
+
+{% block main %}
+<input type="hidden" id="theme-input" value="white">
+<div id="cover-image" class="background" data-background="{{ (data.image.destination ~ content.header) | absolute }}"></div>
+<div class="body">
+	<div class="center">
+		<ul class="middle links">
+			{% for each in data.page[1].links %}
+			<li class="animated-button"><a href="{{ each.route | absolute }}">{{ each.name }}</a></li>
+			{% endfor %}
+		</ul>
+	</div>
+</div>
+{% endblock %}

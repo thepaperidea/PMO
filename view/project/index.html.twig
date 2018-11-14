@@ -1,0 +1,34 @@
+{% extends 'layout/index.html.twig' %}
+
+{% block main %}
+<div class="body">
+	<div class="center">
+		<div class="title">
+			<h1>{{ content.title }}</h1>
+		</div>
+		<div class="markdown">
+			{{ content.content | markdown }}
+		</div>
+		<ul class="control">
+			<li class="animated-button" data-filter="all"><a>All</a></li>
+			{% for each in content.tag %}
+			<li class="animated-button" data-filter=".tag-{{ each.id }}"><a>{{ each.name }}</a></li>
+			{% endfor %}
+		</ul>
+		<div class="projects float-remove">
+			{% for each in content.project %}
+			<div class="mix{% for row in each.tag %} tag-{{ row.id }}{% endfor %}" data-time="{{ each.time }}">
+				<article class="action-tile background" data-background="{{ (data.image.destination ~ data.image.small.prefix ~ each.work.main) | absolute }}">
+					<a class="cover" href="{{ ('project/' ~ each.slug) | absolute  }}">
+						<h2>{{ each.name }}</h2>
+						<span class="line"></span>
+						<p>{{ datetime(each.timeline,'F j, Y') }}</p>
+					</a>
+				</article>
+			</div>
+			{% endfor %}
+		</div>
+	</div>
+</div>
+{% endblock %}
+

@@ -1,0 +1,14 @@
+{% extends 'layout/index.html.twig' %}
+
+{% block main %}
+<input type="hidden" id="theme-input" value="white">
+<div id="cover-image" class="background" data-background="{{ (data.image.destination ~ content.header) | absolute }}"></div>
+<div class="body">
+	<div class="center">
+		<div class="title">
+			<h1>{{ content.name }}</h1>
+		</div>
+		<div class="markdown">{{ content.content | markdown }}</div>
+	</div>
+</div>
+{% endblock %}

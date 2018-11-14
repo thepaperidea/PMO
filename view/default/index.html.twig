@@ -1,0 +1,70 @@
+{% extends 'layout/index.html.twig' %}
+
+{% block main %}
+<div class="body">
+	<div class="center">
+		<div class="note text-align-center">Take a look at our featured works</div>
+		<div class="works">
+			<div class="tile is-ancestor">
+				<div class="tile is-vertical is-8">
+					<div class="tile">
+						<div class="tile is-parent is-vertical">
+							{% if content.project[0] %}
+							<article class="action-tile tile is-child background" data-background="{{ (data.image.destination ~ data.image.small.prefix ~ content.project[0].work.main) | absolute }}">
+								<a class="cover" href="{{ ('project/' ~ content.project[0].slug) | absolute  }}">
+									<h2>{{ content.project[0].name }}</h2>
+									<span class="line"></span>
+									<p>{{ datetime(content.project[0].timeline,'F j, Y') }}</p>
+								</a>
+							</article>
+							{% endif %}
+							{% if content.project[1] %}
+							<article class="action-tile tile is-child background" data-background="{{ (data.image.destination ~ data.image.small.prefix ~ content.project[1].work.main) | absolute }}">
+								<a class="cover" href="{{ ('project/' ~ content.project[1].slug) | absolute  }}">
+									<h2>{{ content.project[1].name }}</h2>
+									<span class="line"></span>
+									<p>{{ datetime(content.project[1].timeline,'F j, Y') }}</p>
+								</a>
+							</article>
+							{% endif %}
+						</div>
+						<div class="tile is-parent">
+							{% if content.project[2] %}
+							<article class="action-tile tile is-child background" data-background="{{ (data.image.destination ~ data.image.small.prefix ~ content.project[2].work.main) | absolute }}">
+								<a class="cover" href="{{ ('project/' ~ content.project[2].slug) | absolute  }}">
+									<h2>{{ content.project[2].name }}</h2>
+									<span class="line"></span>
+									<p>{{ datetime(content.project[2].timeline,'F j, Y') }}</p>
+								</a>
+							</article>
+							{% endif %}
+						</div>
+					</div>
+					<div class="tile is-parent">
+						{% if content.project[3] %}
+						<article class="action-tile tile is-child background" data-background="{{ (data.image.destination ~ data.image.small.prefix ~ content.project[3].work.main) | absolute }}">
+							<a class="cover" href="{{ ('project/' ~ content.project[3].slug) | absolute  }}">
+								<h2>{{ content.project[3].name }}</h2>
+								<span class="line"></span>
+								<p>{{ datetime(content.project[3].timeline,'F j, Y') }}</p>
+							</a>
+						</article>
+						{% endif %}
+					</div>
+				</div>
+				<div class="tile is-parent">
+					{% if content.project[4] %}
+					<article class="action-tile tile is-child primary background" data-background="{{ (data.image.destination ~ data.image.small.prefix ~ content.project[4].work.main) | absolute }}">
+						<a class="cover" href="{{ ('project/' ~ content.project[4].slug) | absolute  }}">
+							<h2>{{ content.project[4].name }}</h2>
+							<span class="line"></span>
+							<p>{{ datetime(content.project[4].timeline,'F j, Y') }}</p>
+						</a>
+					</article>
+					{% endif %}
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}

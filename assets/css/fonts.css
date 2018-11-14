@@ -1,0 +1,29 @@
+@font-face {
+    font-family: 'Helvetica LT Std';
+    src: url('../../assets/fonts/HelveticaLTStd-LightCond.eot');
+    src: url('../../assets/fonts/HelveticaLTStd-LightCond.eot?#iefix') format('embedded-opentype'),
+        url('../../assets/fonts/HelveticaLTStd-LightCond.woff') format('woff'),
+        url('../../assets/fonts/HelveticaLTStd-LightCond.ttf') format('truetype');
+    font-weight: 300;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Helvetica LT Std';
+    src: url('../../assets/fonts/HelveticaLTStd-BoldCond.eot');
+    src: url('../../assets/fonts/HelveticaLTStd-BoldCond.eot?#iefix') format('embedded-opentype'),
+        url('../../assets/fonts/HelveticaLTStd-BoldCond.woff') format('woff'),
+        url('../../assets/fonts/HelveticaLTStd-BoldCond.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Helvetica LT Std';
+    src: url('../../assets/fonts/HelveticaLTStd-Cond.eot');
+    src: url('../../assets/fonts/HelveticaLTStd-Cond.eot?#iefix') format('embedded-opentype'),
+        url('../../assets/fonts/HelveticaLTStd-Cond.woff') format('woff'),
+        url('../../assets/fonts/HelveticaLTStd-Cond.ttf') format('truetype');
+    font-weight: 500;
+    font-style: normal;
+}

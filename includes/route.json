@@ -1,126 +1,82 @@
 {
-  "0": {
-    "route": "",
-    "namespace": "Page::Home"
-  },
-  "1": {
-    "route": "admin",
-    "namespace": "Admin::Home"
-  },
-  "2": {
-    "route": "admin/login",
-    "namespace": "Admin::Login"
-  },
-  "3": {
-    "route": "admin/logout",
-    "namespace": "Admin::Logout"
-  },
-  "4": {
-    "route": "admin/database",
-    "namespace": "Admin::Database"
-  },
-  "5": {
-    "route": "admin/upload",
-    "namespace": "Admin::Upload"
-  },
-  "6": {
-    "route": "assetic/:each/:each",
-    "namespace": "Essential::Assetic"
-  },
-  "7": {
-    "route": "stay",
-    "namespace": "Page::Stay"
-  },
-  "8": {
-    "route": "stay/:each",
-    "namespace": "Page::stayEach"
-  },
-  "10": {
-    "route": "tripadvisor/:each",
-    "namespace": "Page::Tripadvisor"
-  },
-  "11": {
-    "route": "category",
-    "namespace": "Page::Category"
-  },
-  "12": {
-    "route": "category/:each",
-    "namespace": "Page::eachCategory"
-  },
-  "13": {
-    "route": "blog",
-    "namespace": "Page::Blog"
-  },
-  "14": {
-    "route": "blog/:each",
-    "namespace": "Page::blogEach"
-  },
-  "19": {
-    "route": "package",
-    "namespace": "Page::Package"
-  },
-  "20": {
-    "route": "package/:each",
-    "namespace": "Page::packageEach"
-  },
-  "21": {
-    "route": "faq",
-    "namespace": "Page::FAQ"
-  },
-  "22": {
-    "route": "about",
-    "namespace": "Page::About"
-  },
-  "23": {
-    "route": "contact",
-    "namespace": "Page::Contact"
-  },
-  "24": {
-    "route": "send",
-    "namespace": "Page::Send"
-  },
-  "25": {
-    "route": "country/:each",
-    "namespace": "Page::countryEach"
-  },
-  "28": {
-    "route": "package/:each/book",
-    "namespace": "Page::packageBook"
-  },
-  "29": {
-    "route": "stay/:each/book",
-    "namespace": "Page::stayBook"
-  },
-  "29": {
-    "route": "stay/:each/book",
-    "namespace": "Page::stayBook"
-  },
-  "30": {
-    "route": "country",
-    "namespace": "Page::Country"
-  },
-  "31": {
-    "route": "holiday",
-    "namespace": "Page::Holiday"
-  },
-  "32": {
-    "route": "holiday/:each",
-    "namespace": "Page::holidayEach"
-  },
-  "33": {
-    "route": "destination/:each",
-    "namespace": "Page::destinationEach"
-  },
-  "34": {
-    "route": "services",
-    "namespace": "Page::Services"
-  },
-  "35": {
-    "route": "privacy-policy",
-    "namespace": "Page::Privacy"
-  },
-  "36": {
-    "route": "rtp",
-    "namespace": "Page::RTP"
-  }
+	"0": {
+		"route": "",
+		"namespace": "Home::index"
+	},
+	"1": {
+		"route": "admin",
+		"namespace": "Admin::Home"
+	},
+	"2": {
+		"route": "admin/login",
+		"namespace": "Admin::Login"
+	},
+	"3": {
+		"route": "admin/logout",
+		"namespace": "Admin::Logout"
+	},
+	"4": {
+		"route": "admin/database",
+		"namespace": "Admin::Database"
+	},
+	"5": {
+		"route": "admin/upload",
+		"namespace": "Admin::Upload"
+	},
+	"6": {
+		"route": "assetic/:each/:each",
+		"namespace": "Essential::Assetic"
+	},
+	"7": {
+		"route": "product",
+		"namespace": "Product::index"
+	},
+	"8": {
+		"route": "category/:category",
+		"namespace": "Product::category"
+	},
+	"9": {
+		"route": "category/:category/:subcategory",
+		"namespace": "Product::subcategory"
+	},
+	"10": {
+		"route": "about",
+		"namespace": "About::index"
+	},
+	"11": {
+		"route": "about/team",
+		"namespace": "About::team"
+	},
+	"12": {
+		"route": "about/philosophy",
+		"namespace": "About::philosophy"
+	},
+	"13": {
+		"route": "about/community-initiative",
+		"namespace": "About::community"
+	},
+	"14": {
+		"route": "about/how-we-collaborate",
+		"namespace": "About::collaborate"
+	},
+	"15": {
+		"route": "about/internship",
+		"namespace": "About::internship"
+	},
+	"16": {
+		"route": "project",
+		"namespace": "Project::index"
+	},
+	"17": {
+		"route": "project/:project",
+		"namespace": "Project::show"
+	},
+	"18": {
+		"route": "contact",
+		"namespace": "Home::contact"
+	},
+	"19": {
+		"route": "about/team",
+		"namespace": "About::team"
+	}
 }

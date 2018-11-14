@@ -1,0 +1,17 @@
+body.loading #logo>svg>path:nth-child(1){
+	transform:rotate(360deg);
+}
+body.loading #logo>svg>path:nth-child(2){
+	transition-delay:200ms;
+	transform:rotate(-360deg);
+}
+body.loading #logo>svg>path:nth-child(3){
+	transition-delay:500ms;
+	transform:rotate(-360deg);
+}
+body.loading #logo>svg>path{
+	transition:all 1s ease;
+}
+#logo>svg>path{
+	transform-origin:center;
+}

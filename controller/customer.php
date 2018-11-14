@@ -21,7 +21,9 @@ class Customer {
       if(!$getUser)
       return array('code'=>1,'name'=>'Incorrect Email','class'=>'red');
       $hash = hash('sha1', $_POST['login-password'].$getUser['salt']);
-      if($hash==$getUser['password'])
+      if($getUser['active']==false)
+      return array('code'=>2,'name'=>'User is not yet verified','class'=>'red');
+      else if($hash==$getUser['password'])
       $this->segment->set('info', $getUser);
       else
       return array('code'=>2,'name'=>'Incorrect Password','class'=>'red');

@@ -1,0 +1,4 @@
+body.footerAbsolute footer{
+	-webkit-transform:translate(0,0) !important;
+	        transform:translate(0,0) !important;
+}

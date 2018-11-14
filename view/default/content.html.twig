@@ -1,8 +1,12 @@
-{% extends 'base.html.twig' %}
+{% extends 'layout/index.html.twig' %}
 
 {% block main %}
-  <section class="center content">
-    <h1>{{ content.name }}</h1>
-    <div class="markdown">{{ content.content | markdown }}</div>
-  </section>
+<div class="body">
+	<div class="center">
+		<div class="title">
+			<h1>{{ content.name }}</h1>
+		</div>
+		<div class="markdown">{{ content.content | markdown }}</div>
+	</div>
+</div>
 {% endblock %}

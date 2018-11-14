@@ -1,0 +1,54 @@
+body[data-theme="white"] header{
+	background-color:transparent;
+}
+
+body[data-theme="white"] .animated-button>a{
+	color:white;
+}
+body[data-theme="white"] .animated-button>svg>rect{
+	stroke:white;
+}
+body[data-theme="white"] #logo>svg>path{
+	fill:white;
+}
+body[data-theme="white"] .body{
+	color:white;
+}
+
+body[data-theme="white"] header>nav>ul>li>ul>li{
+	background:white;
+}
+body[data-theme="white"] header>nav>ul>li>ul>li>a{
+	color:black;
+}
+
+body[data-theme="white"] .note:after{
+	border-top-color:white;
+}
+
+body[data-theme="white"] footer{
+	border-top-color:white;
+	background-color:transparent;
+}
+
+body[data-theme="white"] footer>div>.address>ul>li{
+	color:white;
+}
+
+body[data-theme="white"] footer>div>#ique>svg>path{
+	fill:white;
+}
+
+body[data-theme="white"] footer>div.top .message{
+	color:white;
+	border:1px solid white;
+	background:transparent;
+}
+body[data-theme="white"] footer>div.top .message>.svg>svg{
+	fill:white;
+}
+
+body[data-theme="white"] footer>div.top .arrow>svg{
+	fill:white;
+}
+

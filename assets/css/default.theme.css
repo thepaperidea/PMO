@@ -1,0 +1,54 @@
+body[data-theme="default"] header{
+	background-color:white;
+}
+
+body[data-theme="default"] .animated-button>a{
+	color:#D62631;
+}
+body[data-theme="default"] .animated-button>svg>rect{
+	stroke:#D62631;
+}
+
+body[data-theme="default"] header>nav>ul>li>ul>li{
+	background:#D62631;
+}
+body[data-theme="default"] header>nav>ul>li>ul>li>a{
+	color:white;
+}
+
+body[data-theme="default"] #logo>svg>path{
+	fill:#D62631;
+}
+body[data-theme="default"] .body{
+	color:#D62631;
+}
+
+body[data-theme="default"] .note:after{
+	border-top-color:#D62631;
+}
+
+body[data-theme="default"] footer{
+	border-top-color:#D62631;
+	background-color:white;
+}
+
+body[data-theme="default"] footer>div>.address>ul>li{
+	color:#D62631;
+}
+
+body[data-theme="default"] footer>div>#ique>svg>path{
+	fill:#D62631;
+}
+
+body[data-theme="default"] footer>div.top .message{
+	color:#D62631;
+	border:1px solid #D62631;
+	background:white;
+}
+body[data-theme="default"] footer>div.top .message>.svg>svg{
+	fill:#D62631;
+}
+
+body[data-theme="default"] footer>div.top .arrow>svg{
+	fill:#D62631;
+}

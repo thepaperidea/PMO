@@ -1,0 +1,55 @@
+{% extends 'layout/index.html.twig' %}
+
+{% block main %}
+<div class="body">
+	<div class="center">
+		<div class="title">
+			<h1>{{ content.name }}</h1>
+		</div>
+		<div class="swiper-container gallery-top">
+			<div class="swiper-wrapper">
+				{% for work in content.work %}
+				<div class="swiper-slide">
+					<img data-src="{{ (data.image.destination ~ work.main_image) | absolute }}" class="swiper-lazy">
+					<div class="swiper-lazy-preloader swiper-lazy-preloader-white"></div>
+				</div>
+				{% endfor %}
+			</div>
+			<!-- Add Arrows -->
+			<div class="swiper-button-next swiper-button-red"></div>
+			<div class="swiper-button-prev swiper-button-red"></div>
+		</div>
+		<div class="swiper-container gallery-thumbs">
+			<div class="swiper-wrapper">
+				{% for work in content.work %}
+				<div class="swiper-slide" style="background-image:url({{ (data.image.destination ~ data.image.small.prefix ~ work.main_image) | absolute }})"></div>
+				{% endfor %}
+			</div>
+		</div>
+		<div class="details">
+			<ul class="flex flex-space-between">
+				<li>
+					<span>Location</span>
+					<span>{{ content.location }}</span>
+				</li>
+				<li>
+					<span>Area</span>
+					<span>{{ content.area }} sqft</span>
+				</li>
+				<li>
+					<span>Type</span>
+					<span>{{ content.type.name }}</span>
+				</li>
+{# 				<li>
+					<span>Completion</span>
+					<span>{{ datetime(content.timeline_datetime,'F j, Y') }}</span>
+				</li> #}
+			</ul>
+		</div>
+		<div class="markdown">
+			{{ content.content | markdown }}
+		</div>
+	</div>
+</div>
+{% endblock %}
+

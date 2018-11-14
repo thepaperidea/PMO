@@ -2,14 +2,14 @@
 
 class Essential {
 	static function Start() {
-    Essential::History();
-		Essential::Customer();
-  }
+		API::fetchBrands();
+		API::fetchCategories();
+	}
 	static function Redirect($url,$bool = true){
 		global $data;
 		$prefix = $bool ? $data['constant']['url'] : false;
 		header('Location: '.$prefix.$url);
-    	die();
+		die();
 	}
 	static function Absolute($url){
 		global $data;
@@ -30,20 +30,5 @@ class Essential {
 			$result = \JShrink\Minifier::minify(file_get_contents($url));
 		}
 		print $result;
-	}
-	static function History() {
-    global $session,$data;
-    $segment = $session->getSegment('History');
-    if($data['path']['namespace']!="Essential::Assetic"){
-      $history = $segment->get('complete');
-      $history[$data['path']['argument'][0]] = time();
-      $segment->set('complete',$history);
-    }
-  }
-	static function Customer(){
-		global $data,$twig;
-		$user = new Customer();
-    if($user->getUser())
-		$data['customer'] = $user->getUser();
 	}
 }

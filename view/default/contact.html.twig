@@ -1,41 +1,49 @@
-{% extends 'base.html.twig' %}
+{% extends 'layout/index.html.twig' %}
 
 {% block main %}
-<section class="center content">
-  <h1>{{ content.name }}</h1>
-  <div class="markdown">{{ content.content | markdown }}</div>
-  <div class="form table">
-    <div class="form-return"></div>
-    <div class="row">
-      <div class="column label"><label>Full name</label></div>
-      <div class="column input"><input class="form-input required" type="text" name="fullname"/></div>
-    </div>
-    <div class="row">
-      <div class="column label"><label>Email</label></div>
-      <div class="column input"><input class="form-input required" type="text" name="email"/></div>
-    </div>
-    <div class="row">
-      <div class="column label"><label>Phone Number</label></div>
-      <div class="column input"><input class="form-input required" type="text" name="phone"/></div>
-    </div>
-    <div class="row">
-      <div class="column label"><label>Message</label></div>
-      <div class="column input"><textarea class="form-input required" name="message"></textarea></div>
-    </div>
-    <div class="row">
-      <div class="column label"></div>
-      <div class="column input align-right"><a class="button large form-submit">Submit</a></div>
-    </div>
-  </div>
-</section>
-<section class="center elsewhere markdown">
-  <h2>Elsewhere</h2>
-  <ul class="elsewhere-list">
-    {% for each in data.contact %}
-    <li><a href="{{ each.href }}" class="{{ each.name }}" style="background-color:{{ each.color }};">{{ each.title }}</a></li>
-    {% endfor %}
-  </ul>
-</section>
+<div class="body">
+	<div class="center">
+		<div class="title">
+			<h1>{{ content.name }}</h1>
+		</div>
+		<div class="markdown">{{ content.content | markdown }}</div>
+		<div class="address">
+			<h2>Office</h2>
+			<ul>
+				{% for key, value in data.address %}
+				<li>{{ value }}</li>
+				{% endfor %}
+			</ul>
+		</div>
+		<div class="contact">
+			<h2>Reach us</h2>
+			<ul>
+				{% for key, value in data.contact %}
+				<li><span>{{ key }}</span><span>{{ value }}</span></li>
+				{% endfor %}
+			</ul>
+		</div>
+		<div class="job">
+			<h2>Want to join our team?</h2>
+			<ul>
+				{% for job in content.job %}
+				<li>
+					<span class="caret"></span>
+					<span class="name">{{ job.name }}</span>
+					<span class="body">
+						<span class="flex">
+							<span class="description">{{ job.description_markdown }}</span>
+							<span class="qualification">{{ job.qualification_markdown }}</span>
+						</span>
+						<span class="links">
+							<a class="button" href="mailto:{{ data.email.to.address }}?Subject=Applying for {{ job.name }} job">Apply</a>
+						</span>
+					</span>
+				</li>
+				{% endfor %}
+			</ul>
+		</div>
+	</div>
+</div>
+</div>
 {% endblock %}
-
-{% block script %}contact{% endblock %}

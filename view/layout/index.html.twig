@@ -1,0 +1,150 @@
+{% spaceless %}
+<!DOCTYPE html>
+<html itemscope itemtype="http://schema.org/Article" data-url="{{ data.constant.url }}">
+
+<head>
+	<title>{{ content.title }}</title>
+	<meta name="description" content="{{ content.description }}" />
+
+	<meta itemprop="name" content="{{ content.name }}">
+	<meta itemprop="description" content="{{ content.description }}">
+	<meta itemprop="image" content="{{ (data.image.destination ~ content.google) | absolute }}">
+
+	<meta name="twitter:card" content="summary_large_image">
+	<meta name="twitter:site" content="@{{ content.user.twitterusername }}">
+	<meta name="twitter:title" content="{{ content.name }}">
+	<meta name="twitter:description" content="{{ content.description }}">
+	<meta name="twitter:creator" content="@{{ content.user.twitterusername }}">
+	<meta name="twitter:image:src" content="{{ (data.image.destination ~ content.twitter) | absolute }}">
+
+	<meta property="og:title" content="{{ content.name }}" />
+	<meta property="og:type" content="article" />
+	<meta property="og:url" content="{{ data.constant.url ~ data.path.argument[0] }}" />
+	<meta property="og:image" content="{{ (data.image.destination ~ content.facebook) | absolute }}" />
+	<meta property="og:description" content="{{ content.description }}" />
+	<meta property="og:site_name" content="{{ data.constant.name }}" />
+	<meta property="article:published_time" content="{{ content.created }}" />
+	<meta property="article:modified_time" content="{{ content.modified }}" />
+	<meta property="article:section" content="{% block section %}About{% endblock %}" />
+	<meta property="article:tag" content="{% block tag %}About{% endblock %}" />
+	<meta property="article:author" content="{{ content.user.facebookid }}" />
+	<meta property="fb:admins" content="{{ data.constant.fbadmin }}" />
+
+	<link rel="stylesheet" href="{{ asset('css/normalize.min.css') }}" type="text/css">
+	<link rel="stylesheet" href="{{ asset('css/default.theme.css') }}" type="text/css">
+	<link rel="stylesheet" href="{{ asset('css/white.theme.css') }}" type="text/css">
+	<link rel="stylesheet" href="{{ asset('css/logo.animation.css') }}" type="text/css">
+	<link rel="stylesheet" href="{{ asset('css/tile.css') }}" type="text/css">
+	<link rel="stylesheet" href="{{ asset('css/swiper.css') }}" type="text/css">
+	<link rel="stylesheet" href="{{ asset('css/fonts.css') }}" type="text/css">
+	<link rel="stylesheet" href="{{ asset('css/global.css') }}" type="text/css">
+	<link rel="stylesheet" media="screen and (min-width: 1400px)" href="{{ asset('css/desktop.css') }}" type="text/css" />
+	<link rel="stylesheet" media="screen and (min-width: 701px) and (max-width: 1400px)" href="{{ asset('css/medium.css') }}" type="text/css" />
+	<link rel="stylesheet" media="only screen and (max-width: 700px), only screen and (max-device-width: 700px)" href="{{ asset('css/mobile.css') }}" type="text/css">
+
+	<link rel="apple-touch-icon" sizes="180x180" href="{{ 'assets/favicons/apple-touch-icon.png' | absolute }}">
+	<link rel="icon" type="image/png" href="{{ 'assets/favicons/favicon-32x32.png' | absolute }}" sizes="32x32">
+	<link rel="icon" type="image/png" href="{{ 'assets/favicons/favicon-16x16.png' | absolute }}" sizes="16x16">
+	<link rel="manifest" href="{{ 'assets/favicons/manifest.json' | absolute }}">
+	<link rel="mask-icon" href="{{ 'assets/favicons/safari-pinned-tab.svg' | absolute }}" color="#5bbad5">
+	<meta name="theme-color" content="#ffffff">
+
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui" />
+
+	{% block head %}{% endblock %}
+</head>
+
+<body>
+	<div id="loading" class="svg" data-svg="{{ 'assets/svg/logo.svg' | absolute }}"></div>
+	<a href="{{ '' | absolute }}" id="logo" class="svg" data-svg="{{ 'assets/svg/logo.svg' | absolute }}"></a>
+	<ul class="social">
+		{% for social in data.social %}
+		<li>
+			<a target="_blank" class="{{ social.name }}" href="{{ social.link ~ social.username }}"></a>
+		</li>
+		{% endfor %}
+	</ul>
+	<div id="message">
+		<a class="close"></a>
+		<form method="post">
+			<h2>Message us</h2>
+			<div class="form-return"></div>
+			<div class="input">
+				<label for="name">Name</label>
+				<input class="form-input required" type="text" name="name">
+			</div>
+			<div class="input">
+				<label for="email">Email</label>
+				<input class="form-input required" type="text" name="email">
+			</div>
+			<div class="input">
+				<label for="message">Message</label>
+				<textarea class="form-input required" name="message"></textarea>
+			</div>
+			<div class="input">
+				<a class="form-submit button">Send Message</a>
+			</div>
+		</form>
+	</div>
+	<header>
+		<a id="search-button"></a>
+		<nav>
+			<ul>
+				{% for each in data.page %}
+				{% if each.links %}
+				<li class="animated-button">
+					<a href="{{ each.route | absolute }}">{{ each.name }}</a>
+					<ul class="dropdown">
+						{% for link in each.links %}
+						<li><a href="{{ link.route | absolute }}">{{ link.name }}</a></li>
+						{% endfor %}
+					</ul>
+				</li>
+				{% else %}
+				<li class="animated-button"><a href="{{ each.route | absolute }}">{{ each.name }}</a></li>
+				{% endif %}
+				{% endfor %}
+			</ul>
+		</nav>
+	</header>
+	<div id="barba-wrapper">
+		<div class="barba-container">
+			{% block main %}{% endblock %}
+		</div>
+	</div>
+	<footer>
+		<div class="top">
+			<div class="center">
+				<span class="arrow svg" data-svg="{{ 'assets/svg/arrow.svg' | absolute }}"></span>
+				<a class="message">
+					<span class="svg" data-svg="{{ 'assets/svg/bubble.svg' | absolute }}"></span>
+					<span>Message us</span>
+				</a>
+			</div>
+		</div>
+		<div class="center flex flex-space-between">
+			<div class="address flex">
+				<ul>
+					{% for key, value in data.address %}
+					<li>{{ value }}</li>
+					{% endfor %}
+				</ul>
+				<ul>
+					{% for key, value in data.contact %}
+					<li><span>{{ key }}</span><span>{{ value }}</span></li>
+					{% endfor %}
+				</ul>
+			</div>
+			<div id="ique" class="svg" data-svg="{{ 'assets/svg/ique.svg' | absolute }}"></div>
+		</div>
+	</footer>
+	<script type="text/javascript" src="{{ asset('js/jquery.min.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('js/preloadjs-0.6.2.min.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('js/barba.min.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('js/barba.animate.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('js/mixitup.min.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('js/swiper.min.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('js/main.js') }}"></script>
+</body>
+</html>
+{% endspaceless %}
